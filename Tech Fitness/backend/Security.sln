@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.168
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SampleApi", "SampleApi\SampleApi.csproj", "{ABD429FA-2F0D-4EB5-9AC4-2B4554928CF8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Security", "Security\Security.csproj", "{ABD429FA-2F0D-4EB5-9AC4-2B4554928CF8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Misc", "Misc", "{F7A17D5D-1CF1-46BC-BEA3-C9366A4EC7E2}"
 	ProjectSection(SolutionItems) = preProject

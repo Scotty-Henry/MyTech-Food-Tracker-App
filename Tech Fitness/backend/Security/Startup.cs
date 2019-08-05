@@ -15,10 +15,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using SampleApi.DAL;
-using SampleApi.Providers.Security;
+using Security.DAL;
+using Security.Providers.Security;
 
-namespace SampleApi
+namespace Security
 {
     /// <summary>
     /// The asp.net api startup class.

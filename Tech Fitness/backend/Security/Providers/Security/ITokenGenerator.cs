@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SampleApi.Providers.Security
+namespace Security.Providers.Security
 {
     /// <summary>
     /// Represents an authentication token interface.

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
-using SampleApi.Models;
+using Security.Models;
 
-namespace SampleApi.DAL
+namespace Security.DAL
 {
     /// <summary>
     /// A SQL Dao for user objects.

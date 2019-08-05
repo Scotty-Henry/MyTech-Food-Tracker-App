@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SampleApi.Models.Account
+namespace Security.Models.Account
 {
     /// <summary>
     /// Represents an authentication model request.

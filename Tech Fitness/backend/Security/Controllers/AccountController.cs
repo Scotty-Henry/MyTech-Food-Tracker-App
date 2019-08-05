@@ -4,12 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using SampleApi.DAL;
-using SampleApi.Models;
-using SampleApi.Models.Account;
-using SampleApi.Providers.Security;
+using Security.DAL;
+using Security.Models;
+using Security.Models.Account;
+using Security.Providers.Security;
 
-namespace SampleApi.Controllers
+namespace Security.Controllers
 {
     /// <summary>
     /// Creates a new account controller used to authenticate the user.

@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 
-namespace SampleApi.Controllers
+namespace Security.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

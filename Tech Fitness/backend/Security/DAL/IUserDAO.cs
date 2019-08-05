@@ -1,10 +1,10 @@
-﻿using SampleApi.Models;
+﻿using Security.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SampleApi.DAL
+namespace Security.DAL
 {
     /// <summary>
     /// An interface for user data objects.
