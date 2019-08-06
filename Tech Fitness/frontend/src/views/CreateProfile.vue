@@ -1,10 +1,10 @@
 <template>
   <div id="CreateProfile">
-    <form class="review-form" @submit.prevent="onSubmit">
+    <form class="review-form" @submit.prevent="createprofile">
  
         <input type="text" id="name" name="name" placeholder="name" v-model="user.name"/>  
   
-        <input type="submit" value="Submit">    
+        <button type="submit">Create my profile</button>    
     
     </form>
   </div>
@@ -27,7 +27,35 @@ export default {
     
     }
   },
-  methods: {
+  methods: { 
+      createprofile() {
+      fetch(`${process.env.VUE_APP_REMOTE_API}/createprofile`, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(this.user),
+      })
+            //here can i just push them to their dashboard? I'm only expecting a 200
+        // .then((response) => {
+        //   if (response.ok) {
+        //     return response.text();
+        //   } else {
+        //     this.invalidCredentials = true;
+        //   }
+        // })
+        // .then((token) => {
+        //   if (token != undefined) {
+        //     if (token.includes('"')) {
+        //       token = token.replace(/"/g, '');
+        //     }
+        //     auth.saveToken(token);
+        //     this.$router.push('/');
+        //   }
+        // })
+        // .catch((err) => console.error(err));
+    },
     
   }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Security.DAL;
@@ -92,6 +93,34 @@ namespace Security.Controllers
                 // Switch to 200 OK
                 result = Ok(token);
             }
+
+            return result;
+        }
+
+        [HttpPost("createprofile")]
+        [Authorize(Roles = "User")]
+        public IActionResult CreateProfile(UserProfileModel model)
+        {
+            string user = $"Welcome back {User.Identity.Name}";
+            string name = model.Name;
+            Console.WriteLine(user, name);
+            Console.ReadLine();
+
+            // Assume the user is not authorized
+            IActionResult result = Unauthorized();
+
+            //// Get the user by username
+            //var user = userDao.GetUser(model.Username);
+
+            //// If we found a user and the password has matches
+            //if (user != null && passwordHasher.VerifyHashMatch(user.Password, model.Password, user.Salt))
+            //{
+            //    // Create an authentication token
+            //    var token = tokenGenerator.GenerateToken(user.Username, user.Role);
+
+            //    // Switch to 200 OK
+            //    result = Ok(token);
+            //}
 
             return result;
         }
