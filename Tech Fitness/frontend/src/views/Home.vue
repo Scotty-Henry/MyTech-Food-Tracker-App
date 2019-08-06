@@ -33,26 +33,34 @@ export default {
 <style>
 #home {
   display: grid;
+  padding: 25px;
   grid-template-areas: "profile chart chart chart"
                        "addmeal chart chart chart"
                        "addmeal current goal today";
+
 }
 #home > #profile {
   grid-area: profile;
+  background-color: #648ca6;
 }
 #home > #meal {
   grid-area: addmeal;
+  background-color: #394263;
 }
 #home > #progress {
   grid-area: chart;
+  background-color: #8fd4d9;
 }
 #home > #current {
   grid-area: current;
+  background-color: #648ca6;
 }
 #home > #goal {
   grid-area: goal;
+  background-color: #648ca6;
 }
 #home > #today {
   grid-area: today;
+  background-color: #648ca6;
 }
 </style>
