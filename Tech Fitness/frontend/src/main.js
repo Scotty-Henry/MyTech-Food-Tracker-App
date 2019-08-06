@@ -18,9 +18,10 @@ PowerCharts(FusionCharts);
 Widgets(FusionCharts);
 FusionTheme(FusionCharts);
 
-Vue.use(VueFusionCharts, FusionCharts, BootstrapVue);
+Vue.use(VueFusionCharts, FusionCharts);
 
 Vue.config.productionTip = false
+Vue.use(BootstrapVue)
 
 new Vue({
   router,
