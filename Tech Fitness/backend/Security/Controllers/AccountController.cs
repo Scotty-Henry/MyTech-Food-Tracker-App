@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Security.DAL;
@@ -92,6 +93,48 @@ namespace Security.Controllers
                 // Switch to 200 OK
                 result = Ok(token);
             }
+
+            return result;
+        }
+
+        [HttpPost("createprofile")]
+        //[Authorize(Roles = "User")]
+        public IActionResult CreateProfile(UserProfileModel model)
+        {
+            IActionResult result = Ok();
+
+            //This is off my token
+            string user = User.Identity.Name;
+
+            //this is from the model body handend from vue
+            string name = model.name;
+
+            //find my user in the users table by the name on their token (given during log in)
+            User currentUser = userDao.GetUser(User.Identity.Name);
+
+            //get the current users id
+            int currentUserId = currentUser.Id;
+
+            //use this id to add it to my profile model so the key's match.
+            model.id = currentUserId;
+
+            userDao.CreateProfile(model);
+
+            // Assume the user is not authorized
+           
+
+            //// Get the user by username
+            //var user = userDao.GetUser(model.Username);
+
+            //// If we found a user and the password has matches
+            //if (user != null && passwordHasher.VerifyHashMatch(user.Password, model.Password, user.Salt))
+            //{
+            //    // Create an authentication token
+            //    var token = tokenGenerator.GenerateToken(user.Username, user.Role);
+
+            //    // Switch to 200 OK
+            //    result = Ok(token);
+            //}
 
             return result;
         }

@@ -28,6 +28,14 @@ CREATE TABLE users
 
 	constraint pk_users primary key (id)
 );
+CREATE TABLE user_profile
+(
+	id			int			not null,
+	name		varchar(50)	not null,
+
+	constraint fk_userProfile_users Foreign Key (id) references users (id),
+
+);
 
 
 COMMIT TRANSACTION;

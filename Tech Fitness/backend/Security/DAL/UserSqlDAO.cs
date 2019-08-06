@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using Security.Models;
+using Security.Models.Account;
 
 namespace Security.DAL
 {
@@ -125,6 +126,36 @@ namespace Security.DAL
                     cmd.Parameters.AddWithValue("@role", user.Role);
                     cmd.Parameters.AddWithValue("@id", user.Id);
 
+                    cmd.ExecuteNonQuery();
+
+                    return;
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+        }
+
+
+
+        public void CreateProfile(UserProfileModel userProfile)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand("INSERT INTO user_profile (id, name, birthdate, currWeight, goalWeight, height, activityLevel) " +
+                                                     "VALUES (@id, @name, @birthdate, @currWeight, @goalWeight, @height, @activityLevel);", conn);
+                    cmd.Parameters.AddWithValue("@name", userProfile.name);
+                    cmd.Parameters.AddWithValue("@id", userProfile.id);
+                    cmd.Parameters.AddWithValue("@birthdate", userProfile.birthdate);
+                    cmd.Parameters.AddWithValue("@currWeight", userProfile.currWeight);
+                    cmd.Parameters.AddWithValue("@goalWeight", userProfile.goalWeight);
+                    cmd.Parameters.AddWithValue("@height", userProfile.height);
+                    cmd.Parameters.AddWithValue("@activityLevel", userProfile.activityLevel);
+               
                     cmd.ExecuteNonQuery();
 
                     return;

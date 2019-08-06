@@ -1,4 +1,5 @@
 ﻿using Security.Models;
+using Security.Models.Account;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,5 +36,9 @@ namespace Security.DAL
         /// </summary>
         /// <param name="user"></param>
         void DeleteUser(User user);
+
+
+        void CreateProfile(UserProfileModel userProfile);
+
     }
 }
