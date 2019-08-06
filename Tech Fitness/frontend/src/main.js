@@ -23,6 +23,8 @@ Vue.use(VueFusionCharts, FusionCharts);
 Vue.config.productionTip = false
 Vue.use(BootstrapVue)
 
+require("./assets/style.css");
+
 new Vue({
   router,
   render: h => h(App)
