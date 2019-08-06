@@ -1,19 +1,18 @@
 <template>
   <div id="home">
-    <h1>Tech Fitness App</h1>
-    <profile></profile>
-    <add-meal></add-meal>
-    <progress></progress>
-    <current></current>
-    <goal></goal>
-    <today></today>
+    <profile id="profile"></profile>
+    <progress-chart id="progress"></progress-chart>
+    <add-meal id="meal"></add-meal>
+    <current id="current"></current>
+    <goal id="goal"></goal>
+    <today id="today"></today>
   </div>
 </template>
 
 <script>
 import Profile from '@/components/Profile';
 import AddMeal from '@/components/AddMeal';
-import Progress from '@/components/Progress';
+import ProgressChart from '@/components/ProgressChart';
 import Current from '@/components/Current';
 import Goal from '@/components/Goal';
 import Today from '@/components/Today';
@@ -23,7 +22,7 @@ export default {
   components: {
     Profile,
     AddMeal,
-    Progress,
+    ProgressChart,
     Current,
     Goal,
     Today    
@@ -34,28 +33,26 @@ export default {
 <style>
 #home {
   display: grid;
-  width: 100%;
-  height: 250px;
-  grid-template-areas: "profile progress progress progress"
-                       "add-meal progress progress progress"
-                       "add-meal current goal today"; 
+  grid-template-areas: "profile chart chart chart"
+                       "addmeal chart chart chart"
+                       "addmeal current goal today";
 }
-#home > profile {
+#home > #profile {
   grid-area: profile;
 }
-#home > add-meal {
-  grid-area: add-meal;
+#home > #meal {
+  grid-area: addmeal;
 }
-#home > progress {
-  grid-area: progress;
+#home > #progress {
+  grid-area: chart;
 }
-#home > current {
+#home > #current {
   grid-area: current;
 }
-#home > goal {
+#home > #goal {
   grid-area: goal;
 }
-#home > today {
+#home > #today {
   grid-area: today;
 }
 </style>

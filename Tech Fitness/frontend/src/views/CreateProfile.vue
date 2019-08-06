@@ -79,23 +79,7 @@ export default {
 </script>
 
 <style>
-body {
-  background: rgb(74,162,244);
-  background: radial-gradient(circle, rgba(74,162,244,1) 0%, rgba(54,131,240,1) 100%);
-}
 
-#app {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: 20px;
-}
 
-.search { 
-  grid-column: 2 / 3;
-  grid-row: 1;
-}
-.todo-list {
-  grid-row: 2;
-}
 </style>
 

@@ -50,7 +50,7 @@ const router = new Router({
       name: "CreateProfile",
       component: CreateProfile,
       meta: {
-        requiresAuth: false
+        requiresAuth: true
       }
     },
   ]

@@ -3,8 +3,6 @@
         <h1>Record Food Intake</h1>
         <h2>Food</h2>
         <h2>Meal</h2>
-        <h2>Amount</h2>
-        <h2>Previous Meals</h2>
     </div>
 </template>
 
