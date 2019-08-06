@@ -98,16 +98,30 @@ namespace Security.Controllers
         }
 
         [HttpPost("createprofile")]
-        [Authorize(Roles = "User")]
+        //[Authorize(Roles = "User")]
         public IActionResult CreateProfile(UserProfileModel model)
         {
-            string user = $"Welcome back {User.Identity.Name}";
-            string name = model.Name;
-            Console.WriteLine(user, name);
-            Console.ReadLine();
+            IActionResult result = Ok();
+
+            //This is off my token
+            string user = User.Identity.Name;
+
+            //this is from the model body handend from vue
+            string name = model.name;
+
+            //find my user in the users table by the name on their token (given during log in)
+            User currentUser = userDao.GetUser(User.Identity.Name);
+
+            //get the current users id
+            int currentUserId = currentUser.Id;
+
+            //use this id to add it to my profile model so the key's match.
+            model.id = currentUserId;
+
+            userDao.CreateProfile(model);
 
             // Assume the user is not authorized
-            IActionResult result = Unauthorized();
+           
 
             //// Get the user by username
             //var user = userDao.GetUser(model.Username);

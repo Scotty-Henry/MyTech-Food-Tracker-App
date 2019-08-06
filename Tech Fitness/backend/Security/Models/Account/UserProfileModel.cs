@@ -16,8 +16,27 @@ namespace Security.Models.Account
             /// The user's username.
             /// </summary>
             [Required]
-            public string Name { get; set; }
+            public string name { get; set; }
 
-        }
+            [Required]
+            public string birthdate { get; set; }
+
+            [Required]
+            public string currWeight { get; set; }
+
+            [Required]
+            public string goalWeight { get; set; }
+
+            [Required]
+            public string height { get; set; }
+
+            [Required]
+            public string activityLevel { get; set; }
+
+
+
+        public int id { get; set; }
+
+    }
 
     }
