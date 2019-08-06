@@ -3,7 +3,7 @@
     <h1>Tech Fitness App</h1>
     <profile></profile>
     <add-meal></add-meal>
-    <progress></progress>
+    <progress-data></progress-data>
     <current></current>
     <goal></goal>
     <today></today>
@@ -13,7 +13,7 @@
 <script>
 import Profile from '@/components/Profile';
 import AddMeal from '@/components/AddMeal';
-import Progress from '@/components/Progress';
+import ProgressData from '@/components/ProgressData';
 import Current from '@/components/Current';
 import Goal from '@/components/Goal';
 import Today from '@/components/Today';
@@ -23,7 +23,7 @@ export default {
   components: {
     Profile,
     AddMeal,
-    Progress,
+    ProgressData,
     Current,
     Goal,
     Today    
@@ -46,7 +46,7 @@ export default {
 #home > add-meal {
   grid-area: add-meal;
 }
-#home > progress {
+#home > progress-data {
   grid-area: progress;
 }
 #home > current {
