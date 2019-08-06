@@ -1,8 +1,8 @@
 <template>
     <div class="add-meal">
-        <h1>Record Food Intake</h1>
-        <h2>Food</h2>
-        <h2>Meal</h2>
+        <h2>Record Food</h2>
+        <p>Food</p>
+        <p>Meal</p>
     </div>
 </template>
 
@@ -13,5 +13,9 @@ export default {
 </script>
 
 <style>
-
+.add-meal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 </style>

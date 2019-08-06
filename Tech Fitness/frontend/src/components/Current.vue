@@ -1,8 +1,8 @@
 <template>
     <div class="current-values">
-        <h1>Current Values</h1>
-        <h2>Weight</h2>
-        <h3>Calorie Intake</h3>
+        <h2>Current Values</h2>
+        <p>Weight</p>
+        <p>Calorie Intake</p>
     </div>
 </template>
 

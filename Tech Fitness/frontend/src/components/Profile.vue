@@ -1,8 +1,11 @@
 <template>
     <div class="profile">
-        <h1>UserImage</h1>
-        <h2>Username</h2>
-        <h3>Stars</h3>
+        <h2>UserName</h2>
+        <ul>
+        <li>UserImage</li>
+        <li>Stars</li>
+        </ul>
+        <router-link to="/CreateProfile">Edit Profile</router-link>
     </div>
 </template>
 
@@ -13,5 +16,9 @@ export default {
 </script>
 
 <style>
-
+.profile {
+    display: flex;
+    align-items: center;
+    height: 80vh;
+}    
 </style>

@@ -1,8 +1,8 @@
 <template>
     <div class="goal-values">
-        <h1>Goal Values</h1>
-        <h2>Weight</h2>
-        <h3>Calorie Intake</h3>
+        <h2>Goal Values</h2>
+        <p>Weight</p>
+        <p>Calorie Intake</p>
     </div>
 </template>
 
