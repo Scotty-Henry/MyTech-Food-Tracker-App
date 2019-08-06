@@ -5,14 +5,15 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 
 namespace Security.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ValuesController : ControllerBase
+    public class FoodController : ControllerBase
     {
+        // This will handle API data from vue front end
+        // **** SAMPLE *******
         /// <summary>
         /// Gets a collection of values. The requestor must be authenticated.
         /// </summary>
@@ -24,18 +25,5 @@ namespace Security.Controllers
             var result = $"Welcome back {User.Identity.Name}";
             return Ok(result);
         }
-
-        /// <summary>
-        /// Gets a special message. The requestor must be a user.
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet("special")]
-        [Authorize(Roles = "User")]
-        public IActionResult RequestToken()
-        {
-            var result = "If you see this then you are a user.";
-            return Ok(result);
-        }
-
     }
 }
