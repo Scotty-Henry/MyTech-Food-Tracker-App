@@ -43,7 +43,7 @@ namespace Security.Controllers
         /// <returns></returns>
         [HttpPost("register")]
         public IActionResult Register(AuthenticationModel model)
-        {            
+        {
             // Does user already exist
             if (userDao.GetUser(model.Username) != null)
             {
@@ -120,23 +120,20 @@ namespace Security.Controllers
 
             userDao.CreateProfile(model);
 
-            // Assume the user is not authorized
-           
-
-            //// Get the user by username
-            //var user = userDao.GetUser(model.Username);
-
-            //// If we found a user and the password has matches
-            //if (user != null && passwordHasher.VerifyHashMatch(user.Password, model.Password, user.Salt))
-            //{
-            //    // Create an authentication token
-            //    var token = tokenGenerator.GenerateToken(user.Username, user.Role);
-
-            //    // Switch to 200 OK
-            //    result = Ok(token);
-            //}
-
             return result;
+        }
+
+        [HttpGet("dashboard")]
+        //[Authorize(Roles = "User")]
+        public UserProfileModel GetUserProfile(UserProfileModel model)
+        {
+            UserProfileModel userProfile = new UserProfileModel();
+
+            User currentUser = userDao.GetUser(User.Identity.Name);
+
+            userProfile = userDao.GetUserProfile(currentUser.Username);
+
+            return userProfile;
         }
     }
 }
