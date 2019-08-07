@@ -44,28 +44,33 @@ export default {
     Today    
   },
     created()
-    // {
-    // TFService.getProfileInfo().then((data) => {
-    //   window.console.log(data)
-    // });
-    // }
     {
-      fetch(`${process.env.VUE_APP_REMOTE_API}/Account/dashboard`, {
-        method: 'Get',
-        headers: {
-          Authorization: 'Bearer ' + auth.getToken(),
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-      })
-        .then((response) => {
-          if (response.ok) {
-            window.console.log(response);
-          } else {
-            this.invalidCredentials = true;
-          }
-        })
-    },
+    TFService.getProfileInfo().then((data) => {
+      window.console.log(data)
+    });
+    }
+    //How you do it 
+    // {
+    //   fetch(`${process.env.VUE_APP_REMOTE_API}/Account/dashboard`, {
+    //     method: 'Get',
+    //     headers: {
+    //       Authorization: 'Bearer ' + auth.getToken(),
+    //       Accept: 'application/json',
+    //       'Content-Type': 'application/json',
+    //     },
+    //   })
+    //     .then((response) => {
+    //       if (response.ok) {
+    //         window.console.log(response);
+    //         return response.json();
+    //       } else {
+    //         this.invalidCredentials = true;
+    //       }
+    //     })
+    //     .then((parsed_data) => {
+    //                   window.console.log(parsed_data);
+    //     })
+    // },
 }
 </script>
 

@@ -1,8 +1,18 @@
 import axios from 'axios';
+import auth from '@/auth';
 
 const apiClient = axios.create({
     baseURL: (`${process.env.VUE_APP_USDA_BASE_URL}`),
     headers: {
+        //Authorization: 'Bearer ' + auth.getToken(),
+        'Content-Type': 'application/json',
+        Accept: 'application/json'
+    }
+});
+const apiLocal = axios.create({
+    baseURL: (`${process.env.VUE_APP_REMOTE_API}`),
+    headers: {
+        Authorization: 'Bearer ' + auth.getToken(),
         'Content-Type': 'application/json',
         Accept: 'application/json'
     }
@@ -33,6 +43,6 @@ export default {
     // }
     getProfileInfo(){
         const url = `${process.env.VUE_APP_REMOTE_API}/Account/dashboard`;
-        return axios.get(url).then(response => response.data);
+        return apiLocal.get(url).then(response => response.data);
     }
 }
