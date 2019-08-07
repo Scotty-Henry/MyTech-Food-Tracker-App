@@ -174,7 +174,7 @@ namespace Security.DAL
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    SqlCommand cmd = new SqlCommand("SELECT * FROM user_profile WHERE name = @username;", conn);
+                    SqlCommand cmd = new SqlCommand("SELECT Distinct * FROM user_profile WHERE name = @username;", conn);
                     cmd.Parameters.AddWithValue("@username", username);
 
                     SqlDataReader reader = cmd.ExecuteReader();
