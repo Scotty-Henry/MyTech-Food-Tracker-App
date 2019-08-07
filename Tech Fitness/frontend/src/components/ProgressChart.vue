@@ -1,7 +1,7 @@
 <template>
-      <div class="chart-wrapper">
-        <chart id="chart" :options="chartOptionsLine"></chart>
-      </div>
+  <div class="chart-wrapper">
+    <chart id="chart" :options="chartOptionsLine"></chart>
+  </div>
 </template>
 
 <script>
@@ -29,20 +29,24 @@ export default {
       yAxis: {
         type: "value"
       },
-      labels: ['Values'],
+      legend: {
+        data: ['Current', 'Goal', 'Progress'],
+        align: 'left',
+        left: 10
+      },
       series: [
         {
-          label: "Current Values",
+          name: "Current",
           type: "line",
           data: [55, 72, 84, 48, 59, 62, 87, 75, 94, 101, 127, 118],
         },
         {
-          label: "Goal Values",
+          name: "Goal",
           type: "line",
           data: [75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75]
         },
         {
-          label: "Progress",
+          name: "Progress",
           type: "line",
           data: [29, 70, 98, 87, 42, 81, 62, 80, 77, 90, 127, 80]
         }
@@ -52,13 +56,6 @@ export default {
         x: "center",
         textStyle: {
           fontSize: 24
-        }
-      },
-      legend: {
-        visible: true,
-        position: 'Bottom',
-        labels: {
-          fontColor: "#000080",
         }
       },
     }
@@ -76,6 +73,6 @@ export default {
   height: 100%;
 }
 #chart {
-    height: 80vh;
+  height: 80vh;
 }
 </style>
