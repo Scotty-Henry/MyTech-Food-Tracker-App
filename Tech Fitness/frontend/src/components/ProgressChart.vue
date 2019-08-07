@@ -30,17 +30,17 @@ export default {
       },
       series: [
         {
-          name: "Current Values",
+          label: "Current Values",
           type: "line",
           data: [55, 72, 84, 48, 59, 62, 87, 75, 94, 101, 127, 118]
         },
         {
-          name: "Goal Values",
+          label: "Goal Values",
           type: "line",
-          data: [85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85]
+          data: [75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75]
         },
         {
-          name: "Progress",
+          label: "Progress",
           type: "line",
           data: [29, 70, 98, 87, 42, 81, 62, 80, 77, 90, 127, 80]
         }
