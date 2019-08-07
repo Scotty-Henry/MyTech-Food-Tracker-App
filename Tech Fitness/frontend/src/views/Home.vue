@@ -10,14 +10,15 @@
 </template>
 
 <script>
-import {TFService} from '@/TFService';
+import auth from '../auth';
+import TFService from '@/TFService.js';
 import Profile from '@/components/Profile';
 import AddMeal from '@/components/AddMeal';
 import ProgressChart from '@/components/ProgressChart';
 import Current from '@/components/Current';
 import Goal from '@/components/Goal';
 import Today from '@/components/Today';
-const tfService = new TFService();
+
 
 export default {
   name: 'home',
@@ -29,11 +30,29 @@ export default {
     Goal,
     Today    
   },
-  created(){
-    tfService.getProfileInfo().then((data) => {
-      window.console.log(data)
-    })
-  }
+    created()
+    // {
+    // TFService.getProfileInfo().then((data) => {
+    //   window.console.log(data)
+    // });
+    // }
+    {
+      fetch(`${process.env.VUE_APP_REMOTE_API}/Account/dashboard`, {
+        method: 'Get',
+        headers: {
+          Authorization: 'Bearer ' + auth.getToken(),
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      })
+        .then((response) => {
+          if (response.ok) {
+            window.console.log(response);
+          } else {
+            this.invalidCredentials = true;
+          }
+        })
+    },
 }
 </script>
 
