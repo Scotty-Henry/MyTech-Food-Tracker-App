@@ -29,11 +29,12 @@ export default {
       yAxis: {
         type: "value"
       },
+      labels: ['Values'],
       series: [
         {
           label: "Current Values",
           type: "line",
-          data: [55, 72, 84, 48, 59, 62, 87, 75, 94, 101, 127, 118]
+          data: [55, 72, 84, 48, 59, 62, 87, 75, 94, 101, 127, 118],
         },
         {
           label: "Goal Values",
@@ -53,7 +54,13 @@ export default {
           fontSize: 24
         }
       },
-      color: ["#127ac2"]
+      legend: {
+        visible: true,
+        position: 'Bottom',
+        labels: {
+          fontColor: "#000080",
+        }
+      },
     }
   })
 };
