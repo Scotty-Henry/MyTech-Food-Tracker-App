@@ -59,7 +59,7 @@ const router = new Router({
       name: "search-food",
       component: SearchFood,
       meta: {
-        requiresAuth: true
+        requiresAuth: false
       }
     }
   ]
