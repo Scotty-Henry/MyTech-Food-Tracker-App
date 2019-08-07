@@ -19,16 +19,16 @@ namespace Security.Models.Account
             public string name { get; set; }
 
             [Required]
-            public string birthdate { get; set; }
+            public DateTime birthdate { get; set; }
 
             [Required]
-            public string currWeight { get; set; }
+            public int currWeight { get; set; }
 
             [Required]
-            public string goalWeight { get; set; }
+            public int goalWeight { get; set; }
 
             [Required]
-            public string height { get; set; }
+            public int height { get; set; }
 
             [Required]
             public string activityLevel { get; set; }

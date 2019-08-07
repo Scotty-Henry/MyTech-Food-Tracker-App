@@ -31,4 +31,8 @@ export default {
     // updateReview(id, review) {
     //     return apiClient.put('/' + id, JSON.stringify(review));
     // }
+    getProfileInfo(){
+        const url = `${process.env.VUE_APP_REMOTE_API}/Account/dashboard`;
+        return axios.get(url).then(response => response.data);
+    }
 }

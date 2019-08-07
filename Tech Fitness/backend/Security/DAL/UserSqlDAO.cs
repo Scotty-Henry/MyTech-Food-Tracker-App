@@ -166,6 +166,32 @@ namespace Security.DAL
                 throw ex;
             }
         }
+        public UserProfileModel GetUserProfile(string username)
+        {
+            UserProfileModel userProfile = null;
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand("SELECT * FROM user_profile WHERE username = @username;", conn);
+                    cmd.Parameters.AddWithValue("@username", username);
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    if (reader.Read())
+                    {
+                        userProfile = MapRowToUserProfile(reader);
+                    }
+                }
+
+                return userProfile;
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+        }
 
         private User MapRowToUser(SqlDataReader reader)
         {
@@ -176,6 +202,18 @@ namespace Security.DAL
                 Password = Convert.ToString(reader["password"]),
                 Salt = Convert.ToString(reader["salt"]),
                 Role = Convert.ToString(reader["role"])
+            };
+        }
+        private UserProfileModel MapRowToUserProfile(SqlDataReader reader)
+        {
+            return new UserProfileModel()
+            {
+                name = Convert.ToString(reader["name"]),
+                birthdate = Convert.ToDateTime(reader["birthdate"]),
+                currWeight = Convert.ToInt16(reader["currWeight"]),
+                goalWeight = Convert.ToInt16(reader["goalWeight"]),
+                activityLevel = Convert.ToString(reader["activityLevel"]),
+                height = Convert.ToInt16(reader["height"])
             };
         }
     }
