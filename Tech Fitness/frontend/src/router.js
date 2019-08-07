@@ -5,7 +5,7 @@ import Home from './views/Home.vue'
 import Login from './views/Login.vue'
 import Register from './views/Register.vue'
 import CreateProfile from './views/CreateProfile.vue'
-import SearchFood from './views/search-food.vue'
+import SearchFood from './views/SearchFood.vue'
 
 Vue.use(Router)
 
@@ -59,7 +59,7 @@ const router = new Router({
       name: "search-food",
       component: SearchFood,
       meta: {
-        requiresAuth: true
+        requiresAuth: false
       }
     }
   ]
