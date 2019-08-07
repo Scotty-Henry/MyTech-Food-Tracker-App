@@ -2,7 +2,7 @@
   <div id="home">
     <b-card-group id="home">
       <b-card bg-variant="info" text-variant="white" header="Profile" class="text-center" id="profile">
-        <profile id="profile"></profile>
+        <profile id="profile" :name="this.name"></profile>
       </b-card>
       <b-card id="progress">
         <progress-chart id="progress"></progress-chart>
@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import auth from '../auth';
+//import auth from '../auth';
 import TFService from '@/TFService.js';
 import Profile from '@/components/Profile';
 import AddMeal from '@/components/AddMeal';
@@ -43,13 +43,20 @@ export default {
     Goal,
     Today    
   },
+  data() {
+    return {
+      name: '',
+    }
+  },
     created()
     {
+    //How you do it with Axios
     TFService.getProfileInfo().then((data) => {
-      window.console.log(data)
+      window.console.log(data);
+      this.name = data.name;
     });
-    }
-    //How you do it 
+    },
+    //How you do it with fetch
     // {
     //   fetch(`${process.env.VUE_APP_REMOTE_API}/Account/dashboard`, {
     //     method: 'Get',
@@ -71,7 +78,13 @@ export default {
     //                   window.console.log(parsed_data);
     //     })
     // },
+  // computed: {
+  //  profileData() {
+  //     this.name=data.name;
+  //   },
+// }
 }
+
 </script>
 
 <style>
