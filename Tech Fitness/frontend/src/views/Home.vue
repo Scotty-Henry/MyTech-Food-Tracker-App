@@ -49,6 +49,7 @@ export default {
       window.console.log(data)
     });
     }
+    //How you do it 
     // {
     //   fetch(`${process.env.VUE_APP_REMOTE_API}/Account/dashboard`, {
     //     method: 'Get',
