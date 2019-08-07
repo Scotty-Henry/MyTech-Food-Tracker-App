@@ -40,5 +40,7 @@ namespace Security.DAL
 
         void CreateProfile(UserProfileModel userProfile);
 
+        UserProfileModel GetUserProfile(string username);
+
     }
 }

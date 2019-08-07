@@ -10,12 +10,14 @@
 </template>
 
 <script>
+import {TFService} from '@/TFService';
 import Profile from '@/components/Profile';
 import AddMeal from '@/components/AddMeal';
 import ProgressChart from '@/components/ProgressChart';
 import Current from '@/components/Current';
 import Goal from '@/components/Goal';
 import Today from '@/components/Today';
+const tfService = new TFService();
 
 export default {
   name: 'home',
@@ -27,6 +29,11 @@ export default {
     Goal,
     Today    
   },
+  created(){
+    tfService.getProfileInfo().then((data) => {
+      window.console.log(data)
+    })
+  }
 }
 </script>
 
