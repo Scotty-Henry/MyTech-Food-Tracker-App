@@ -124,10 +124,12 @@ namespace Security.Controllers
         }
 
         [HttpGet("dashboard")]
-        //[Authorize(Roles = "User")]
-        public UserProfileModel Dashboard(UserProfileModel model)
+        [Authorize]
+        public ActionResult<UserProfileModel> Dashboard()
         {
             UserProfileModel userProfile = new UserProfileModel();
+          
+            string user = User.Identity.Name;
 
             User currentUser = userDao.GetUser(User.Identity.Name);
 
