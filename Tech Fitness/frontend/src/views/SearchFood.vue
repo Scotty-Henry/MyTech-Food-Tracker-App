@@ -34,13 +34,15 @@ export default {
         name: "",
         results: []
       },
-      fields: ['report.food.name', 'report.food.nutrients[0].name'],
+      fields: ['name', 'ndbno'],
     };
   },
   methods: {
     handleSubmit() {
-      TFService.getFoods(this.food.name).then(results => {
-        this.results = results;
+      TFService.getFoods(this.food.name)
+      .then( (response) => {
+          this.food.results = response.list.item;
+          console.log(response.list.item);
       });
     }
   }

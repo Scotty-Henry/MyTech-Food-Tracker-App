@@ -1,10 +1,11 @@
 <template>
-    <div class="chart-wrapper">
-      <chart id="chart" :options="chartOptionsLine"></chart>
-    </div>
+      <div class="chart-wrapper">
+        <chart id="chart" :options="chartOptionsLine"></chart>
+      </div>
 </template>
 
 <script>
+
 export default {
   name: "Progress-Graph",
   data: () => ({
