@@ -37,7 +37,6 @@ export default {
   grid-template-areas: "profile chart chart chart"
                        "addmeal chart chart chart"
                        "addmeal current goal today";
-
 }
 #home > #profile {
   grid-area: profile;
