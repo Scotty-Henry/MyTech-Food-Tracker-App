@@ -125,7 +125,7 @@ namespace Security.Controllers
 
         [HttpGet("dashboard")]
         //[Authorize(Roles = "User")]
-        public UserProfileModel GetUserProfile(UserProfileModel model)
+        public UserProfileModel Dashboard(UserProfileModel model)
         {
             UserProfileModel userProfile = new UserProfileModel();
 

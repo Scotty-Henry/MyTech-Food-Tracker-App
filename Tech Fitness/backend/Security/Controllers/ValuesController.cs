@@ -13,6 +13,8 @@ namespace Security.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
+
+
         /// <summary>
         /// Gets a collection of values. The requestor must be authenticated.
         /// </summary>
