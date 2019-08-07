@@ -1,11 +1,18 @@
 <template>
     <div class="profile">
-        <h2>UserName</h2>
-        <ul>
-        <li>UserImage</li>
-        <li>Stars</li>
-        </ul>
-        <router-link to="/CreateProfile">Edit Profile</router-link>
+        <router-link to="/CreateProfile">
+        <b-img center img-top src="https://picsum.photos/125/125/?image=58" alt="Center image" id="image"></b-img>
+        </router-link>
+        <hr>
+        <router-link to="/CreateProfile">
+                <p id="username"> ScottyHenry123 </p>
+            </router-link>
+        <hr>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et 
+            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip 
+            ex ea commodo consequat. 
+        </p>
     </div>
 </template>
 
@@ -16,9 +23,12 @@ export default {
 </script>
 
 <style>
-.profile {
-    display: flex;
-    align-items: center;
-    height: 80vh;
-}    
+#image {
+    border-radius: 50%;
+}
+#username {
+    text-decoration: none;
+    color: black;
+}
 </style>
+

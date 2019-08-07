@@ -1,10 +1,11 @@
 <template>
-    <div class="chart-wrapper">
-      <chart id="chart" :options="chartOptionsLine"></chart>
-    </div>
+      <div class="chart-wrapper">
+        <chart id="chart" :options="chartOptionsLine"></chart>
+      </div>
 </template>
 
 <script>
+
 export default {
   name: "Progress-Graph",
   data: () => ({
@@ -28,11 +29,12 @@ export default {
       yAxis: {
         type: "value"
       },
+      labels: ['Values'],
       series: [
         {
           label: "Current Values",
           type: "line",
-          data: [55, 72, 84, 48, 59, 62, 87, 75, 94, 101, 127, 118]
+          data: [55, 72, 84, 48, 59, 62, 87, 75, 94, 101, 127, 118],
         },
         {
           label: "Goal Values",
@@ -52,7 +54,13 @@ export default {
           fontSize: 24
         }
       },
-      color: ["#127ac2"]
+      legend: {
+        visible: true,
+        position: 'Bottom',
+        labels: {
+          fontColor: "#000080",
+        }
+      },
     }
   })
 };
@@ -61,7 +69,7 @@ export default {
 <style scoped>
 .chart-wrapper {
   width: 100%;
-  height: 700px;
+  height: 500px;
 }
 .echarts {
   width: 100%;
