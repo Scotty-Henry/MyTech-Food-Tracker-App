@@ -5,7 +5,7 @@
         </router-link>
         <hr>
         <router-link to="/CreateProfile">
-                <p id="username"> ScottyHenry123 </p>
+                <p id="username"> {{this.name}} </p>
             </router-link>
         <hr>
         <p>
@@ -18,7 +18,11 @@
 
 <script>
 export default {
-
+name: 'profile',
+  props: {
+    name: String,
+  }
+  
 }
 </script>
 
