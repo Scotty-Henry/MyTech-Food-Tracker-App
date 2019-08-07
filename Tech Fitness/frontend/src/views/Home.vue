@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import auth from '../auth';
+//import auth from '../auth';
 import TFService from '@/TFService.js';
 import Profile from '@/components/Profile';
 import AddMeal from '@/components/AddMeal';

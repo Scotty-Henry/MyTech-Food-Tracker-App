@@ -13,7 +13,7 @@
       />
       <button type="submit">Search</button>
     </form>
-    <b-table :items="food.results" :fields="fields" responsive="sm"></b-table>
+    <b-table dark :items="food.results" :fields="fields" responsive="sm"></b-table>
   </div>
 </template>
 
@@ -44,4 +44,10 @@ export default {
 </script>
 
 <style>
+#search-food {
+  color: whitesmoke !important;
+}
+/* .table {
+    color:whitesmoke !important;
+} */
 </style>
