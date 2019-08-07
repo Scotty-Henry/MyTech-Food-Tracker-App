@@ -13,17 +13,12 @@
       />
       <button type="submit">Search</button>
     </form>
-    <b-table
-      :items="food.results"
-      :fields="fields"
-      responsive="sm"
-    ></b-table>
-
+    <b-table :items="food.results" :fields="fields" responsive="sm"></b-table>
   </div>
 </template>
 
 <script>
-import TFService from "@/TFService.js"
+import TFService from "@/TFService.js";
 
 export default {
   name: "SearchFood",
@@ -34,15 +29,14 @@ export default {
         name: "",
         results: []
       },
-      fields: ['name', 'ndbno'],
+      fields: ["name", "ndbno"]
     };
   },
   methods: {
     handleSubmit() {
-      TFService.getFoods(this.food.name)
-      .then( (response) => {
-          this.food.results = response.list.item;
-          console.log(response.list.item);
+      TFService.getFoods(this.food.name).then(response => {
+        this.food.results = response.list.item;
+        console.log(response.list.item);
       });
     }
   }

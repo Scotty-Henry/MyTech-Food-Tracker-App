@@ -7,16 +7,16 @@
       <b-card id="progress">
         <progress-chart id="progress"></progress-chart>
       </b-card>
-      <b-card bg-variant="dark" header="Record Intake" text-variant="white" class="text-center" id="meal">
+      <b-card header="Record Intake" text-variant="black" class="text-center" id="meal">
         <add-meal id="meal"></add-meal>
       </b-card>
-      <b-card bg-variant="secondary" text-variant="white" header="Current Values" id="current">
+      <b-card text-variant="black" header="Current Values" id="current">
         <current id="current"></current>
       </b-card>
-      <b-card bg-variant="secondary" text-variant="white" header="Goal Values" id="goal">
+      <b-card text-variant="black" header="Goal Values" id="goal">
         <goal id="goal"></goal>
       </b-card>
-        <b-card bg-variant="secondary" text-variant="white" header="D/W/M/LT" id="today">
+        <b-card text-variant="black" header="D/W/M/LT" id="today">
       <today id="today"></today>
         </b-card>>
     </b-card-group>
@@ -104,7 +104,7 @@ export default {
 }
 #home > #meal {
   grid-area: addmeal;
-  background-color: lightblue;
+  background-color: rgb(77, 135, 155);
   margin: .045em;
   border-radius: 5%;
 }
@@ -116,19 +116,19 @@ export default {
 }
 #home > #current {
   grid-area: current;
-  background-color: #648ca6;
+  background-color: #bad1df;
   margin: .045em;
   border-radius: 5%;
 }
 #home > #goal {
   grid-area: goal;
-  background-color: #648ca6;
+  background-color: #bad1df;
   margin: .045em;
   border-radius: 5%;
 }
 #home > #today {
   grid-area: today;
-  background-color: #648ca6;
+  background-color: #bad1df;
   margin: .045em;
   border-radius: 5%;
 }
