@@ -67,6 +67,8 @@ export default {
 .chart-wrapper {
   width: 100%;
   height: 500px;
+  
+
 }
 .echarts {
   width: 100%;
@@ -74,5 +76,8 @@ export default {
 }
 #chart {
   height: 80vh;
+  width: auto;
+  -webkit-tap-highlight-color: transparent;
 }
+
 </style>

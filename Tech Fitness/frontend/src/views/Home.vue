@@ -128,6 +128,7 @@ export default {
   height: auto;
 }
 #home > #progress {
+  display: flex;
   grid-area: chart;
   background-color: whitesmoke;
   margin: .045em;
