@@ -1,7 +1,7 @@
 <template>
   <div id="login" class="text-center">
     <form class="form-signin form-group mt-5"  @submit.prevent="logout">
-      <button type="submit">Logout</button>
+      <button type="submit" class="btn btn-primary btn-sm" id="logout">Logout</button>
     </form>
   </div>
 </template>

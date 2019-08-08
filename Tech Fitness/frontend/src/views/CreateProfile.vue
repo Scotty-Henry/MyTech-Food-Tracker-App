@@ -1,25 +1,40 @@
 <template>
-  <div id="CreateProfile">
-    <form class="review-form" @submit.prevent="createprofile">
- 
-        <input type="text" id="name" name="name" placeholder="name" v-model="user.name"/>  
-        <input type="date" id="bday" name="bday" placeholder="Birthday" v-model="user.birthdate"/>
-         <input type="number" id="height" name="height" placeholder="Height (in)" v-model="user.height"/>
-        <input type="number" id="currWeight" name="currWeight" placeholder="Current Weight" v-model="user.currWeight"/>
-        <input type="number" id="goalWeight" name="goalWeight" placeholder="Goal Weight" v-model="user.goalWeight"/>
-        <select v-model="user.activityLevel">
-            <option disabled value="">Please select Activity Level</option>
+<div id="container" class="container">
+  <div id="CreateProfile" class="text-center">
+    <h1 class="h3 mb-3 font-weight-normal" id="createprofile">Profile</h1>
+
+    <form id="form" class="review-form" @submit.prevent="createprofile">
+        
+        <label id="name" for="namename"> Username: </label>
+        <input type="text" id="name" class="form-control" name="name" placeholder="name" v-model="user.name"/> 
+
+        <label id="bday" for="bday"> Birthday: </label>
+        <input type="date" id="bday" name="bday" class="form-control" placeholder="Birthday" v-model="user.birthdate"/>
+        
+        <label id="height" for="height"> Height in Inches: </label>
+        <input type="number" id="height" name="height" class="form-control" placeholder="Height (in)" v-model="user.height"/>
+
+        <label id="currWeight" for="currWeight"> Current Weight: </label>
+        <input type="number" id="currWeight" name="currWeight" class="form-control" placeholder="Current Weight" v-model="user.currWeight"/>
+        
+        <label id="goalWeight" for="goalWeight"> Goal Weight: </label>
+        <input type="number" id="goalWeight" name="goalWeight" class="form-control" placeholder="Goal Weight" v-model="user.goalWeight"/>
+        
+        <label id="activity" for="activity"> Activity Level: </label>
+        <select id="activity" name="activity" class="selectpicker form-control" v-model="user.activityLevel">
+            <option disabled value="">Please select Activity Level :</option>
             <option>Very Low</option>
             <option>Low</option>
             <option>Moderate</option>
             <option>High</option>
             <option>Very High</option>
         </select>
-<span>Selected: {{ selected }}</span>
-        <button type="submit">Create my profile</button>    
+          <br>
+        <button type="submit" class="btn btn-primary" id="submit">Sign in</button>   
     
     </form>
   </div>
+</div>
 </template>
 
 <script>
@@ -79,7 +94,21 @@ export default {
 </script>
 
 <style>
-
-
+#container{
+  display: flex;
+  background-color: rgb(209, 222, 231);
+  max-width: 65vw;
+  height: auto;
+  padding-top: 5%;
+  border-radius: .75%;
+  padding-bottom: 5%;
+}
+#name, #bday, #height, #currWeight, #goalWeight, #activity, #createprofile {
+  color: black !important;
+}
+#name, #bday, #height, #currWeight, #goalWeight, #activity, #createprofile {
+  padding-bottom: .5em;
+  padding-top: .25em;
+}
 </style>
 

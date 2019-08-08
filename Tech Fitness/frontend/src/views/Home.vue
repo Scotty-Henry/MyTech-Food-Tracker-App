@@ -116,12 +116,16 @@ export default {
   background-color: #41a56a;
   margin: .045em;
   border-radius: 5%;
+  width: 25vw;
+  height: auto;
 }
 #home > #meal {
   grid-area: addmeal;
   background-color: rgb(77, 135, 155);
   margin: .045em;
   border-radius: 5%;
+  width: 25vw;
+  height: auto;
 }
 #home > #progress {
   grid-area: chart;
@@ -134,17 +138,23 @@ export default {
   background-color: #bad1df;
   margin: .045em;
   border-radius: 5%;
+  width: 20vw;
+  height: auto;
 }
 #home > #goal {
   grid-area: goal;
   background-color: #bad1df;
   margin: .045em;
   border-radius: 5%;
+  width: 20vw;
+  height: auto;
 }
 #home > #today {
   grid-area: today;
   background-color: #bad1df;
   margin: .045em;
   border-radius: 5%;
+  width: 20vw;
+  height: auto;
 }
 </style>
