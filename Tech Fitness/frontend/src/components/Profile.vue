@@ -5,8 +5,8 @@
         </router-link>
         <hr>
         <router-link to="/CreateProfile">
-                <p id="username"> {{this.name}} </p>
-            </router-link>
+                <p id="username"> {{ this.name }} </p>
+        </router-link>
         <hr>
         <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et 
