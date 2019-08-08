@@ -31,8 +31,8 @@ export default {
       },
       legend: {
         data: ['Current', 'Goal', 'Progress'],
-        align: 'left',
-        left: 10
+        x: 'center',
+        y: 'bottom'
       },
       series: [
         {
