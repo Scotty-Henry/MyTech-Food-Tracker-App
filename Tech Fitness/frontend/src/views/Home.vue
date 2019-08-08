@@ -9,7 +9,7 @@
         <progress-chart id="progress"></progress-chart>
       </b-card>
       <b-card header="Record Intake" text-variant="black" class="text-center" id="meal">
-        <add-meal id="meal"></add-meal>
+        <meal id="meal"></meal>
       </b-card>
       <b-card text-variant="black" header="Current Values" id="current">
         <current :currWeight ="this.currWeight" :height="this.height" :activity="this.activityLevel" id="current"></current>
@@ -28,7 +28,7 @@
 import auth from '../auth';
 import TFService from '@/TFService.js';
 import Profile from '@/components/Profile';
-import AddMeal from '@/components/AddMeal';
+import Meal from '@/components/Meal';
 import ProgressChart from '@/components/ProgressChart';
 import Current from '@/components/Current';
 import Goal from '@/components/Goal';
@@ -39,7 +39,7 @@ export default {
   name: 'home',
   components: {
     Profile,
-    AddMeal,
+    Meal,
     ProgressChart,
     Current,
     Goal,
@@ -107,8 +107,8 @@ export default {
   display: grid;
   padding: 25px;
   grid-template-areas: "profile chart chart chart"
-                       "addmeal chart chart chart"
-                       "addmeal current goal today";
+                       "meal chart chart chart"
+                       "meal current goal today";
   max-height: 75vh;
 }
 #home > #profile {
@@ -120,7 +120,7 @@ export default {
   height: auto;
 }
 #home > #meal {
-  grid-area: addmeal;
+  grid-area: meal;
   background-color: rgb(77, 135, 155);
   margin: .045em;
   border-radius: 5%;

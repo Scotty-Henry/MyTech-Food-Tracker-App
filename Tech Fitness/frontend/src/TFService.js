@@ -44,5 +44,13 @@ export default {
     getProfileInfo(){
         const url = `${process.env.VUE_APP_REMOTE_API}/Account/dashboard`;
         return apiLocal.get(url).then(response => response.data);
-    }
+    },
+
+    findNutrient(nameNutrient, myArray){
+        for (var i=0; i < myArray.length; i++) {
+            if (myArray[i].name === nameNutrient) {
+                return myArray[i].value;
+            }
+        }
+    },
 }

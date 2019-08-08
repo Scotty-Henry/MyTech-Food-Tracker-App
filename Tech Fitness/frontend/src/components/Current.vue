@@ -4,6 +4,7 @@
         <div> Current Weight: {{this.currWeight}}</div>
         <div> Height (in): {{this.height}}</div>
         <div> Activity Level: {{this.activity}}</div>
+        <div> BMI: </div>
         <!-- <b-form @submit="onSubmit">
             <b-form-group id="input-group-1" label="Weight:" label-for="input-1">
                 <b-form-input

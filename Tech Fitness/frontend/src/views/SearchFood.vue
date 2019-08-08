@@ -24,26 +24,39 @@
       />
       <button type="submit">Add Food!</button>
     </form>
+    <div>Food:  {{this.foodItem.name}} </div>
+    <div>My food's cals: {{this.foodItem.cal}} </div>
+    <div>My food's pro: {{this.foodItem.pro}} </div>
+    <div>My food's fat: {{this.foodItem.fat}} </div>
+    <div>My food's carbs: {{this.foodItem.carb}} </div>
+
+    <meal id="meal" :foodItem="this.foodItem"></meal>
     <!-- Need to make each item clickable? -->
     <b-table dark :items="food.results" :fields="fields" responsive="sm"></b-table>
   </div>
+  
 </template>
 
 <script>
 import TFService from "@/TFService.js";
+import Meal from '@/components/Meal';
 
 export default {
   name: "SearchFood",
-  components: {},
+  components: {
+    Meal,
+  },
   data() {
     return {
       foodItem:{
           ndbno: '',
+          name: '',
           fat: '',
           pro: '',
           carb: '',
           cal: '',
-      },     
+      },  
+  
       food: {
         name: "",
         results: [], 
@@ -58,16 +71,27 @@ export default {
         console.log(response.list.item);
       });
     },
+    
     handleNDBNO() {
       TFService.getFood(this.foodItem.ndbno).then(response => {
-        //let obj = response.find(o => o.name === 'Energy');
-      
-        console.log(response.report.food.nutrients);
 
-        //console.log(obj);
+          this.foodItem.cal = TFService.findNutrient('Energy', response.report.food.nutrients);
+          this.foodItem.pro = TFService.findNutrient('Protein', response.report.food.nutrients);
+          this.foodItem.fat = TFService.findNutrient('Total lipid (fat)', response.report.food.nutrients);
+          this.foodItem.carb = TFService.findNutrient('Carbohydrate, by difference', response.report.food.nutrients);
+          this.foodItem.name = response.report.food.name;
+          this.foodArray.push(this.foodItem);
       });
-    }
-  }
+    },
+    
+  }, 
+  // computed: {
+  //   // a computed getter
+  //   meal: function () {
+  //     // `this` points to the vm instance
+  //     return this.message.split('').reverse().join('')
+  //   }
+  // }
 };
 </script>
 
