@@ -166,7 +166,7 @@ namespace Security.DAL
                 throw ex;
             }
         }
-        public UserProfileModel GetUserProfile(string username)
+        public UserProfileModel GetUserProfile(int id)
         {
             UserProfileModel userProfile = null;
             try
@@ -174,8 +174,8 @@ namespace Security.DAL
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    SqlCommand cmd = new SqlCommand("SELECT Distinct * FROM user_profile WHERE name = @username;", conn);
-                    cmd.Parameters.AddWithValue("@username", username);
+                    SqlCommand cmd = new SqlCommand("SELECT Distinct * FROM user_profile WHERE id = @id;", conn);
+                    cmd.Parameters.AddWithValue("@id", id);
 
                     SqlDataReader reader = cmd.ExecuteReader();
 

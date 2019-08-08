@@ -123,17 +123,24 @@ namespace Security.Controllers
             return result;
         }
 
+        /// <summary>
+        /// Currently, I am only routed here from 'create profile'. When a user updates their profile, must update DB. 
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("dashboard")]
         [Authorize]
         public ActionResult<UserProfileModel> Dashboard()
         {
             UserProfileModel userProfile = new UserProfileModel();
           
+            //Pulls the username from login off the token
             string user = User.Identity.Name;
 
+            //Find the current user from their name
             User currentUser = userDao.GetUser(User.Identity.Name);
 
-            userProfile = userDao.GetUserProfile(currentUser.Username);
+            //Get the users profile from their ID
+            userProfile = userDao.GetUserProfile(currentUser.Id);
 
             return userProfile;
         }
