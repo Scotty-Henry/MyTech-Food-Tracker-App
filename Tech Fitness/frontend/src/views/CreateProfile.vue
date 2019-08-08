@@ -1,5 +1,4 @@
 <template>
-<<<<<<< HEAD
 <div id="container" class="container">
   <div id="CreateProfile" class="text-center">
     <h1 class="h3 mb-3 font-weight-normal" id="createprofile">Profile</h1>
@@ -24,18 +23,6 @@
         <label id="activity" for="activity"> Activity Level: </label>
         <select id="activity" name="activity" class="selectpicker form-control" v-model="user.activityLevel">
             <option disabled value="">Please select Activity Level :</option>
-=======
-  <div id="CreateProfile">
-    <form class="review-form" @submit.prevent="createprofile">
- 
-        <input type="text" id="name" name="name" placeholder="name" v-model="user.name"/>  
-        <input type="date" id="bday" name="bday" placeholder="Birthday" v-model="user.birthdate"/>
-        <input type="number" id="height" name="height" placeholder="Height (in)" v-model="user.height"/>
-        <input type="number" id="currWeight" name="currWeight" placeholder="Current Weight" v-model="user.currWeight"/>
-        <input type="number" id="goalWeight" name="goalWeight" placeholder="Goal Weight" v-model="user.goalWeight"/>
-        <select v-model="user.activityLevel">
-            <option disabled value="">Please select Activity Level</option>
->>>>>>> 52d699070a3f87ec2cf1835357d7c73c7291cb1b
             <option>Very Low</option>
             <option>Low</option>
             <option>Moderate</option>
