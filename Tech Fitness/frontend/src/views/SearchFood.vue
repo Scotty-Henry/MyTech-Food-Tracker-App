@@ -13,6 +13,18 @@
       />
       <button type="submit">Search</button>
     </form>
+    <form class="form-signin form-group mt-5" @submit.prevent="handleNDBNO">
+      <label for="name" class="sr-only">Add by ndbno</label>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="ndbno"
+        v-model="foodItem.ndbno"
+        autofocus
+      />
+      <button type="submit">Add Food!</button>
+    </form>
+    <!-- Need to make each item clickable? -->
     <b-table dark :items="food.results" :fields="fields" responsive="sm"></b-table>
   </div>
 </template>
@@ -25,9 +37,16 @@ export default {
   components: {},
   data() {
     return {
+      foodItem:{
+          ndbno: '',
+          fat: '',
+          pro: '',
+          carb: '',
+          cal: '',
+      },     
       food: {
         name: "",
-        results: []
+        results: [], 
       },
       fields: ["name", "ndbno"]
     };
@@ -37,6 +56,15 @@ export default {
       TFService.getFoods(this.food.name).then(response => {
         this.food.results = response.list.item;
         console.log(response.list.item);
+      });
+    },
+    handleNDBNO() {
+      TFService.getFood(this.foodItem.ndbno).then(response => {
+        //let obj = response.find(o => o.name === 'Energy');
+      
+        console.log(response.report.food.nutrients);
+
+        //console.log(obj);
       });
     }
   }

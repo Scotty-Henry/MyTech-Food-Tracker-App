@@ -4,7 +4,7 @@
  
         <input type="text" id="name" name="name" placeholder="name" v-model="user.name"/>  
         <input type="date" id="bday" name="bday" placeholder="Birthday" v-model="user.birthdate"/>
-         <input type="number" id="height" name="height" placeholder="Height (in)" v-model="user.height"/>
+        <input type="number" id="height" name="height" placeholder="Height (in)" v-model="user.height"/>
         <input type="number" id="currWeight" name="currWeight" placeholder="Current Weight" v-model="user.currWeight"/>
         <input type="number" id="goalWeight" name="goalWeight" placeholder="Goal Weight" v-model="user.goalWeight"/>
         <select v-model="user.activityLevel">
@@ -24,8 +24,6 @@
 
 <script>
 import auth from '../auth';
-// import TodoSearch from '@/components/TodoSearch';
-// import TodoList from '@/components/TodoList';
 
 export default {
   name: 'CreateProfile',

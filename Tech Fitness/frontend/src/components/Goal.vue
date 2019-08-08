@@ -2,6 +2,7 @@
     <div class="current-values">
         <!-- Here I am! -->
         <div> Goal Weight: {{this.goalWeight}}</div>
+        <div> BMI: </div>
         
     </div>
 </template>
