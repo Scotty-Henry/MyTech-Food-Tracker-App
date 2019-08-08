@@ -124,7 +124,9 @@ namespace Security.Controllers
         }
 
         /// <summary>
-        /// Currently, I am only routed here from 'create profile'. When a user updates their profile, must update DB. 
+        /// Currently, I am only routed here from 'create profile'. 
+        /// SHould be only able to 'create' profile once, then should update profile.
+        /// When a user updates their profile, must update DB. 
         /// </summary>
         /// <returns></returns>
         [HttpGet("dashboard")]

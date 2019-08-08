@@ -2,7 +2,8 @@
   <div id="home">
     <b-card-group id="home">
       <b-card bg-variant="info" text-variant="white" header="Profile" class="text-center" id="profile">
-        <profile id="profile" :name="this.name"></profile>
+        <profile id="profile" :name="this.name" :birthdate="this.birthdate"></profile>
+        <logout id="logout"> </logout>
       </b-card>
       <b-card id="progress">
         <progress-chart id="progress"></progress-chart>
@@ -11,10 +12,10 @@
         <add-meal id="meal"></add-meal>
       </b-card>
       <b-card text-variant="black" header="Current Values" id="current">
-        <current id="current"></current>
+        <current :currWeight ="this.currWeight" :height="this.height" :activity="this.activityLevel" id="current"></current>
       </b-card>
       <b-card text-variant="black" header="Goal Values" id="goal">
-        <goal id="goal"></goal>
+        <goal :goalWeight ="this.goalWeight" id="goal"></goal>
       </b-card>
         <b-card text-variant="black" header="D/W/M/LT" id="today">
       <today id="today"></today>
@@ -24,7 +25,7 @@
 </template>
 
 <script>
-//import auth from '../auth';
+import auth from '../auth';
 import TFService from '@/TFService.js';
 import Profile from '@/components/Profile';
 import AddMeal from '@/components/AddMeal';
@@ -32,6 +33,7 @@ import ProgressChart from '@/components/ProgressChart';
 import Current from '@/components/Current';
 import Goal from '@/components/Goal';
 import Today from '@/components/Today';
+import Logout from '@/components/Logout';
 
 export default {
   name: 'home',
@@ -41,11 +43,18 @@ export default {
     ProgressChart,
     Current,
     Goal,
-    Today    
+    Today, 
+    Logout   
   },
   data() {
     return {
       name: '',
+      birthdate: '',
+      currWeight: '',
+      goalWeight: '',
+      activityLevel: '',
+      height: '',
+
     }
   },
     created()
@@ -54,6 +63,12 @@ export default {
     TFService.getProfileInfo().then((data) => {
       window.console.log(data);
       this.name = data.name;
+      this.birthdate = data.birthdate;
+      this.currWeight = data.currWeight;
+      this.goalWeight = data.goalWeight;
+      this.activityLevel = data.activityLevel;
+      this.height = data.height;
+
     });
     },
     //How you do it with fetch

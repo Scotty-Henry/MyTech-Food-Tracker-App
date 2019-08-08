@@ -7,6 +7,7 @@
         <router-link to="/CreateProfile">
                 <p id="username"> {{ this.name }} </p>
         </router-link>
+                <div> Birthdate: {{this.birthdate}} </div>
         <hr>
         <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et 
@@ -21,6 +22,7 @@ export default {
 name: 'profile',
   props: {
     name: String,
+    birthdate: Date,
   }
   
 }

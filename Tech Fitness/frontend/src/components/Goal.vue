@@ -1,5 +1,7 @@
 <template>
     <div class="current-values">
+        <!-- Here I am! -->
+        <div> {{this.goalWeight}}</div>
         <b-form @submit="onSubmit">
             <b-form-group id="input-group-1" label="Weight:" label-for="input-1">
                 <b-form-input
@@ -30,6 +32,10 @@
 
 <script>
 export default {
+     name: 'Goal',
+  props: {
+    goalWeight: Number,
+  },
     data() {
             return {
                 form: {
