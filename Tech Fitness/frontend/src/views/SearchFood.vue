@@ -27,10 +27,10 @@
         />
         <input
           id="meal-form"
-          type="number"
+          type="text"
           class="form-control"
           placeholder="Qty."
-          v-model="foodItem.quantity"
+          v-model="foodItem.qty"
           autofocus
         />
         <button type="submit" id="foodbutton" class="btn btn-success btn-md">Add Food!</button>
