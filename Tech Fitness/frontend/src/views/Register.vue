@@ -33,11 +33,11 @@
         required
       />
       <router-link :to="{ name: 'login' }">Have an account?</router-link>
-      <router-link to="/CreateProfile">
+    
         <button type="submit" id="submit" class="btn btn-primary">
           Create Account
         </button>
-      </router-link>
+  
     </form>
   </div>
 </template>

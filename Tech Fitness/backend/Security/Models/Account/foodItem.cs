@@ -31,7 +31,7 @@ namespace Security.Models.Account
         public string unit { get; set; }
 
         [Required]
-        public double qty { get; set; }
+        public int qty { get; set; }
 
     }
 }
