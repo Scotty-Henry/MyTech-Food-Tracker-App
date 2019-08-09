@@ -1,8 +1,10 @@
 <template>
 <div id="container" class="container">
   <div id="CreateProfile" class="text-center">
-    <h1 class="h3 mb-3 font-weight-normal" id="createprofile">Profile</h1>
-
+    <div id="sidebar" class="h3 mb-3 font-weight-normal">
+      <h1 class="h3 mb-3 font-weight-normal" id="createprofile">Profile</h1>
+      <b-img center img-top src="https://picsum.photos/125/125/?image=58" alt="Center image" id="image"></b-img>
+    </div>
     <form id="form" class="review-form" @submit.prevent="createprofile">
         
         <label id="name" for="namename"> Username: </label>
@@ -30,7 +32,7 @@
             <option>Very High</option>
         </select>
           <br>
-        <button type="submit" class="btn btn-primary" id="submit">Sign in</button>   
+        <button type="submit" class="btn btn-primary" id="submit">Update Profile</button>   
     
     </form>
   </div>
@@ -102,11 +104,16 @@ export default {
   padding-bottom: 5%;
 }
 #name, #bday, #height, #currWeight, #goalWeight, #activity, #createprofile {
+  padding-bottom: .25em;
+  padding-top: .25em;
   color: black !important;
 }
-#name, #bday, #height, #currWeight, #goalWeight, #activity, #createprofile {
-  padding-bottom: .5em;
-  padding-top: .25em;
+#form {
+  padding-left: 4em;
+  padding-top: 2.5em;
+}
+#sidebar {
+  padding-left: 1.5em;
 }
 </style>
 

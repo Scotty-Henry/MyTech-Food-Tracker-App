@@ -1,7 +1,7 @@
 <template>
   <div id="register" class="text-center">
     <form class="form-register form-group mt-5" @submit.prevent="register">
-      <h1 class="h3 mb-3 font-weight-normal">Create Account</h1>
+      <h1 class="h3 mb-3 font-weight-normal" id="sign-in">Create Account</h1>
       <div class="alert alert-danger" role="alert" v-if="registrationErrors">
         There were problems registering this user.
       </div>
@@ -32,10 +32,8 @@
         v-model="user.confirmPassword"
         required
       />
-      <router-link :to="{ name: 'login' }">
-        Have an account?
-      </router-link>
-      <button class="btn btn-lg btn-primary btn-block" type="submit">
+      <router-link :to="{ name: 'login' }">Have an account?</router-link>
+      <button type="submit" id="submit" class="btn btn-primary">
         Create Account
       </button>
     </form>
@@ -81,4 +79,19 @@ export default {
 </script>
 
 <style>
+#sign-in {
+  color: whitesmoke !important;
+}
+#submit {
+  margin: .75em;
+}
+#username {
+  margin: .5em;
+}
+#password {
+  margin: .5em;
+}
+#confirmPassword {
+  margin: .5em;
+}
 </style>

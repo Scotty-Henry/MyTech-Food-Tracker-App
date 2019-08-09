@@ -1,8 +1,5 @@
 <template>
     <div>
-        <!-- <router-link to="/Search-Food">
-            <button type="button" class="btn btn-light" role="button">Add Food</button>
-        </router-link> -->
         <div> My Meal: 
             <ul>
                 <li v-for="food in foodArray" 
