@@ -7,19 +7,19 @@
       </div>
       <form id="form" class="review-form" @submit.prevent="updateprofile">
           
-          <label id="name" for="namename"> Username: {{name}} </label>
+          <label id="name" for="namename"> Username: {{user.name}} </label>
           <input type="text" id="name" class="form-control" name="name" :placeholder="this.name" v-model="name"/> 
 
           <label id="bday" for="bday"> Birthday: </label>
           <input type="date" id="bday" name="bday" class="form-control" :placeholder="this.birthdate" v-model="birthdate"/>
           
-          <label id="height" for="height"> Height in Inches: {{height}} </label>
+          <label id="height" for="height"> Height in Inches: {{user.height}} </label>
           <input type="number" id="height" name="height" class="form-control" :placeholder="this.height" v-model="height"/>
 
-          <label id="currWeight" for="currWeight"> Current Weight: {{currWeight}} </label>
+          <label id="currWeight" for="currWeight"> Current Weight: {{user.currWeight}} </label>
           <input type="number" id="currWeight" name="currWeight" class="form-control" :placeholder="this.currWeight" v-model="currWeight"/>
           
-          <label id="goalWeight" for="goalWeight"> Goal Weight: {{goalWeight}} </label>
+          <label id="goalWeight" for="goalWeight"> Goal Weight: {{user.goalWeight}} </label>
           <input type="number" id="goalWeight" name="goalWeight" class="form-control" :placeholder="this.goalWeight" v-model="goalWeight"/>
           
           <label id="activity" for="activity"> Activity Level: </label>
@@ -49,12 +49,14 @@ export default {
   },
   data() {
     return {
+      user: {
         name: '',
         birthdate: '',
         currWeight: '',
         goalWeight: '',
         height: '',
-        activityLevel: '',    
+        activityLevel: '',
+      } 
     }
   },
   created()
