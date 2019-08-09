@@ -21,6 +21,7 @@
 <script>
 import Logout from '@/components/Logout';
 
+
 export default {
   name: "app",
   components: {

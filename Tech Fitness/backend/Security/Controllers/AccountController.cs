@@ -145,7 +145,30 @@ namespace Security.Controllers
             model.id = currentUserId;
 
             userDao.UpdateProfile(model);
+        }
 
+        [HttpPost("addMeal")]
+        //[Authorize(Roles = "User")]
+        public IActionResult addMeal (foodItem[] meal)
+        {
+            IActionResult result = Ok();
+
+            ////This is off my token
+            //string user = User.Identity.Name;
+
+            ////this is from the model body handend from vue
+            //string name = model.name;
+
+            ////find my user in the users table by the name on their token (given during log in)
+            //User currentUser = userDao.GetUser(User.Identity.Name);
+
+            ////get the current users id
+            //int currentUserId = currentUser.Id;
+
+            ////use this id to add it to my profile model so the key's match.
+            //model.id = currentUserId;
+
+            //userDao.CreateProfile(model);
             return result;
         }
 
@@ -156,7 +179,7 @@ namespace Security.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("dashboard")]
-        [Authorize]
+        [Authorize(Roles = "User")]
         public ActionResult<UserProfileModel> Dashboard()
         {
             UserProfileModel userProfile = new UserProfileModel();
