@@ -2,28 +2,28 @@
   <div id="container" class="container">
     <div id="CreateProfile" class="text-center">
       <div id="sidebar" class="h3 mb-3 font-weight-normal">
-        <h1 class="h3 mb-3 font-weight-normal" id="createprofile">Create Profile</h1>
+        <h1 class="h3 mb-3 font-weight-normal" id="createprofile"> Edit Profile </h1>
         <b-img center img-top src="https://picsum.photos/125/125/?image=58" alt="Center image" id="image"></b-img>
       </div>
-      <form id="form" class="review-form" @submit.prevent="createprofile">
+      <form id="form" class="review-form" @submit.prevent="updateprofile">
           
-          <label id="name" for="namename"> Username: {{user.name}} </label>
-          <input type="text" id="name" class="form-control" name="name" placeholder="name" v-model="user.name"/> 
+          <label id="name" for="namename"> Username: {{name}} </label>
+          <input type="text" id="name" class="form-control" name="name" :placeholder="this.name" v-model="name"/> 
 
-          <label id="bday" for="bday"> Birthday: {{user.birthdate}} </label>
-          <input type="date" id="bday" name="bday" class="form-control" placeholder="Birthday" v-model="user.birthdate"/>
+          <label id="bday" for="bday"> Birthday: </label>
+          <input type="date" id="bday" name="bday" class="form-control" :placeholder="this.birthdate" v-model="birthdate"/>
           
-          <label id="height" for="height"> Height in Inches: {{user.height}} </label>
-          <input type="number" id="height" name="height" class="form-control" placeholder="Height (in)" v-model="user.height"/>
+          <label id="height" for="height"> Height in Inches: {{height}} </label>
+          <input type="number" id="height" name="height" class="form-control" :placeholder="this.height" v-model="height"/>
 
-          <label id="currWeight" for="currWeight"> Current Weight: {{user.currWeight}} </label>
-          <input type="number" id="currWeight" name="currWeight" class="form-control" placeholder="Current Weight" v-model="user.currWeight"/>
+          <label id="currWeight" for="currWeight"> Current Weight: {{currWeight}} </label>
+          <input type="number" id="currWeight" name="currWeight" class="form-control" :placeholder="this.currWeight" v-model="currWeight"/>
           
-          <label id="goalWeight" for="goalWeight"> Goal Weight: {{user.goalWeight}} </label>
-          <input type="number" id="goalWeight" name="goalWeight" class="form-control" placeholder="Goal Weight" v-model="user.goalWeight"/>
+          <label id="goalWeight" for="goalWeight"> Goal Weight: {{goalWeight}} </label>
+          <input type="number" id="goalWeight" name="goalWeight" class="form-control" :placeholder="this.goalWeight" v-model="goalWeight"/>
           
           <label id="activity" for="activity"> Activity Level: </label>
-          <select id="activity" name="activity" class="selectpicker form-control" v-model="user.activityLevel">
+          <select id="activity" name="activity" class="selectpicker form-control" v-model="activityLevel">
               <option disabled value="">Please select Activity Level :</option>
               <option>Very Low</option>
               <option>Low</option>
@@ -32,7 +32,7 @@
               <option>Very High</option>
           </select>
             <br>
-          <button type="submit" class="btn btn-primary" id="submit">Create Profile</button>   
+          <button type="submit" class="btn btn-primary" id="submit">Update Profile</button>   
       
       </form>
     </div>
@@ -41,27 +41,39 @@
 
 <script>
 import auth from '../auth';
+import TFService from '@/TFService.js';
 
 export default {
-  name: 'CreateProfile',
+  name: 'EditProfile',
   components: {
   },
   data() {
     return {
-      user: {
-          name: '',
-          birthdate: '',
-          currWeight: '',
-          height: '',
-          activityLevel: '',
-      }     
-    
+        name: '',
+        birthdate: '',
+        currWeight: '',
+        goalWeight: '',
+        height: '',
+        activityLevel: '',    
     }
   },
+  created()
+    {
+    //How you do it with Axios
+      TFService.getProfileInfo().then((data) => {
+        window.console.log(data);
+        this.name = data.name;
+        this.birthdate = data.birthdate;
+        this.currWeight = data.currWeight;
+        this.goalWeight = data.goalWeight;
+        this.activityLevel = data.activityLevel;
+        this.height = data.height;
+        })
+    },
   methods: { 
-      createprofile() {
-      fetch(`${process.env.VUE_APP_REMOTE_API}/Account/createprofile`, {
-        method: 'POST',
+      updateprofile() {
+      fetch(`${process.env.VUE_APP_REMOTE_API}/Account/updateprofile`, {
+        method: 'PUT',
         headers: {
           Authorization: 'Bearer ' + auth.getToken(),
           Accept: 'application/json',
@@ -89,7 +101,7 @@ export default {
         .catch((err) => console.error(err));
     },
     
-  }
+}
 }
 </script>
 
@@ -116,4 +128,3 @@ export default {
   padding-left: 1.5em;
 }
 </style>
-

@@ -1,7 +1,7 @@
 <template>
   <div id="register" class="text-center">
     <form class="form-register form-group mt-5" @submit.prevent="register">
-      <h1 class="h3 mb-3 font-weight-normal" id="sign-in">Create Account</h1>
+      <h1 class="h3 mb-3 font-weight-normal" id="create">Create Account</h1>
       <div class="alert alert-danger" role="alert" v-if="registrationErrors">
         There were problems registering this user.
       </div>
@@ -33,9 +33,11 @@
         required
       />
       <router-link :to="{ name: 'login' }">Have an account?</router-link>
-      <button type="submit" id="submit" class="btn btn-primary">
-        Create Account
-      </button>
+      <router-link to="/CreateProfile">
+        <button type="submit" id="submit" class="btn btn-primary">
+          Create Account
+        </button>
+      </router-link>
     </form>
   </div>
 </template>
@@ -78,8 +80,8 @@ export default {
 };
 </script>
 
-<style>
-#sign-in {
+<style scoped>
+#create {
   color: whitesmoke !important;
 }
 #submit {

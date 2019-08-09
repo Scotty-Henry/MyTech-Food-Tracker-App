@@ -1,10 +1,10 @@
 <template>
     <div class="profile">
-        <router-link to="/CreateProfile">
+        <router-link to="/EditProfile">
             <b-img center img-top src="https://picsum.photos/125/125/?image=58" alt="Center image" id="image"></b-img>
         </router-link>
         <hr>
-        <router-link to="/CreateProfile">
+        <router-link to="/EditProfile">
                 <p id="username"> {{ this.name }} </p>
         </router-link>
                 <div> Birthdate: {{this.birthdate}} </div>

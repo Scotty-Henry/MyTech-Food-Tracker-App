@@ -146,7 +146,7 @@ namespace Security.DAL
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    SqlCommand cmd = new SqlCommand("INSERT INTO user_profile (id, name, birthdate, currWeight, goalWeight, height, activityLevel) " +
+                    SqlCommand cmd = new SqlCommand("INSERT INTO user_profile (id, name, birthdate, currWeight, goalWeight, height, activityLevel;) " +
                                                      "VALUES (@id, @name, @birthdate, @currWeight, @goalWeight, @height, @activityLevel);", conn);
                     cmd.Parameters.AddWithValue("@name", userProfile.name);
                     cmd.Parameters.AddWithValue("@id", userProfile.id);
@@ -166,6 +166,36 @@ namespace Security.DAL
                 throw ex;
             }
         }
+
+        public void UpdateProfile(UserProfileModel userProfile)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open(); 
+                    SqlCommand cmd = new SqlCommand("UPDATE user_profile SET id = @id, name = @name, birthdate = @birthdate, currWeight = @currWeight, goalWeight = @goalWeight, height = @height, activityLevel = @activityLevel " +
+                                                     "WHERE id = @id;", conn);
+                    cmd.Parameters.AddWithValue("@name", userProfile.name);
+                    cmd.Parameters.AddWithValue("@id", userProfile.id);
+                    cmd.Parameters.AddWithValue("@birthdate", userProfile.birthdate);
+                    cmd.Parameters.AddWithValue("@currWeight", userProfile.currWeight);
+                    cmd.Parameters.AddWithValue("@goalWeight", userProfile.goalWeight);
+                    cmd.Parameters.AddWithValue("@height", userProfile.height);
+                    cmd.Parameters.AddWithValue("@activityLevel", userProfile.activityLevel);
+
+                    cmd.ExecuteNonQuery();
+
+                    return;
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+        }
+
+
         public UserProfileModel GetUserProfile(int id)
         {
             UserProfileModel userProfile = null;

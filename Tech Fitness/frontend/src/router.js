@@ -5,6 +5,7 @@ import Home from './views/Home.vue'
 import Login from './views/Login.vue'
 import Register from './views/Register.vue'
 import CreateProfile from './views/CreateProfile.vue'
+import EditProfile from './views/EditProfile.vue'
 import SearchFood from './views/SearchFood.vue'
 
 Vue.use(Router)
@@ -55,11 +56,19 @@ const router = new Router({
       }
     },
     {
+      path: "/EditProfile",
+      name: "EditProfile",
+      component: EditProfile,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
       path: "/search-food",
       name: "search-food",
       component: SearchFood,
       meta: {
-        requiresAuth: false
+        requiresAuth: true
       }
     }
   ]
