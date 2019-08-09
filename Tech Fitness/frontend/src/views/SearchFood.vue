@@ -56,7 +56,7 @@ export default {
           carb: '',
           cal: '',
       },  
-  
+      foodArray: [],
       food: {
         name: "",
         results: [], 
@@ -74,7 +74,7 @@ export default {
     
     handleNDBNO() {
       TFService.getFood(this.foodItem.ndbno).then(response => {
-
+          let currentFood = new foodItem();
           this.foodItem.cal = TFService.findNutrient('Energy', response.report.food.nutrients);
           this.foodItem.pro = TFService.findNutrient('Protein', response.report.food.nutrients);
           this.foodItem.fat = TFService.findNutrient('Total lipid (fat)', response.report.food.nutrients);
@@ -83,6 +83,18 @@ export default {
           this.foodArray.push(this.foodItem);
       });
     },
+    
+    addFood() {
+      let newFood = {
+          ndbno: '',
+          name: '',
+          fat: '',
+          pro: '',
+          carb: '',
+          cal: '',
+      }
+      this.foodArray.push(newFood); 
+    }
     
   }, 
   // computed: {
