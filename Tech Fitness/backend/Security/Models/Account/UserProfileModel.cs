@@ -33,10 +33,10 @@ namespace Security.Models.Account
             [Required]
             public string activityLevel { get; set; }
 
+            public int id { get; set; }
 
-
-        public int id { get; set; }
-
-    }
+            
 
     }
+
+}

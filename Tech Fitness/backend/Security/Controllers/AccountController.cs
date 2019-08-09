@@ -145,6 +145,8 @@ namespace Security.Controllers
             model.id = currentUserId;
 
             userDao.UpdateProfile(model);
+
+            return result;
         }
 
         [HttpPost("addMeal")]

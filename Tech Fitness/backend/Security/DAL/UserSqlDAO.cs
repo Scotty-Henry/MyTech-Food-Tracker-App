@@ -137,8 +137,6 @@ namespace Security.DAL
             }
         }
 
-
-
         public void CreateProfile(UserProfileModel userProfile)
         {
             try

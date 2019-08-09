@@ -49,11 +49,12 @@ export default {
   data() {
     return {
       user: {
-          name: '',
-          birthdate: '',
-          currWeight: '',
-          height: '',
-          activityLevel: '',
+        name: '',
+        birthdate: '',
+        currWeight: '',
+        goalWeight: '',
+        height: '',
+        activityLevel: '', 
       }     
     
     }
