@@ -27,5 +27,11 @@ namespace Security.Models.Account
         [Required]
         public int cal { get; set; }
 
+        [Required]
+        public string unit { get; set; }
+
+        [Required]
+        public double qty { get; set; }
+
     }
 }

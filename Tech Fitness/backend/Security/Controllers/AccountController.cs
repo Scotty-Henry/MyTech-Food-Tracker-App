@@ -133,8 +133,6 @@ namespace Security.Controllers
             ////This is off my token
             //string user = User.Identity.Name;
 
-            ////this is from the model body handend from vue
-            //string name = model.name;
 
             ////find my user in the users table by the name on their token (given during log in)
             //User currentUser = userDao.GetUser(User.Identity.Name);

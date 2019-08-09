@@ -25,6 +25,14 @@
           v-model="foodItem.ndbno"
           autofocus
         />
+        <input
+          id="meal-form"
+          type="number"
+          class="form-control"
+          placeholder="Qty."
+          v-model="foodItem.quantity"
+          autofocus
+        />
         <button type="submit" id="foodbutton" class="btn btn-success btn-md">Add Food!</button>
       </form>
       <div>Food:  {{this.foodItem.name}} </div>
@@ -62,6 +70,8 @@ export default {
           pro: '',
           carb: '',
           cal: '',
+          unit: '', 
+          qty: ''
       },  
       foodArray: [],
       food: {
@@ -81,6 +91,7 @@ export default {
     
     handleNDBNO() {
       TFService.getFood(this.foodItem.ndbno).then(response => {
+          console.log(response.report.food.ru);
           let currentFood = 
           {
           ndbno: this.foodItem.ndbno,
@@ -88,7 +99,9 @@ export default {
           pro: TFService.findNutrient('Protein', response.report.food.nutrients),
           fat: TFService.findNutrient('Total lipid (fat)', response.report.food.nutrients),
           carb: TFService.findNutrient('Carbohydrate, by difference', response.report.food.nutrients),
-          name: response.report.food.name
+          name: response.report.food.name,
+          unit: response.report.food.ru,
+          quantity: this.foodItem.quantity
           }
           this.foodItem.name = currentFood.name;
           this.foodItem.fat = currentFood.fat;
