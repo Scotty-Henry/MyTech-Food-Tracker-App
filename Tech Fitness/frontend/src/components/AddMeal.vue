@@ -1,7 +1,7 @@
 <template>
     <div>
         <router-link to="/Search-Food">
-            <button type="button" class="btn btn-light" role="button">Add Food</button>
+            <b-button type="button" size="md" variant="info" role="button">Add Food</b-button>
         </router-link>
     </div>
 </template>

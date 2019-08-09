@@ -1,25 +1,30 @@
 <template>
   <div id="home">
     <b-card-group id="home">
+
       <b-card bg-variant="info" text-variant="white" header="Profile" class="text-center" id="profile">
         <profile id="profile" :name="this.name" :birthdate="this.birthdate"></profile>
-        <logout id="logout"> </logout>
       </b-card>
+
       <b-card id="progress">
         <progress-chart id="progress"></progress-chart>
       </b-card>
+
       <b-card header="Record Intake" text-variant="black" class="text-center" id="meal">
         <add-meal id="meal"></add-meal>
       </b-card>
+
       <b-card text-variant="black" header="Current Values" id="current">
         <current :currWeight ="this.currWeight" :height="this.height" :activity="this.activityLevel" id="current"></current>
       </b-card>
+
       <b-card text-variant="black" header="Goal Values" id="goal">
         <goal :goalWeight ="this.goalWeight" id="goal"></goal>
       </b-card>
-        <b-card text-variant="black" header="D/W/M/LT" id="today">
-      <today id="today"></today>
-        </b-card>>
+
+      <b-card text-variant="black" header="D/W/M/LT" id="today">
+        <today id="today"></today>
+      </b-card>>
     </b-card-group>
   </div>
 </template>
@@ -105,15 +110,17 @@ export default {
 <style>
 #home {
   display: grid;
-  padding: 25px;
+  padding: 20px;
   grid-template-areas: "profile chart chart chart"
                        "addmeal chart chart chart"
                        "addmeal current goal today";
   max-height: 75vh;
+  width: auto;
+  padding-left: 3%
 }
 #home > #profile {
   grid-area: profile;
-  background-color: #41a56a;
+  background-color: #5dc086;
   margin: .045em;
   border-radius: 5%;
   width: 25vw;
@@ -121,7 +128,7 @@ export default {
 }
 #home > #meal {
   grid-area: addmeal;
-  background-color: rgb(77, 135, 155);
+  background-color: whitesmoke;
   margin: .045em;
   border-radius: 5%;
   width: 25vw;
@@ -136,7 +143,7 @@ export default {
 }
 #home > #current {
   grid-area: current;
-  background-color: #bad1df;
+  background-color: #cedee7;
   margin: .045em;
   border-radius: 5%;
   width: 20vw;
@@ -144,15 +151,15 @@ export default {
 }
 #home > #goal {
   grid-area: goal;
-  background-color: #bad1df;
-  margin: .045em;
+  background-color: #cedee7;
+  margin: .035em;
   border-radius: 5%;
   width: 20vw;
   height: auto;
 }
 #home > #today {
   grid-area: today;
-  background-color: #bad1df;
+  background-color: #cedee7;
   margin: .045em;
   border-radius: 5%;
   width: 20vw;
