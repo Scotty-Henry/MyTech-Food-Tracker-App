@@ -2,12 +2,12 @@
   <div id="login" class="text-center">
     <form class="form-signin form-group mt-5"  @submit.prevent="login">
       <h1 class="h3 mb-3 font-weight-normal" id="sign-in">Please Sign In</h1>
-      <div class="alert alert-danger" role="alert" v-if="invalidCredentials">
-        Invalid username and password!
-      </div>
-      <div class="alert alert-success" id="alert" role="alert" v-if="this.$route.query.registration">
-        Thank you for registering, please sign in.
-      </div>
+        <div class="alert alert-danger" role="alert" v-if="invalidCredentials">
+          Invalid username and password!
+        </div>
+        <div class="alert alert-success" id="alert" role="alert" v-if="this.$route.query.registration">
+          Thank you for registering, please sign in.
+        </div>
       <label for="username" class="sr-only">Username</label>
       <input
         type="text"
@@ -80,7 +80,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 #sign-in {
   color: whitesmoke !important;
 }
@@ -93,4 +93,5 @@ export default {
 #password {
   margin: .5em;
 }
+
 </style>

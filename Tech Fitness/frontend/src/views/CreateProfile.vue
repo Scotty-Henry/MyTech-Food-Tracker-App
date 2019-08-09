@@ -1,42 +1,42 @@
 <template>
-<div id="container" class="container">
-  <div id="CreateProfile" class="text-center">
-    <div id="sidebar" class="h3 mb-3 font-weight-normal">
-      <h1 class="h3 mb-3 font-weight-normal" id="createprofile">Profile</h1>
-      <b-img center img-top src="https://picsum.photos/125/125/?image=58" alt="Center image" id="image"></b-img>
+  <div id="container" class="container">
+    <div id="CreateProfile" class="text-center">
+      <div id="sidebar" class="h3 mb-3 font-weight-normal">
+        <h1 class="h3 mb-3 font-weight-normal" id="createprofile">Create Profile</h1>
+        <b-img center img-top src="https://picsum.photos/125/125/?image=58" alt="Center image" id="image"></b-img>
+      </div>
+      <form id="form" class="review-form" @submit.prevent="createprofile">
+          
+          <label id="name" for="namename"> Username: {{user.name}} </label>
+          <input type="text" id="name" class="form-control" name="name" placeholder="name" v-model="user.name"/> 
+
+          <label id="bday" for="bday"> Birthday: {{user.birthdate}} </label>
+          <input type="date" id="bday" name="bday" class="form-control" placeholder="Birthday" v-model="user.birthdate"/>
+          
+          <label id="height" for="height"> Height in Inches: {{user.height}} </label>
+          <input type="number" id="height" name="height" class="form-control" placeholder="Height (in)" v-model="user.height"/>
+
+          <label id="currWeight" for="currWeight"> Current Weight: {{user.currWeight}} </label>
+          <input type="number" id="currWeight" name="currWeight" class="form-control" placeholder="Current Weight" v-model="user.currWeight"/>
+          
+          <label id="goalWeight" for="goalWeight"> Goal Weight: {{user.goalWeight}} </label>
+          <input type="number" id="goalWeight" name="goalWeight" class="form-control" placeholder="Goal Weight" v-model="user.goalWeight"/>
+          
+          <label id="activity" for="activity"> Activity Level: </label>
+          <select id="activity" name="activity" class="selectpicker form-control" v-model="user.activityLevel">
+              <option disabled value="">Please select Activity Level :</option>
+              <option>Very Low</option>
+              <option>Low</option>
+              <option>Moderate</option>
+              <option>High</option>
+              <option>Very High</option>
+          </select>
+            <br>
+          <button type="submit" class="btn btn-primary" id="submit">Create Profile</button>   
+      
+      </form>
     </div>
-    <form id="form" class="review-form" @submit.prevent="createprofile">
-        
-        <label id="name" for="namename"> Username: </label>
-        <input type="text" id="name" class="form-control" name="name" placeholder="name" v-model="user.name"/> 
-
-        <label id="bday" for="bday"> Birthday: </label>
-        <input type="date" id="bday" name="bday" class="form-control" placeholder="Birthday" v-model="user.birthdate"/>
-        
-        <label id="height" for="height"> Height in Inches: </label>
-        <input type="number" id="height" name="height" class="form-control" placeholder="Height (in)" v-model="user.height"/>
-
-        <label id="currWeight" for="currWeight"> Current Weight: </label>
-        <input type="number" id="currWeight" name="currWeight" class="form-control" placeholder="Current Weight" v-model="user.currWeight"/>
-        
-        <label id="goalWeight" for="goalWeight"> Goal Weight: </label>
-        <input type="number" id="goalWeight" name="goalWeight" class="form-control" placeholder="Goal Weight" v-model="user.goalWeight"/>
-        
-        <label id="activity" for="activity"> Activity Level: </label>
-        <select id="activity" name="activity" class="selectpicker form-control" v-model="user.activityLevel">
-            <option disabled value="">Please select Activity Level :</option>
-            <option>Very Low</option>
-            <option>Low</option>
-            <option>Moderate</option>
-            <option>High</option>
-            <option>Very High</option>
-        </select>
-          <br>
-        <button type="submit" class="btn btn-primary" id="submit">Update Profile</button>   
-    
-    </form>
   </div>
-</div>
 </template>
 
 <script>
