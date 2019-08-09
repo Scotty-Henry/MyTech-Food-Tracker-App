@@ -10,6 +10,9 @@
       <router-link to="/Login">
         <logout id="logout"></logout>
       </router-link>
+      <router-link to="/Search-Food">
+            <button type="button" class="btn btn-primary" role="button">Add Food</button>
+      </router-link> -->
     </div>
     <router-view/>
   </div>
