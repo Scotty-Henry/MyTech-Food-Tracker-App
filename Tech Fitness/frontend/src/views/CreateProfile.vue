@@ -69,7 +69,6 @@ export default {
         },
         body: JSON.stringify(this.user),
       })
-            //here can i just push them to their dashboard? I'm only expecting a 200
         .then((response) => {
           if (response.ok) {
             return response.text();

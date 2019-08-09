@@ -19,6 +19,7 @@ export default {
   methods: {
     logout() {
         auth.logout();
+        this.invalidCredentials = true;
         this.$router.push('/login');     
     },
   },

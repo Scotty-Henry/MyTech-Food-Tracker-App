@@ -33,7 +33,7 @@
       <div>My food's fat: {{this.foodItem.fat}} </div>
       <div>My food's carbs: {{this.foodItem.carb}} </div>
 
-      <meal id="meal" :foodItem="this.foodItem"></meal>
+      <meal id="meal" :foodArray="this.foodArray"></meal>
       <!-- Need to make each item clickable? -->
       <div id="table" class="text-left">
           <b-table dark :items="food.results" :fields="fields" responsive="sm"></b-table>
@@ -54,6 +54,7 @@ export default {
   },
   data() {
     return {
+      
       foodItem:{
           ndbno: '',
           name: '',
@@ -80,36 +81,25 @@ export default {
     
     handleNDBNO() {
       TFService.getFood(this.foodItem.ndbno).then(response => {
-          let currentFood = new foodItem();
-          this.foodItem.cal = TFService.findNutrient('Energy', response.report.food.nutrients);
-          this.foodItem.pro = TFService.findNutrient('Protein', response.report.food.nutrients);
-          this.foodItem.fat = TFService.findNutrient('Total lipid (fat)', response.report.food.nutrients);
-          this.foodItem.carb = TFService.findNutrient('Carbohydrate, by difference', response.report.food.nutrients);
-          this.foodItem.name = response.report.food.name;
-          this.foodArray.push(this.foodItem);
+          let currentFood = 
+          {
+          ndbno: this.foodItem.ndbno,
+          cal: TFService.findNutrient('Energy', response.report.food.nutrients),
+          pro: TFService.findNutrient('Protein', response.report.food.nutrients),
+          fat: TFService.findNutrient('Total lipid (fat)', response.report.food.nutrients),
+          carb: TFService.findNutrient('Carbohydrate, by difference', response.report.food.nutrients),
+          name: response.report.food.name
+          }
+          this.foodItem.name = currentFood.name;
+          this.foodItem.fat = currentFood.fat;
+          this.foodItem.pro = currentFood.pro;
+          this.foodItem.carb = currentFood.carb;
+          this.foodItem.cal = currentFood.cal;
+          this.foodArray.push(currentFood);
       });
     },
-    
-    addFood() {
-      let newFood = {
-          ndbno: '',
-          name: '',
-          fat: '',
-          pro: '',
-          carb: '',
-          cal: '',
-      }
-      this.foodArray.push(newFood); 
-    }
-    
+
   }, 
-  // computed: {
-  //   // a computed getter
-  //   meal: function () {
-  //     // `this` points to the vm instance
-  //     return this.message.split('').reverse().join('')
-  //   }
-  // }
 };
 </script>
 
