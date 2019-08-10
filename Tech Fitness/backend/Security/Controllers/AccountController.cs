@@ -174,6 +174,28 @@ namespace Security.Controllers
             return result;
         }
 
+        [HttpGet("getMealbyUser")]
+        //[Authorize(Roles = "User")]
+        public ActionResult<Meal> getMealsbyUser()
+        {
+            IActionResult result = Ok();
+
+            Meal meal = new Meal();
+            //This is off my token
+            string user = User.Identity.Name;
+
+
+            //find my user in the users table by the name on their token (given during log in)
+            User currentUser = userDao.GetUser(User.Identity.Name);
+
+            //get the current users id
+            int currentUserId = currentUser.Id;
+
+            meal = userDao.getMealsbyUserID(currentUserId);
+
+            return result;
+        }
+
         /// <summary>
         /// Currently, I am only routed here from 'create profile'. 
         /// SHould be only able to 'create' profile once, then should update profile.

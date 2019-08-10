@@ -195,6 +195,9 @@ namespace Security.DAL
                 throw ex;
             }
         }
+
+        //Inserted in order to maintain referential integrity
+
         public void addMeal(Meal meal)
         {
             try
@@ -207,7 +210,7 @@ namespace Security.DAL
                     conn.Open();
 
                     SqlCommand cmd = new SqlCommand(sql + _getLastIdSQL, conn);
-                    cmd.Parameters.AddWithValue("@type", meal.meal);
+                    cmd.Parameters.AddWithValue("@type", meal.mealID);
                     cmd.Parameters.AddWithValue("@user", meal.userID);
                     cmd.Parameters.AddWithValue("@date", meal.date);
                     newMealID = (int)cmd.ExecuteScalar();
@@ -243,6 +246,66 @@ namespace Security.DAL
 
         }
 
+        //Inserted in order to maintain referential integrity
+
+        public Meal getMealsbyUserID(int userID)
+        {
+            Meal meal = new Meal();
+            List<FoodItem> foodsList = new List<FoodItem>(); 
+            try
+            {
+                const string sql = @"select 
+                                        user_profile.id, 
+                                        meal.meal_date,
+                                        meal_type.meal_category,
+                                        meal_food.meal_id, 
+                                        food.ndbno, 
+                                        food.food_name, 
+                                        food.cal, food.carb, 
+                                        food.fat,  food.protein, 
+                                        food.serving_size, 
+                                        meal_food.qty
+                                    from food
+                                        join meal_food on food.ndbno = meal_food.ndbno
+                                        join meal on meal.meal_id = meal_food.meal_id
+                                        join meal_type on meal.meal_type = meal_type.meal_id
+                                        join user_profile on user_profile.id = meal.user_id
+                                    where user_profile.id = @userID; ";
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand(sql, conn);
+                    cmd.Parameters.AddWithValue("@userID", userID);
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    int justOnce = 1;
+                    while (reader.Read())
+                    {
+                        if (justOnce == 1)
+                        {
+                            meal = MapRowtoMeal(reader);
+                            justOnce++;
+                        }
+                        FoodItem foodItem = new FoodItem();
+                        foodItem = MapRowtoFood(reader);
+                        foodsList.Add(foodItem);
+                    }
+                }
+                meal.foods = foodsList;
+
+                return meal;
+      
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+
+        }
+
 
         public UserProfileModel GetUserProfile(int id)
         {
@@ -270,6 +333,33 @@ namespace Security.DAL
                 throw ex;
             }
         }
+        private FoodItem MapRowtoFood(SqlDataReader reader)
+        {
+            return new FoodItem()
+            {
+                ndbno = Convert.ToString(reader["ndbno"]),
+                name = Convert.ToString(reader["food_name"]),
+                fat = Convert.ToDouble(reader["fat"]),
+                pro = Convert.ToDouble(reader["protein"]),
+                carb = Convert.ToDouble(reader["carb"]),
+                cal = Convert.ToInt16(reader["cal"]),
+                unit = Convert.ToString(reader["serving_size"]),
+                qty = Convert.ToInt16(reader["qty"])
+          
+            };
+        }
+        private Meal MapRowtoMeal(SqlDataReader reader)
+        {
+            return new Meal()
+            {
+                mealID = Convert.ToInt16(reader["meal_id"]),
+                date = Convert.ToDateTime(reader["meal_date"]),
+                userID = Convert.ToInt16(reader["id"]),
+
+            };
+        }
+
+
 
         private User MapRowToUser(SqlDataReader reader)
         {
