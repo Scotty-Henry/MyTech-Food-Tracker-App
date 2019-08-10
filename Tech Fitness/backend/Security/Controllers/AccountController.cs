@@ -151,24 +151,26 @@ namespace Security.Controllers
 
         [HttpPost("addMeal")]
         //[Authorize(Roles = "User")]
-        public IActionResult addMeal (foodItem[] meal)
+        public IActionResult addMeal (Meal meal)
         {
             IActionResult result = Ok();
 
-            ////This is off my token
-            //string user = User.Identity.Name;
+            //This is off my token
+            string user = User.Identity.Name;
 
 
-            ////find my user in the users table by the name on their token (given during log in)
-            //User currentUser = userDao.GetUser(User.Identity.Name);
+            //find my user in the users table by the name on their token (given during log in)
+            User currentUser = userDao.GetUser(User.Identity.Name);
 
-            ////get the current users id
-            //int currentUserId = currentUser.Id;
+            //get the current users id
+            int currentUserId = currentUser.Id;
 
-            ////use this id to add it to my profile model so the key's match.
-            //model.id = currentUserId;
+            //use this id to add it to my profile model so the key's match.
+            meal.userID = currentUserId;
 
-            //userDao.CreateProfile(model);
+            userDao.addMeal(meal);
+
+
             return result;
         }
 

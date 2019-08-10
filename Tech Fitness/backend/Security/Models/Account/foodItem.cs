@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Security.Models.Account
 {
-    public class foodItem
+    public class FoodItem
     {
      
         [Required]

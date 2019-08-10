@@ -101,7 +101,7 @@ export default {
           carb: TFService.findNutrient('Carbohydrate, by difference', response.report.food.nutrients),
           name: response.report.food.name,
           unit: response.report.food.ru,
-          quantity: this.foodItem.quantity
+          qty: this.foodItem.qty
           }
           this.foodItem.name = currentFood.name;
           this.foodItem.fat = currentFood.fat;

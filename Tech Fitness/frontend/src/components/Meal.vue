@@ -7,7 +7,26 @@
                 {{food.name}} 
             </li>
             </ul> 
-            <button id="addMeal" class="btn btn-success btn-md" @click="submitMeal">Submit Meal</button>  
+
+    <form class="form-signin form-group mt-5" @submit.prevent="submitMeal">
+    
+         <label id="activity" for="activity"> Meal </label>
+          <select id="activity" name="activity" class="selectpicker form-control" v-model="mealObj.meal">
+              <option disabled value="">Select Meal</option>
+              <option value="1">Breakfast</option>
+              <option value="2">Lunch</option>
+              <option value="3">Dinner</option>
+              <option value="4">Snack - 1</option>
+              <option value="5">Snack - 2</option>
+            </select>
+            <label id="date" for="date"> Date of Meal </label>
+          <input type="date" id="date" name="date" class="form-control" placeholder="Date" v-model="mealObj.date"/>
+
+        <button type="submit" id="searchbutton" class="btn btn-success btn-md">Submit Meal</button>
+    </form>
+
+
+            <!-- <button id="addMeal" class="btn btn-success btn-md" @click="submitMeal">Submit Meal</button>   -->
         </div>
     </div>
 </template>
@@ -20,6 +39,16 @@ export default {
      props: {
          foodArray: Array
             },
+    data() {
+    return {
+        mealObj: {
+            foods: this.foodArray,
+            meal: '',
+            date: Date,
+        }
+
+    }
+    },
   methods: {
 //        submitMeal() {
 //            console.log(this.foodArray);
@@ -36,7 +65,7 @@ export default {
           Accept: 'application/json',
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(this.foodArray),
+        body: JSON.stringify(this.mealObj),
       })
         .then((response) => {
           if (response.ok) {

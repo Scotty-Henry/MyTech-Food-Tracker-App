@@ -8,12 +8,15 @@ using Security.Models.Account;
 
 namespace Security.DAL
 {
+
     /// <summary>
     /// A SQL Dao for user objects.
     /// </summary>
     public class UserSqlDAO : IUserDAO
     {
         private readonly string connectionString;
+        private const string _getLastIdSQL = "select cast(SCOPE_IDENTITY() as int);";
+
 
         /// <summary>
         /// Creates a new sql dao for user objects.
@@ -191,6 +194,53 @@ namespace Security.DAL
             {
                 throw ex;
             }
+        }
+        public void addMeal(Meal meal)
+        {
+            try
+            {
+                const string sql = "INSERT INTO meal (meal_type, user_id, meal_date) " +
+                                                     "VALUES (@type, @user, @date);";
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    int newMealID = 0;
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand(sql + _getLastIdSQL, conn);
+                    cmd.Parameters.AddWithValue("@type", meal.meal);
+                    cmd.Parameters.AddWithValue("@user", meal.userID);
+                    cmd.Parameters.AddWithValue("@date", meal.date);
+                    newMealID = (int)cmd.ExecuteScalar();
+
+                    foreach (FoodItem food in meal.foods)
+                    {
+                        cmd = new SqlCommand("INSERT INTO food (ndbno, serving_size, food_name, protein, carb, fat, cal) " +
+                                                         "VALUES (@ndbno, @serving_size, @food_name, @protein, @carb, @fat, @cal );", conn);
+                        cmd.Parameters.AddWithValue("@ndbno", food.ndbno);
+                        cmd.Parameters.AddWithValue("@serving_size", food.unit);
+                        cmd.Parameters.AddWithValue("@food_name", food.name);
+                        cmd.Parameters.AddWithValue("@protein", food.pro);
+                        cmd.Parameters.AddWithValue("@carb", food.carb);
+                        cmd.Parameters.AddWithValue("@fat", food.fat);
+                        cmd.Parameters.AddWithValue("@cal", food.cal);
+                        cmd.ExecuteNonQuery();
+
+                        cmd = new SqlCommand("INSERT INTO meal_food (meal_id, ndbno, qty) " +
+                                                     "VALUES (@meal_id, @ndbno, @qty);", conn);
+                        cmd.Parameters.AddWithValue("@meal_id", newMealID);
+                        cmd.Parameters.AddWithValue("@ndbno", food.ndbno );
+                        cmd.Parameters.AddWithValue("@qty", food.qty);
+                        cmd.ExecuteNonQuery();
+                    }
+  
+
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+
         }
 
 
