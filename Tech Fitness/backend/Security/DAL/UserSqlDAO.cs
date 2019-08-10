@@ -355,6 +355,7 @@ namespace Security.DAL
                 mealID = Convert.ToInt16(reader["meal_id"]),
                 date = Convert.ToDateTime(reader["meal_date"]),
                 userID = Convert.ToInt16(reader["id"]),
+                meal_category = Convert.ToString(reader["meal_category"]),
 
             };
         }

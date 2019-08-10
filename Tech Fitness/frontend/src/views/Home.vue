@@ -75,6 +75,13 @@ export default {
       this.height = data.height;
 
     });
+      TFService.getMealbyUser().then((data) => {
+      window.console.log(data);
+
+    });
+
+
+
     },
     //How you do it with fetch
     // {

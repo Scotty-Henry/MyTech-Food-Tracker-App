@@ -193,7 +193,7 @@ namespace Security.Controllers
 
             meal = userDao.getMealsbyUserID(currentUserId);
 
-            return result;
+            return meal;
         }
 
         /// <summary>

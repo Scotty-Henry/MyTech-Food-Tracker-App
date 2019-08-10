@@ -11,6 +11,8 @@ namespace Security.Models.Account
 
         public int mealID { get; set; }
 
+        public string meal_category { get; set; }
+
         public DateTime date { get; set; }
 
         public int userID { get; set; }
