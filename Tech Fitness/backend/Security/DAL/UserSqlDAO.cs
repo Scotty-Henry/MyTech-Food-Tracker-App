@@ -305,8 +305,7 @@ namespace Security.DAL
                             //add meal to meal list
                             lstMeal.Add(meal);
                         }
-                        //This is incorrect, need to map each meal_category independently
-
+                     
                     }
                 }
 

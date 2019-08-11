@@ -25,43 +25,42 @@ export default {
     return {
             userMeals: [],
             }
-
   },
   methods: {
    
   },
   created()
     {
-        TFService.getMealbyUser().then((data) => {
-            window.console.log(data);
-            let meal = 
-                {
-                date: data.date,
-                mealID: data.mealID,
-                meal_category: data.meal_category,
-                userID: data.userID,
-                foods: [], 
-                }
-          data.foods.forEach(food => {
-            let foodItem = {
-              ndbno: food.ndbno,
-              name: food.name,
-              cal: food.cal,
-              carb: food.carb,
-              fat: food.fat,
-              pro: food.pro,
-              qty: food.qty,
-              unit: food.unit,
-              }
-              meal.foods.push(foodItem);
-          });      
-                this.userMeals.push(meal);
-    });
-
-
+      //not currently working. Need to read my array of meals from API into JS object.
+      TFService.getMealbyUser().then((data) => {
+          window.console.log(data);
+            data.forEach((mealObj) => {
+              console.log(mealObj) 
+              console.log(mealObj.date) 
+              let meal = 
+                  { 
+                  date: mealObj.date,
+                  meal_category: mealObj.meal_category,
+                  userID: mealObj.userID,
+                  foods: [ mealObj.foods.forEach((food) => {
+                                let foodItem = {
+                                  ndbno: food.ndbno,
+                                  name: food.name, 
+                                  cal: food.cal,
+                                  carb: food.carb,
+                                  fat: food.fat,
+                                  pro: food.pro,
+                                  qty: food.qty,
+                                  unit: food.unit,
+                                  }
+                                })
+                        ], 
+                  }    
+            this.userMeals.push(meal);         
+      })
+    })
     }
-    
-    
+ 
 };
 </script>
 
