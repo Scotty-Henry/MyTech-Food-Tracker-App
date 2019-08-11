@@ -11,7 +11,7 @@
     <form class="form-signin form-group mt-5" @submit.prevent="submitMeal">
     
          <label id="activity" for="activity"> Meal </label>
-          <select id="activity" name="activity" class="selectpicker form-control" v-model="mealObj.meal">
+          <select id="activity" name="activity" class="selectpicker form-control" v-model="mealObj.meal_category">
               <option disabled value="">Select Meal</option>
               <option value="1">Breakfast</option>
               <option value="2">Lunch</option>
@@ -37,14 +37,14 @@ import TFService from "@/TFService.js";
 export default {
     name: "meal",
      props: {
-         foodArray: Array
+         foodArray: Array 
             },
     data() {
     return {
         mealObj: {
             foods: this.foodArray,
-            meal: '',
-            date: Date,
+            meal_category: '',
+            date: '',
         }
 
     }
@@ -58,6 +58,7 @@ export default {
 
 //   },
   submitMeal() {
+    console.log(`${process.env.VUE_APP_REMOTE_API}/Account/addMeal`);
       fetch(`${process.env.VUE_APP_REMOTE_API}/Account/addMeal`, {
         method: 'POST',
         headers: {

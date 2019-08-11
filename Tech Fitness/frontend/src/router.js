@@ -7,7 +7,7 @@ import Register from './views/Register.vue'
 import CreateProfile from './views/CreateProfile.vue'
 import EditProfile from './views/EditProfile.vue'
 import SearchFood from './views/SearchFood.vue'
-
+import HistoryView from './views/HistoryView.vue'
 Vue.use(Router)
 
 /**
@@ -67,6 +67,14 @@ const router = new Router({
       path: "/search-food",
       name: "search-food",
       component: SearchFood,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: "/history-view",
+      name: "HistoryView",
+      component: HistoryView,
       meta: {
         requiresAuth: true
       }

@@ -176,11 +176,11 @@ namespace Security.Controllers
 
         [HttpGet("getMealbyUser")]
         //[Authorize(Roles = "User")]
-        public ActionResult<Meal> getMealsbyUser()
+        public ActionResult<List<Meal>> getMealsbyUser()
         {
             IActionResult result = Ok();
 
-            Meal meal = new Meal();
+            List<Meal> allMeals = new List<Meal>();
             //This is off my token
             string user = User.Identity.Name;
 
@@ -191,9 +191,9 @@ namespace Security.Controllers
             //get the current users id
             int currentUserId = currentUser.Id;
 
-            meal = userDao.getMealsbyUserID(currentUserId);
+            allMeals = userDao.getMealsbyUserID(currentUserId);
 
-            return meal;
+            return allMeals;
         }
 
         /// <summary>

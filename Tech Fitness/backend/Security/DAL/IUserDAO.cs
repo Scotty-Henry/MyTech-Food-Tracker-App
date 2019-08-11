@@ -46,7 +46,7 @@ namespace Security.DAL
 
         void addMeal(Meal meal);
 
-        Meal getMealsbyUserID(int userID);
+        List<Meal> getMealsbyUserID(int userID);
 
     }
 }

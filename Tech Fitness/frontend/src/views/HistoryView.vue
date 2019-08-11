@@ -1,6 +1,6 @@
 <template>
-  <div id="search-container" class="container">   
-    <div id="search-food" class="text-center">
+  <div id="history-container" class="container">   
+    <div id="history-food" class="text-center">
 
       <history id="history" :userMeals="this.userMeals"></history>
       <!-- Need to make each item clickable?
@@ -40,19 +40,21 @@ export default {
                 mealID: data.mealID,
                 meal_category: data.meal_category,
                 userID: data.userID,
-                foods: [
-                    {
-                    ndbno: data.foods.ndbno,
-                    name: data.foods.name,
-                    cal: data.foods.cal,
-                    carb: data.foods.carb,
-                    fat: data.foods.fat,
-                    pro: data.foods.pro,
-                    qty: data.foods.qty,
-                    unit: data.foods.unit,
-                    }
-                ],
+                foods: [], 
                 }
+          data.foods.forEach(food => {
+            let foodItem = {
+              ndbno: food.ndbno,
+              name: food.name,
+              cal: food.cal,
+              carb: food.carb,
+              fat: food.fat,
+              pro: food.pro,
+              qty: food.qty,
+              unit: food.unit,
+              }
+              meal.foods.push(foodItem);
+          });      
                 this.userMeals.push(meal);
     });
 
@@ -64,19 +66,11 @@ export default {
 </script>
 
 <style>
-#search-food {
+#history-food {
   color: whitesmoke !important;
 }
 #table {
   padding-top: 5%;
 }
-#foodbutton {
-  margin: .5em;
-}
-#searchbutton {
-  margin: .5em;
-}
-/* .table {
-    color:whitesmoke !important;
-} */
+
 </style>

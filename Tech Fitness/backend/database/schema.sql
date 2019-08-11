@@ -87,7 +87,7 @@ CREATE TABLE meal
 	
 
 	constraint fk_meal_userProfile Foreign Key (user_id) references user_profile (id),
-	constraint fk_meal_mealType Foreign Key (meal_id) references meal_type (meal_id),
+	constraint fk_meal_mealType Foreign Key (meal_type) references meal_type (meal_id),
 	constraint pk_meal primary key (meal_id)
 
 );

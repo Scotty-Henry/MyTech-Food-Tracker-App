@@ -210,7 +210,7 @@ namespace Security.DAL
                     conn.Open();
 
                     SqlCommand cmd = new SqlCommand(sql + _getLastIdSQL, conn);
-                    cmd.Parameters.AddWithValue("@type", meal.mealID);
+                    cmd.Parameters.AddWithValue("@type", meal.meal_category);
                     cmd.Parameters.AddWithValue("@user", meal.userID);
                     cmd.Parameters.AddWithValue("@date", meal.date);
                     newMealID = (int)cmd.ExecuteScalar();
@@ -247,13 +247,12 @@ namespace Security.DAL
         }
 
         //Inserted in order to maintain referential integrity
-
-        public Meal getMealsbyUserID(int userID)
+       
+        public List<Meal> getMealsbyUserID(int userID)
         {
-            Meal meal = new Meal();
-            List<FoodItem> foodsList = new List<FoodItem>(); 
             try
             {
+                //get data
                 const string sql = @"select 
                                         user_profile.id, 
                                         meal.meal_date,
@@ -271,32 +270,47 @@ namespace Security.DAL
                                         join meal_type on meal.meal_type = meal_type.meal_id
                                         join user_profile on user_profile.id = meal.user_id
                                     where user_profile.id = @userID; ";
+
+                //initialize result. Here it can be a list of meals or just 1 meal
+                List<Meal> lstMeal = new List<Meal>();
+                Meal meal = new Meal();
+                //List<FoodItem> foodsList = new List<FoodItem>();
+
+                //iterate thru data to retrieve food list per meal
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
-                    
                     conn.Open();
 
                     SqlCommand cmd = new SqlCommand(sql, conn);
                     cmd.Parameters.AddWithValue("@userID", userID);
-
                     SqlDataReader reader = cmd.ExecuteReader();
 
-                    int justOnce = 1;
+                        //= Convert.ToString(reader["meal_category"]);
                     while (reader.Read())
                     {
-                        if (justOnce == 1)
-                        {
-                            meal = MapRowtoMeal(reader);
-                            justOnce++;
-                        }
+                        meal = MapRowtoMeal(reader);
+                        meal.foods = new List<FoodItem>();
+
                         FoodItem foodItem = new FoodItem();
                         foodItem = MapRowtoFood(reader);
-                        foodsList.Add(foodItem);
+
+                        if (lstMeal.Where(x => x.meal_category.Equals(meal.meal_category)).Any())
+                        {
+                            Meal foundMeal = lstMeal.Where(x => x.meal_category.Equals(meal.meal_category)).FirstOrDefault();
+                            foundMeal.foods.Add(foodItem);
+                        }
+                        else
+                        {
+                            meal.foods.Add(foodItem); 
+                            //add meal to meal list
+                            lstMeal.Add(meal);
+                        }
+                        //This is incorrect, need to map each meal_category independently
+
                     }
                 }
-                meal.foods = foodsList;
 
-                return meal;
+                return lstMeal;
       
             }
             catch (SqlException ex)
@@ -352,7 +366,7 @@ namespace Security.DAL
         {
             return new Meal()
             {
-                mealID = Convert.ToInt16(reader["meal_id"]),
+      
                 date = Convert.ToDateTime(reader["meal_date"]),
                 userID = Convert.ToInt16(reader["id"]),
                 meal_category = Convert.ToString(reader["meal_category"]),
