@@ -292,10 +292,11 @@ namespace Security.DAL
                                         join user_profile on user_profile.id = meal.user_id
                                     where user_profile.id = @userID
                                     order by meal_date;";
-
+                List<Meal> MealList = new List<Meal>();
                 //initialize result. Here it can be a list of meals or just 1 meal
-                List<Meal> lstMeal = new List<Meal>();
-                Meal meal = new Meal();
+                //List<Meal> lstMeal = new List<Meal>();
+
+                //Meal meal = new Meal();
                 //List<FoodItem> foodsList = new List<FoodItem>();
 
                 //iterate thru data to retrieve food list per meal
@@ -306,36 +307,70 @@ namespace Security.DAL
                     SqlCommand cmd = new SqlCommand(sql, conn);
                     cmd.Parameters.AddWithValue("@userID", userID);
                     SqlDataReader reader = cmd.ExecuteReader();
-
+                    HashSet<int> Rows = new HashSet<int>();
+                   
+                    Meal meal = new Meal();
+                    if (reader.Read())
+                    {
+                        Rows.Add(PullNonUniqueIdentity(reader).GetHashCode());
+                        meal = MapRowtoMeal(reader);
+                        meal.foods = new List<FoodItem>();
+                        FoodItem foodItem = MapRowtoFood(reader);
+                        meal.foods.Add(foodItem);
+                    }
 
                     while (reader.Read())
                     {
-                        //Map row to a meal (map the date, category, userID)
-                        meal = MapRowtoMeal(reader);
-
-                        //Create a list of foods in the meal (is this getting overwritten every row?)
-                        meal.foods = new List<FoodItem>();
-
-                        FoodItem foodItem = new FoodItem();
-                        foodItem = MapRowtoFood(reader);
-                        //Here is where the problem is.. A new 'meal' is taking the date of the first meal of that meal-category
-
-                        if (lstMeal.Where(x => x.meal_category.Equals(meal.meal_category)).Any())
+                        //If I'm on my first meal or a different meal
+                        //Then the hash isnt contained in my set
+                        if (!Rows.Contains(PullNonUniqueIdentity(reader).GetHashCode()))
                         {
-                            Meal foundMeal = lstMeal.Where(x => x.meal_category.Equals(meal.meal_category)).FirstOrDefault();
-                            foundMeal.foods.Add(foodItem);
+                            Rows.Add(PullNonUniqueIdentity(reader).GetHashCode());
+                            MealList.Add(meal);
+                            meal = MapRowtoMeal(reader);
+                            meal.foods = new List<FoodItem>();
+                            FoodItem foodItem = MapRowtoFood(reader);
+                            meal.foods.Add(foodItem);
                         }
+                        // Else the hash IS in my set, aka the Meal exists already
                         else
                         {
+                            FoodItem foodItem = MapRowtoFood(reader);
                             meal.foods.Add(foodItem);
-                            //add meal to meal list
-                            lstMeal.Add(meal);
                         }
 
                     }
+                    MealList.Add(meal);
+
+                    //while (reader.Read())
+                    //{
+                    //    //Map row to a meal (map the date, category, userID)
+                    //    meal = MapRowtoMeal(reader);
+
+
+                    //    //Create a list of foods in the meal (is this getting overwritten every row?)
+                    //    meal.foods = new List<FoodItem>();
+
+                    //    FoodItem foodItem = new FoodItem();
+                    //    foodItem = MapRowtoFood(reader);
+                    //    //Here is where the problem is.. A new 'meal' is taking the date of the first meal of that meal-category
+
+                    //    if (lstMeal.Where(x => x.meal_category.Equals(meal.meal_category)).Any())
+                    //    {
+                    //        Meal foundMeal = lstMeal.Where(x => x.meal_category.Equals(meal.meal_category)).FirstOrDefault();
+                    //        foundMeal.foods.Add(foodItem);
+                    //    }
+                    //    else
+                    //    {
+                    //        meal.foods.Add(foodItem);
+                    //        //add meal to meal list
+                    //        lstMeal.Add(meal);
+                    //    }
+
+                    //}
                 }
 
-                return lstMeal;
+                return MealList;
       
             }
             catch (SqlException ex)
@@ -343,6 +378,15 @@ namespace Security.DAL
                 throw ex;
             }
 
+        }
+        private string PullNonUniqueIdentity(SqlDataReader reader)
+        {
+            string nonUniquIdentity = "";
+            string id = Convert.ToString(reader["id"]);
+            string meal_date = Convert.ToString(reader["meal_date"]);
+            string meal_id = Convert.ToString(reader["meal_id"]);
+            nonUniquIdentity = id + meal_date + meal_id;
+            return nonUniquIdentity;
         }
 
 
