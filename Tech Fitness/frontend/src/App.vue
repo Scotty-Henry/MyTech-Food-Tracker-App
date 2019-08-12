@@ -13,6 +13,10 @@
       <router-link to="/Search-Food">
             <button type="button" class="btn btn-primary" role="button">Add Food</button>
       </router-link> 
+      <!-- Probably should move this link -->
+      <router-link to="/History-View">
+          <button type="button" class="btn btn-primary" role="button">History</button>
+      </router-link> 
     </div>
     <router-view/>
   </div>

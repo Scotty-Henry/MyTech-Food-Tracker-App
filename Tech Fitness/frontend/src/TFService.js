@@ -45,6 +45,10 @@ export default {
         const url = `${process.env.VUE_APP_REMOTE_API}/Account/dashboard`;
         return apiLocal.get(url).then(response => response.data);
     },
+    getMealbyUser(){
+        const url = `${process.env.VUE_APP_REMOTE_API}/Account/getMealbyUser`;
+        return apiLocal.get(url).then(response => response.data);
+    },
     submitMeal(){
         const url = `${process.env.VUE_APP_REMOTE_API}/Account/addMeal`;
         return apiLocal.post(url).then(response => response.data);

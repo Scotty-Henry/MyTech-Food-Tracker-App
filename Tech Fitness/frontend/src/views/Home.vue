@@ -3,7 +3,7 @@
     <b-card-group id="home">
 
       <b-card bg-variant="info" text-variant="white" header="Profile" class="text-center" id="profile">
-        <profile id="profile" :name="this.name" :birthdate="this.birthdate"></profile>
+        <profile id="profile" :name="this.userProfile.name" :birthdate="this.userProfile.birthdate"></profile>
       </b-card>
 
       <b-card id="progress">
@@ -15,11 +15,11 @@
       </b-card>
 
       <b-card text-variant="black" header="Current Values" id="current">
-        <current :currWeight ="this.currWeight" :height="this.height" :activity="this.activityLevel" id="current"></current>
+        <current :currWeight ="this.userProfile.currWeight" :height="this.userProfile.height" :activity="this.userProfile.activityLevel" id="current"></current>
       </b-card>
 
       <b-card text-variant="black" header="Goal Values" id="goal">
-        <goal :goalWeight ="this.goalWeight" id="goal"></goal>
+        <goal :goalWeight ="this.userProfile.goalWeight" id="goal"></goal>
       </b-card>
 
       <b-card text-variant="black" header="D/W/M/LT" id="today">
@@ -53,13 +53,14 @@ export default {
   },
   data() {
     return {
-      name: '',
-      birthdate: '',
-      currWeight: '',
-      goalWeight: '',
-      activityLevel: '',
-      height: '',
-
+      userProfile:{
+        name: '',
+        birthdate: '',
+        currWeight: '',
+        goalWeight: '',
+        activityLevel: '',
+        height: '',
+      },
     }
   },
     created()
@@ -67,14 +68,15 @@ export default {
     //How you do it with Axios
     TFService.getProfileInfo().then((data) => {
       window.console.log(data);
-      this.name = data.name;
-      this.birthdate = data.birthdate;
-      this.currWeight = data.currWeight;
-      this.goalWeight = data.goalWeight;
-      this.activityLevel = data.activityLevel;
-      this.height = data.height;
+      this.userProfile.name = data.name;
+      this.userProfile.birthdate = data.birthdate;
+      this.userProfile.currWeight = data.currWeight;
+      this.userProfile.goalWeight = data.goalWeight;
+      this.userProfile.activityLevel = data.activityLevel;
+      this.userProfile.height = data.height;
 
     });
+      
     },
     //How you do it with fetch
     // {

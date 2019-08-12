@@ -44,5 +44,9 @@ namespace Security.DAL
 
         UserProfileModel GetUserProfile(int id);
 
+        void addMeal(Meal meal);
+
+        List<Meal> getMealsbyUserID(int userID);
+
     }
 }
