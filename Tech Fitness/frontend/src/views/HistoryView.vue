@@ -42,7 +42,9 @@ export default {
                   date: mealObj.date,
                   meal_category: mealObj.meal_category,
                   userID: mealObj.userID,
-                  foods: [ mealObj.foods.forEach((food) => {
+                  foods: [  ], 
+                  }  
+                  mealObj.foods.forEach((food) => {
                                 let foodItem = {
                                   ndbno: food.ndbno,
                                   name: food.name, 
@@ -53,10 +55,11 @@ export default {
                                   qty: food.qty,
                                   unit: food.unit,
                                   }
-                                })
-                        ], 
-                  }    
-            this.userMeals.push(meal);         
+                                  foods.push(foodItem);
+                                });
+                    
+            this.userMeals.push(meal);
+            console.log(this.userMeals)         
       })
     })
     }
