@@ -11,19 +11,19 @@
           <input type="text" id="name" class="form-control" name="name" v-model="user.name"/> 
 
           <label id="bday" for="bday"> Birthday: </label>
-          <input type="date" id="bday" name="bday" class="form-control" v-model="birthdate"/>
+          <input type="date" id="bday" name="bday" class="form-control" v-model="user.birthdate"/>
           
           <label id="height" for="height"> Height in Inches: </label>
-          <input type="number" id="height" name="height" class="form-control"  v-model="height"/>
+          <input type="number" id="height" name="height" class="form-control"  v-model="user.height"/>
 
           <label id="currWeight" for="currWeight"> Current Weight: </label>
-          <input type="number" id="currWeight" name="currWeight" class="form-control" v-model="currWeight"/>
+          <input type="number" id="currWeight" name="currWeight" class="form-control" v-model="user.currWeight"/>
           
           <label id="goalWeight" for="goalWeight"> Goal Weight: </label>
-          <input type="number" id="goalWeight" name="goalWeight" class="form-control" v-model="goalWeight"/>
+          <input type="number" id="goalWeight" name="goalWeight" class="form-control" v-model="user.goalWeight"/>
           
           <label id="activity" for="activity"> Activity Level: </label>
-          <select id="activity" name="activity" class="selectpicker form-control" v-model="activityLevel">
+          <select id="activity" name="activity" class="selectpicker form-control" v-model="user.activityLevel">
               <option disabled value="">Please select Activity Level :</option>
               <option>Very Low</option>
               <option>Low</option>
