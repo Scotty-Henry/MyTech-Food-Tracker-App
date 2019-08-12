@@ -155,18 +155,13 @@ namespace Security.Controllers
         {
             IActionResult result = Ok();
 
-            //This is off my token
-            string user = User.Identity.Name;
-
-
             //find my user in the users table by the name on their token (given during log in)
             User currentUser = userDao.GetUser(User.Identity.Name);
 
-            //get the current users id
-            int currentUserId = currentUser.Id;
-
             //use this id to add it to my profile model so the key's match.
-            meal.userID = currentUserId;
+            meal.userID = currentUser.Id;
+
+
 
             userDao.addMeal(meal);
 

@@ -196,38 +196,59 @@ namespace Security.DAL
             }
         }
 
-        //Inserted in order to maintain referential integrity
+        //Inserted in-order to maintain referential integrity
 
         public void addMeal(Meal meal)
         {
             try
             {
-                const string sql = "INSERT INTO meal (meal_type, user_id, meal_date) " +
+                //Declare List of ints to hold my food NDBNO's
+                List<int> foodNDBNOs = new List<int>();
+
+                const string insertMeal = "INSERT INTO meal (meal_type, user_id, meal_date) " +
                                                      "VALUES (@type, @user, @date);";
+
+                //write query here to get list of all foods ndbno from DB. Returns list of ints called NDBNOArray 
+                const string getFoodsNDBNO = "SELECT ndbno FROM food;";
+
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     int newMealID = 0;
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand(sql + _getLastIdSQL, conn);
+                    SqlCommand cmd = new SqlCommand(getFoodsNDBNO, conn);
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        int NDBNO = Convert.ToInt16(reader["ndbno"]);
+                        foodNDBNOs.Add(NDBNO);
+                    }
+
+                    cmd = new SqlCommand(insertMeal + _getLastIdSQL, conn);
                     cmd.Parameters.AddWithValue("@type", meal.meal_category);
                     cmd.Parameters.AddWithValue("@user", meal.userID);
                     cmd.Parameters.AddWithValue("@date", meal.date);
                     newMealID = (int)cmd.ExecuteScalar();
 
+                    
                     foreach (FoodItem food in meal.foods)
                     {
-                        cmd = new SqlCommand("INSERT INTO food (ndbno, serving_size, food_name, protein, carb, fat, cal) " +
-                                                         "VALUES (@ndbno, @serving_size, @food_name, @protein, @carb, @fat, @cal );", conn);
-                        cmd.Parameters.AddWithValue("@ndbno", food.ndbno);
-                        cmd.Parameters.AddWithValue("@serving_size", food.unit);
-                        cmd.Parameters.AddWithValue("@food_name", food.name);
-                        cmd.Parameters.AddWithValue("@protein", food.pro);
-                        cmd.Parameters.AddWithValue("@carb", food.carb);
-                        cmd.Parameters.AddWithValue("@fat", food.fat);
-                        cmd.Parameters.AddWithValue("@cal", food.cal);
-                        cmd.ExecuteNonQuery();
-
+                        //if food.ndbno not in my NDBNO array, then insert it 
+                        if (!foodNDBNOs.Contains(Convert.ToInt16(food.ndbno)))
+                        {
+                            cmd = new SqlCommand("INSERT INTO food (ndbno, serving_size, food_name, protein, carb, fat, cal) " +
+                                                             "VALUES (@ndbno, @serving_size, @food_name, @protein, @carb, @fat, @cal );", conn);
+                            cmd.Parameters.AddWithValue("@ndbno", food.ndbno);
+                            cmd.Parameters.AddWithValue("@serving_size", food.unit);
+                            cmd.Parameters.AddWithValue("@food_name", food.name);
+                            cmd.Parameters.AddWithValue("@protein", food.pro);
+                            cmd.Parameters.AddWithValue("@carb", food.carb);
+                            cmd.Parameters.AddWithValue("@fat", food.fat);
+                            cmd.Parameters.AddWithValue("@cal", food.cal);
+                            cmd.ExecuteNonQuery();
+                        }
+                        //regardless, insert into my meal transaction table
                         cmd = new SqlCommand("INSERT INTO meal_food (meal_id, ndbno, qty) " +
                                                      "VALUES (@meal_id, @ndbno, @qty);", conn);
                         cmd.Parameters.AddWithValue("@meal_id", newMealID);

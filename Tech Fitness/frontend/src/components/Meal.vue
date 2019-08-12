@@ -58,7 +58,6 @@ export default {
 
 //   },
   submitMeal() {
-    console.log(`${process.env.VUE_APP_REMOTE_API}/Account/addMeal`);
       fetch(`${process.env.VUE_APP_REMOTE_API}/Account/addMeal`, {
         method: 'POST',
         headers: {
