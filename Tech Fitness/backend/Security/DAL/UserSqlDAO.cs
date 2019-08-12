@@ -290,7 +290,8 @@ namespace Security.DAL
                                         join meal on meal.meal_id = meal_food.meal_id
                                         join meal_type on meal.meal_type = meal_type.meal_id
                                         join user_profile on user_profile.id = meal.user_id
-                                    where user_profile.id = @userID; ";
+                                    where user_profile.id = @userID
+                                    order by meal_date;";
 
                 //initialize result. Here it can be a list of meals or just 1 meal
                 List<Meal> lstMeal = new List<Meal>();
@@ -306,14 +307,18 @@ namespace Security.DAL
                     cmd.Parameters.AddWithValue("@userID", userID);
                     SqlDataReader reader = cmd.ExecuteReader();
 
-                        //= Convert.ToString(reader["meal_category"]);
+
                     while (reader.Read())
                     {
+                        //Map row to a meal (map the date, category, userID)
                         meal = MapRowtoMeal(reader);
+
+                        //Create a list of foods in the meal (is this getting overwritten every row?)
                         meal.foods = new List<FoodItem>();
 
                         FoodItem foodItem = new FoodItem();
                         foodItem = MapRowtoFood(reader);
+                        //Here is where the problem is.. A new 'meal' is taking the date of the first meal of that meal-category
 
                         if (lstMeal.Where(x => x.meal_category.Equals(meal.meal_category)).Any())
                         {
@@ -322,11 +327,11 @@ namespace Security.DAL
                         }
                         else
                         {
-                            meal.foods.Add(foodItem); 
+                            meal.foods.Add(foodItem);
                             //add meal to meal list
                             lstMeal.Add(meal);
                         }
-                     
+
                     }
                 }
 
