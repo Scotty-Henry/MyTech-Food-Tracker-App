@@ -7,20 +7,20 @@
       </div>
       <form id="form" class="review-form" @submit.prevent="updateprofile">
           
-          <label id="name" for="namename"> Username: {{user.name}} </label>
-          <input type="text" id="name" class="form-control" name="name" :placeholder="this.name" v-model="name"/> 
+          <label id="name" for="name"> Username: </label>
+          <input type="text" id="name" class="form-control" name="name" v-model="user.name"/> 
 
           <label id="bday" for="bday"> Birthday: </label>
-          <input type="date" id="bday" name="bday" class="form-control" :placeholder="this.birthdate" v-model="birthdate"/>
+          <input type="date" id="bday" name="bday" class="form-control" v-model="birthdate"/>
           
-          <label id="height" for="height"> Height in Inches: {{user.height}} </label>
-          <input type="number" id="height" name="height" class="form-control" :placeholder="this.height" v-model="height"/>
+          <label id="height" for="height"> Height in Inches: </label>
+          <input type="number" id="height" name="height" class="form-control"  v-model="height"/>
 
-          <label id="currWeight" for="currWeight"> Current Weight: {{user.currWeight}} </label>
-          <input type="number" id="currWeight" name="currWeight" class="form-control" :placeholder="this.currWeight" v-model="currWeight"/>
+          <label id="currWeight" for="currWeight"> Current Weight: </label>
+          <input type="number" id="currWeight" name="currWeight" class="form-control" v-model="currWeight"/>
           
-          <label id="goalWeight" for="goalWeight"> Goal Weight: {{user.goalWeight}} </label>
-          <input type="number" id="goalWeight" name="goalWeight" class="form-control" :placeholder="this.goalWeight" v-model="goalWeight"/>
+          <label id="goalWeight" for="goalWeight"> Goal Weight: </label>
+          <input type="number" id="goalWeight" name="goalWeight" class="form-control" v-model="goalWeight"/>
           
           <label id="activity" for="activity"> Activity Level: </label>
           <select id="activity" name="activity" class="selectpicker form-control" v-model="activityLevel">
@@ -64,12 +64,12 @@ export default {
     //How you do it with Axios
       TFService.getProfileInfo().then((data) => {
         window.console.log(data);
-        this.name = data.name;
-        this.birthdate = data.birthdate;
-        this.currWeight = data.currWeight;
-        this.goalWeight = data.goalWeight;
-        this.activityLevel = data.activityLevel;
-        this.height = data.height;
+        this.user.name = data.name;
+        this.user.birthdate = data.birthdate;
+        this.user.currWeight = data.currWeight;
+        this.user.goalWeight = data.goalWeight;
+        this.user.activityLevel = data.activityLevel;
+        this.user.height = data.height;
         })
     },
   methods: { 

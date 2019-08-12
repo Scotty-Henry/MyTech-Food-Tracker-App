@@ -5,9 +5,9 @@
         </router-link>
         <hr>
         <router-link to="/EditProfile">
-                <p id="username"> {{ this.name }} </p>
+                <p id="username"> {{ name }} </p>
         </router-link>
-                <div> Birthdate: {{this.birthdate}} </div>
+                <div> Birthdate: {{birthdate}} </div>
         <hr>
         <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et 
@@ -21,7 +21,7 @@ export default {
 name: 'profile',
   props: {
     name: String,
-    birthdate: String,
+    birthdate: Date,
   }
   
 }
