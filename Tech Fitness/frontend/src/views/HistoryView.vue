@@ -32,7 +32,6 @@ export default {
   },
   created()
     {
-      //not currently working. Need to read my array of meals from API into JS object.
       TFService.getMealbyUser().then((data) => {
             data.forEach((mealObj) => { 
               let meal = 
