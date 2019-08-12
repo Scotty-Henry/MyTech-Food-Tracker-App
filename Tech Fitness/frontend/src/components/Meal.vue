@@ -10,7 +10,7 @@
 
     <form class="form-signin form-group mt-5" @submit.prevent="submitMeal">
     
-         <label id="activity" for="activity"> Meal </label>
+         <label id="mealactivity" for="activity" > Meal </label>
           <select id="activity" name="activity" class="selectpicker form-control" v-model="mealObj.meal_category">
               <option disabled value="">Select Meal</option>
               <option value="1">Breakfast</option>
@@ -88,5 +88,7 @@ export default {
 </script>
    
 <style>
-
+#date {
+  margin-top: .5em;
+}
 </style>

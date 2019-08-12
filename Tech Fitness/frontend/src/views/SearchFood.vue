@@ -35,6 +35,9 @@
         />
         <button type="submit" id="foodbutton" class="btn btn-success btn-md">Add Food!</button>
       </form>
+
+      {{selected}}
+
       <div>Food:  {{this.foodItem.name}} </div>
       <div>My food's cals: {{this.foodItem.cal}} </div>
       <div>My food's pro: {{this.foodItem.pro}} </div>
@@ -44,7 +47,17 @@
       <meal id="meal" :foodArray="this.foodArray"></meal>
       <!-- Need to make each item clickable? -->
       <div id="table" class="text-left">
-          <b-table dark :items="food.results" :fields="fields" responsive="sm"></b-table>
+          <b-table
+           selectable
+           select-mode="single"
+           striped
+           hover
+           dark 
+           :items="food.results" 
+           :fields="fields" 
+           @row-selected="rowSelected"
+           responsive="sm">
+           </b-table>
       </div>
     </div>
 </div>
@@ -62,7 +75,7 @@ export default {
   },
   data() {
     return {
-      
+      selected: '',
       foodItem:{
           ndbno: '',
           name: '',
@@ -87,6 +100,11 @@ export default {
         this.food.results = response.list.item;
         console.log(response.list.item);
       });
+    },
+
+    rowSelected(items) {
+      this.selected = items;
+      this.foodItem.ndbno = items.ndbno;
     },
     
     handleNDBNO() {
