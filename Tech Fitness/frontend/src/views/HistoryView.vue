@@ -27,6 +27,7 @@ export default {
             }
   },
   methods: {
+    
    
   },
   created()
@@ -36,7 +37,7 @@ export default {
             data.forEach((mealObj) => { 
               let meal = 
                   { 
-                  date: mealObj.date,
+                  date: TFService.stringtoDate(mealObj.date),
                   meal_category: mealObj.meal_category,
                   userID: mealObj.userID,
                   foods: [  ], 

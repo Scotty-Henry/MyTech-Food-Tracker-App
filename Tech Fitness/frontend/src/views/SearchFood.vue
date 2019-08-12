@@ -109,7 +109,6 @@ export default {
     
     handleNDBNO() {
       TFService.getFood(this.foodItem.ndbno).then(response => {
-          console.log(response.report.food.ru);
           let currentFood = 
           {
           ndbno: this.foodItem.ndbno,
