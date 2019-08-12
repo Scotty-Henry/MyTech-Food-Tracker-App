@@ -55,7 +55,7 @@ export default {
                                   qty: food.qty,
                                   unit: food.unit,
                                   }
-                                  foods.push(foodItem);
+                                  meal.foods.push(foodItem);
                                 });
                     
             this.userMeals.push(meal);
