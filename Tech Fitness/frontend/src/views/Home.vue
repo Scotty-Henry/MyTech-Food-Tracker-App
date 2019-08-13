@@ -101,7 +101,7 @@ export default {
                     
             this.userMeals.push(meal);      
       })
-       console.log(this.userMeals) 
+       //console.log(this.userMeals) 
     });
       
     },
