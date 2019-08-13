@@ -35,7 +35,7 @@
 
 <script>
 import auth from '../auth';
-import TFService from "@/TFService.js";
+import TFService from '@/TFService.js'
 
 export default {
   name: 'login',
@@ -72,19 +72,10 @@ export default {
               token = token.replace(/"/g, '');
             }
             auth.saveToken(token);
-            // Need to finish this when I get back at noon
-            TFService.getProfileInfo().then( (response) => {
-              if(response.name.length != 0){
-                this.$router.push('/');
-              }
-              else {
-                this.$router.push('/CreateProfile');
-              }
-          
-            })
+            this.$router.push('/CreateProfile');
           }
         })
-        // .catch((err) => console.error(err));
+        .catch((err) => console.error(err));
     },
   },
 };
