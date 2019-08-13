@@ -10,7 +10,7 @@
 
     <form class="form-signin form-group mt-5" @submit.prevent="submitMeal">
     
-         <label id="activity" for="activity"> Meal </label>
+         <label id="mealactivity" for="activity" > Meal </label>
           <select id="activity" name="activity" class="selectpicker form-control" v-model="mealObj.meal_category">
               <option disabled value="">Select Meal</option>
               <option value="1">Breakfast</option>
@@ -58,7 +58,6 @@ export default {
 
 //   },
   submitMeal() {
-    console.log(`${process.env.VUE_APP_REMOTE_API}/Account/addMeal`);
       fetch(`${process.env.VUE_APP_REMOTE_API}/Account/addMeal`, {
         method: 'POST',
         headers: {
@@ -89,5 +88,7 @@ export default {
 </script>
    
 <style>
-
+#date {
+  margin-top: .5em;
+}
 </style>

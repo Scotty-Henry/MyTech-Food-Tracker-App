@@ -88,12 +88,12 @@ export default {
   margin: .75em;
 }
 #username {
-  margin: .5em;
+  margin-top: .5em;
 }
 #password {
-  margin: .5em;
+  margin-top: .5em;
 }
 #confirmPassword {
-  margin: .5em;
+  margin-top: .5em;
 }
 </style>

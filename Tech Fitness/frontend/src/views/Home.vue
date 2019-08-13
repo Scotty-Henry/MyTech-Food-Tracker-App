@@ -23,7 +23,7 @@
       </b-card>
 
       <b-card text-variant="black" header="D/W/M/LT" id="today">
-        <today id="today"></today>
+        <today :userMeals="this.userMeals" id="today"></today>
       </b-card>>
     </b-card-group>
   </div>
@@ -37,6 +37,8 @@ import ProgressChart from '@/components/ProgressChart';
 import Current from '@/components/Current';
 import Goal from '@/components/Goal';
 import Today from '@/components/Today';
+import Logout from '@/components/Logout';
+import History from '@/components/History';
 
 export default {
   name: 'home',
@@ -47,6 +49,8 @@ export default {
     Current,
     Goal,
     Today, 
+    Logout, 
+    History  
   },
   data() {
     return {
@@ -58,6 +62,7 @@ export default {
         activityLevel: '',
         height: '',
       },
+      userMeals: []
     }
   },
     created()
@@ -72,6 +77,33 @@ export default {
       this.userProfile.activityLevel = data.activityLevel;
       this.userProfile.height = data.height;
 
+    })
+     TFService.getMealbyUser().then((data) => {
+            data.forEach((mealObj) => { 
+              let meal = 
+                  { 
+                  date: TFService.stringtoDate(mealObj.date),
+                  meal_category: mealObj.meal_category,
+                  userID: mealObj.userID,
+                  foods: [  ], 
+                  }  
+                  mealObj.foods.forEach((food) => {
+                                let foodItem = {
+                                  ndbno: food.ndbno,
+                                  name: food.name, 
+                                  cal: food.cal,
+                                  carb: food.carb,
+                                  fat: food.fat,
+                                  pro: food.pro,
+                                  qty: food.qty,
+                                  unit: food.unit,
+                                  }
+                                  meal.foods.push(foodItem);
+                                });
+                    
+            this.userMeals.push(meal);      
+      })
+       console.log(this.userMeals) 
     });
       
     },

@@ -32,13 +32,21 @@
 
 <script>
 
+<<<<<<< HEAD
 import auth from "@/auth";
 
+=======
+>>>>>>> 3d7881c3583cbc6a51147b2b570ac273e37476af
 export default {
   name: "app",
   components: {
     // eslint-disable-next-line
     auth,
+  },
+  Data () {
+    return {
+      invalidCredentials: false
+    }
   },
   methods: {
     handleLogout() {

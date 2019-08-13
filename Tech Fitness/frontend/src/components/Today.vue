@@ -1,43 +1,40 @@
 <template>
     <div class="current-values">
-        <!-- <b-form @submit="onSubmit">
-            <b-form-group id="input-group-1" label="Weight:" label-for="input-1">
-                <b-form-input
-                id="input-1"
-                v-model="form.weight"
-                required
-                placeholder="Enter Weight"
-                >
-                </b-form-input>
-            </b-form-group>
-            <b-button type="submit" variant="primary">Submit</b-button>
-        </b-form>
-
-        <b-form @submit="onSubmit">
-            <b-form-group id="input-group-2" label="Calories:" label-for="input-2">
-                <b-form-input
-                id="input-2"
-                v-model="form.calories"
-                required
-                placeholder="Enter Total Calories"
-                >
-                </b-form-input>
-            </b-form-group>
-            <b-button type="submit" variant="primary">Submit</b-button>
-        </b-form> -->
+        <div> Test a total calorie count! {{this.TotalCaloriesTest}}</div>
+            <ul>
+                <li v-for="meal in userMeals" v-bind:key="meal.mealID">
+                     {{meal.date + '---' + meal.meal_category}}        
+                </li>
+            </ul> 
     </div>
 </template>
 
 <script>
 export default {
+    props: {
+            userMeals: Array
+        },
     data() {
             return {
                 form: {
                 weight: '',
-                calories: '',
+                TotalCaloriesTest: Number,
                 },
             }
-        }
+        },
+        //This need to be on a computed:: currently not working to start getting metrics by 
+        //day/week/month. For tomorrow
+        beforeMount() {
+            getCaloriesOnMeal()
+            {
+                let calories = 0;
+                userMeals.forEach((meal) => {
+                meal.foods.forEach((food) => {calories+=food.cal});
+                this.data.TotalCaloriesTest = calories;
+                });
+             }
+        },
+        
     }
 </script>
 

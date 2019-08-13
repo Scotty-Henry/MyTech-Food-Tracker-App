@@ -27,19 +27,16 @@ export default {
             }
   },
   methods: {
+    
    
   },
   created()
     {
-      //not currently working. Need to read my array of meals from API into JS object.
       TFService.getMealbyUser().then((data) => {
-          window.console.log(data);
-            data.forEach((mealObj) => {
-              console.log(mealObj) 
-              console.log(mealObj.date) 
+            data.forEach((mealObj) => { 
               let meal = 
                   { 
-                  date: mealObj.date,
+                  date: TFService.stringtoDate(mealObj.date),
                   meal_category: mealObj.meal_category,
                   userID: mealObj.userID,
                   foods: [  ], 
@@ -58,9 +55,9 @@ export default {
                                   meal.foods.push(foodItem);
                                 });
                     
-            this.userMeals.push(meal);
-            console.log(this.userMeals)         
+            this.userMeals.push(meal);      
       })
+       console.log(this.userMeals) 
     })
     }
  

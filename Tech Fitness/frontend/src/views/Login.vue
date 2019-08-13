@@ -2,7 +2,7 @@
   <div id="login" class="text-center">
     <form class="form-signin form-group mt-5"  @submit.prevent="login">
       <h1 class="h3 mb-3 font-weight-normal" id="sign-in">Please Sign In</h1>
-        <div class="alert alert-danger" role="alert" v-if="invalidCredentials">
+        <div id ="alert" class="alert alert-danger" role="alert" v-if="invalidCredentials">
           Invalid username and password!
         </div>
         <div class="alert alert-success" id="alert" role="alert" v-if="this.$route.query.registration">
@@ -88,10 +88,10 @@ export default {
   margin: .75em;
 }
 #username {
-  margin: .5em;
+  margin-top: .5em;
 }
 #password {
-  margin: .5em;
+  margin-top: .5em;
 }
 
 </style>

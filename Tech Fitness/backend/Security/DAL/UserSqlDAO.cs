@@ -196,38 +196,59 @@ namespace Security.DAL
             }
         }
 
-        //Inserted in order to maintain referential integrity
+        //Inserted in-order to maintain referential integrity
 
         public void addMeal(Meal meal)
         {
             try
             {
-                const string sql = "INSERT INTO meal (meal_type, user_id, meal_date) " +
+                //Declare List of ints to hold my food NDBNO's
+                List<int> foodNDBNOs = new List<int>();
+
+                const string insertMeal = "INSERT INTO meal (meal_type, user_id, meal_date) " +
                                                      "VALUES (@type, @user, @date);";
+
+                //write query here to get list of all foods ndbno from DB. Returns list of ints called NDBNOArray 
+                const string getFoodsNDBNO = "SELECT ndbno FROM food;";
+
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     int newMealID = 0;
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand(sql + _getLastIdSQL, conn);
+                    SqlCommand cmd = new SqlCommand(getFoodsNDBNO, conn);
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        int NDBNO = Convert.ToInt16(reader["ndbno"]);
+                        foodNDBNOs.Add(NDBNO);
+                    }
+
+                    cmd = new SqlCommand(insertMeal + _getLastIdSQL, conn);
                     cmd.Parameters.AddWithValue("@type", meal.meal_category);
                     cmd.Parameters.AddWithValue("@user", meal.userID);
                     cmd.Parameters.AddWithValue("@date", meal.date);
                     newMealID = (int)cmd.ExecuteScalar();
 
+                    
                     foreach (FoodItem food in meal.foods)
                     {
-                        cmd = new SqlCommand("INSERT INTO food (ndbno, serving_size, food_name, protein, carb, fat, cal) " +
-                                                         "VALUES (@ndbno, @serving_size, @food_name, @protein, @carb, @fat, @cal );", conn);
-                        cmd.Parameters.AddWithValue("@ndbno", food.ndbno);
-                        cmd.Parameters.AddWithValue("@serving_size", food.unit);
-                        cmd.Parameters.AddWithValue("@food_name", food.name);
-                        cmd.Parameters.AddWithValue("@protein", food.pro);
-                        cmd.Parameters.AddWithValue("@carb", food.carb);
-                        cmd.Parameters.AddWithValue("@fat", food.fat);
-                        cmd.Parameters.AddWithValue("@cal", food.cal);
-                        cmd.ExecuteNonQuery();
-
+                        //if food.ndbno not in my NDBNO array, then insert it 
+                        if (!foodNDBNOs.Contains(Convert.ToInt16(food.ndbno)))
+                        {
+                            cmd = new SqlCommand("INSERT INTO food (ndbno, serving_size, food_name, protein, carb, fat, cal) " +
+                                                             "VALUES (@ndbno, @serving_size, @food_name, @protein, @carb, @fat, @cal );", conn);
+                            cmd.Parameters.AddWithValue("@ndbno", food.ndbno);
+                            cmd.Parameters.AddWithValue("@serving_size", food.unit);
+                            cmd.Parameters.AddWithValue("@food_name", food.name);
+                            cmd.Parameters.AddWithValue("@protein", food.pro);
+                            cmd.Parameters.AddWithValue("@carb", food.carb);
+                            cmd.Parameters.AddWithValue("@fat", food.fat);
+                            cmd.Parameters.AddWithValue("@cal", food.cal);
+                            cmd.ExecuteNonQuery();
+                        }
+                        //regardless, insert into my meal transaction table
                         cmd = new SqlCommand("INSERT INTO meal_food (meal_id, ndbno, qty) " +
                                                      "VALUES (@meal_id, @ndbno, @qty);", conn);
                         cmd.Parameters.AddWithValue("@meal_id", newMealID);
@@ -269,11 +290,13 @@ namespace Security.DAL
                                         join meal on meal.meal_id = meal_food.meal_id
                                         join meal_type on meal.meal_type = meal_type.meal_id
                                         join user_profile on user_profile.id = meal.user_id
-                                    where user_profile.id = @userID; ";
-
+                                    where user_profile.id = @userID
+                                    order by meal_date;";
+                List<Meal> MealList = new List<Meal>();
                 //initialize result. Here it can be a list of meals or just 1 meal
-                List<Meal> lstMeal = new List<Meal>();
-                Meal meal = new Meal();
+                //List<Meal> lstMeal = new List<Meal>();
+
+                //Meal meal = new Meal();
                 //List<FoodItem> foodsList = new List<FoodItem>();
 
                 //iterate thru data to retrieve food list per meal
@@ -284,32 +307,70 @@ namespace Security.DAL
                     SqlCommand cmd = new SqlCommand(sql, conn);
                     cmd.Parameters.AddWithValue("@userID", userID);
                     SqlDataReader reader = cmd.ExecuteReader();
-
-                        //= Convert.ToString(reader["meal_category"]);
-                    while (reader.Read())
+                    HashSet<int> Rows = new HashSet<int>();
+                   
+                    Meal meal = new Meal();
+                    if (reader.Read())
                     {
+                        Rows.Add(PullNonUniqueIdentity(reader).GetHashCode());
                         meal = MapRowtoMeal(reader);
                         meal.foods = new List<FoodItem>();
+                        FoodItem foodItem = MapRowtoFood(reader);
+                        meal.foods.Add(foodItem);
+                    }
 
-                        FoodItem foodItem = new FoodItem();
-                        foodItem = MapRowtoFood(reader);
-
-                        if (lstMeal.Where(x => x.meal_category.Equals(meal.meal_category)).Any())
+                    while (reader.Read())
+                    {
+                        //If I'm on my first meal or a different meal
+                        //Then the hash isnt contained in my set
+                        if (!Rows.Contains(PullNonUniqueIdentity(reader).GetHashCode()))
                         {
-                            Meal foundMeal = lstMeal.Where(x => x.meal_category.Equals(meal.meal_category)).FirstOrDefault();
-                            foundMeal.foods.Add(foodItem);
+                            Rows.Add(PullNonUniqueIdentity(reader).GetHashCode());
+                            MealList.Add(meal);
+                            meal = MapRowtoMeal(reader);
+                            meal.foods = new List<FoodItem>();
+                            FoodItem foodItem = MapRowtoFood(reader);
+                            meal.foods.Add(foodItem);
                         }
+                        // Else the hash IS in my set, aka the Meal exists already
                         else
                         {
-                            meal.foods.Add(foodItem); 
-                            //add meal to meal list
-                            lstMeal.Add(meal);
+                            FoodItem foodItem = MapRowtoFood(reader);
+                            meal.foods.Add(foodItem);
                         }
-                     
+
                     }
+                    MealList.Add(meal);
+
+                    //while (reader.Read())
+                    //{
+                    //    //Map row to a meal (map the date, category, userID)
+                    //    meal = MapRowtoMeal(reader);
+
+
+                    //    //Create a list of foods in the meal (is this getting overwritten every row?)
+                    //    meal.foods = new List<FoodItem>();
+
+                    //    FoodItem foodItem = new FoodItem();
+                    //    foodItem = MapRowtoFood(reader);
+                    //    //Here is where the problem is.. A new 'meal' is taking the date of the first meal of that meal-category
+
+                    //    if (lstMeal.Where(x => x.meal_category.Equals(meal.meal_category)).Any())
+                    //    {
+                    //        Meal foundMeal = lstMeal.Where(x => x.meal_category.Equals(meal.meal_category)).FirstOrDefault();
+                    //        foundMeal.foods.Add(foodItem);
+                    //    }
+                    //    else
+                    //    {
+                    //        meal.foods.Add(foodItem);
+                    //        //add meal to meal list
+                    //        lstMeal.Add(meal);
+                    //    }
+
+                    //}
                 }
 
-                return lstMeal;
+                return MealList;
       
             }
             catch (SqlException ex)
@@ -317,6 +378,15 @@ namespace Security.DAL
                 throw ex;
             }
 
+        }
+        private string PullNonUniqueIdentity(SqlDataReader reader)
+        {
+            string nonUniquIdentity = "";
+            string id = Convert.ToString(reader["id"]);
+            string meal_date = Convert.ToString(reader["meal_date"]);
+            string meal_id = Convert.ToString(reader["meal_id"]);
+            nonUniquIdentity = id + meal_date + meal_id;
+            return nonUniquIdentity;
         }
 
 

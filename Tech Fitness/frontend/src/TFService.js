@@ -61,4 +61,9 @@ export default {
             }
         }
     },
+    stringtoDate(datestring){
+        let stringConverted2Date = new Date(datestring);
+        stringConverted2Date = stringConverted2Date.toLocaleDateString('en-US')
+        return stringConverted2Date
+      },
 }
