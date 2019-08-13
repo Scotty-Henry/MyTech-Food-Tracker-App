@@ -54,7 +54,7 @@ export default {
     return {
       userProfile:{
         name: '',
-        birthdate: '',
+        birthdate: Date,
         currWeight: '',
         goalWeight: '',
         activityLevel: '',
@@ -69,7 +69,7 @@ export default {
     TFService.getProfileInfo().then((data) => {
       window.console.log(data);
       this.userProfile.name = data.name;
-      this.userProfile.birthdate = data.birthdate;
+      this.userProfile.birthdate = TFService.stringtoDate(data.birthdate);
       this.userProfile.currWeight = data.currWeight;
       this.userProfile.goalWeight = data.goalWeight;
       this.userProfile.activityLevel = data.activityLevel;

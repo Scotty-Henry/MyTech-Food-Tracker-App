@@ -37,9 +37,9 @@
 export default {
     name: 'Current',
   props: {
-    currWeight: Number,
-    height: Number,
-    activity: String,
+    currWeight: '',
+    height: '',
+    activity: '',
   },
   
     data() {

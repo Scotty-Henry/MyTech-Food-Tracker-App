@@ -11,7 +11,7 @@
 export default {
      name: 'Goal',
   props: {
-    goalWeight: Number,
+    goalWeight: '',
   },
     data() {
             return {

@@ -21,7 +21,7 @@ export default {
 name: 'profile',
   props: {
     name: String,
-    birthdate: Date,
+    birthdate: '',
   }
   
 }
