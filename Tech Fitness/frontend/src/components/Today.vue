@@ -18,24 +18,24 @@ export default {
             return {
                 form: {
                 weight: '',
-            
                 },
+                 calorieCount: ''
             }
         },
         //This need to be on a computed:: currently not working to start getting metrics by 
         //day/week/month. For tomorrow
         created() {
-         
                 let allmeals = this.userMeals;
-                console.log(allmeals);
+                //console.log(allmeals);
   
-                // let calories = 0;
-                // userMeals.forEach((meal) => {
-                // meal.foods.forEach((food) => {calories+=food.cal});
-                // this.TotalCaloriesTest = calories;
-                
-                // });
-        
+                let calories = 0;
+
+                allmeals.forEach((meal) => {
+                meal.foods.forEach((food) => {calories+=food.cal});
+                console.log(calories)
+                })
+                 this.calorieCount = calories;
+
         },
         
     }
