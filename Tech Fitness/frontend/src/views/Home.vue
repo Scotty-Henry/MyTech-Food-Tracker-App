@@ -37,7 +37,6 @@ import ProgressChart from '@/components/ProgressChart';
 import Current from '@/components/Current';
 import Goal from '@/components/Goal';
 import Today from '@/components/Today';
-import Logout from '@/components/Logout';
 import History from '@/components/History';
 
 export default {
@@ -49,7 +48,6 @@ export default {
     Current,
     Goal,
     Today, 
-    Logout, 
     History  
   },
   data() {
