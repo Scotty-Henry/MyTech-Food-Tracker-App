@@ -43,12 +43,8 @@
 
 <script>
 import auth from '../auth';
-<<<<<<< HEAD
 import TFService from "@/TFService.js";
 import VideoOverlay from '@/components/VideoOverlay';
-=======
-import TFService from '@/TFService.js'
->>>>>>> 7605992ef429893582f8dc8ad8c4a94c5131f527
 
 export default {
   name: 'login',
