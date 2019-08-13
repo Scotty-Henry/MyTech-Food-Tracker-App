@@ -67,6 +67,7 @@ import TFService from "@/TFService.js";
 export default {
   name: "EditProfile",
   components: {
+    // eslint-disable-next-line
     auth
   },
   data() {
@@ -112,15 +113,15 @@ export default {
             this.invalidCredentials = true;
           }
         })
-        .then(token => {
-          if (token != undefined) {
-            if (token.includes('"')) {
-              token = token.replace(/"/g, "");
-            }
-            auth.saveToken(token);
-            this.$router.push("/Dashboard");
-          }
-        })
+        // .then(token => {
+        //   if (token != undefined) {
+        //     if (token.includes('"')) {
+        //       token = token.replace(/"/g, "");
+        //     }
+        //     this.$router.push("/");
+        //   }
+        // })
+        this.$router.push("/")
         .catch(err => console.error(err));
     }
   }
