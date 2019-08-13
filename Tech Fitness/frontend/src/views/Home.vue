@@ -23,7 +23,7 @@
       </b-card>
 
       <b-card text-variant="black" header="D/W/M/LT" id="today">
-        <today :userMeals="this.userMeals" id="today"></today>
+        <today :nutrientsToday="todayCals" id="today"></today>
       </b-card>>
     </b-card-group>
   </div>
@@ -60,7 +60,13 @@ export default {
         activityLevel: '',
         height: '',
       },
-      userMeals: []
+      userMeals: [], 
+      nutrientsToday: {
+        cal: this.todayCals,
+        pro: this.todayPro,
+        fat: this.todayFat,
+        carb: this.todayCarbs
+      },
     }
   },
     created()
@@ -102,7 +108,16 @@ export default {
             this.userMeals.push(meal);      
       })
        //console.log(this.userMeals) 
-    });
+    })
+    //Get a today string
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1); //January is 0!
+    var yyyy = today.getFullYear();
+    today = mm + '/' + dd + '/' + yyyy;
+    console.log(today);
+    this.today = today;
+
       
     },
     //How you do it with fetch
@@ -132,7 +147,53 @@ export default {
   //     this.name=data.name;
   //   },
 // }
+
+methods: {
+            getMealCals(meal){
+                return meal.foods.reduce((acc, food) => acc+food.cal, 0)
+            },
+            getMealCarbs(meal){
+                return meal.foods.reduce((acc, food) => acc+food.carb, 0)
+            },
+            getMealPro(meal){
+                return meal.foods.reduce((acc, food) => acc+food.pro, 0)
+            }, 
+            getMealFat(meal){
+                return meal.foods.reduce((acc, food) => acc+food.fat, 0)
+            } 
+
+        },
+            computed: {
+            //filter the array of meals to today
+            todayMeals() {
+                return this.userMeals.filter(meal => meal.date === this.today)
+            },
+            weekMeals() {
+                return this.userMeals.filter(meal => meal.date === this.today)
+            },
+
+            //cals getMealCals to reduce Cals on a meal
+            //Reduces all of Today's meals into Today cals
+            todayCals(){
+                return this.todayMeals.reduce((acc, meal) => acc + this.getMealCals(meal), 0)
+            },
+            todayCarbs(){
+                return this.todayMeals.reduce((acc, meal) => acc + this.getMealCarbs(meal), 0)
+            },
+            todayPro(){
+                return this.todayMeals.reduce((acc, meal) => acc + this.getMealPro(meal), 0)
+            },
+            todayFat(){
+                return this.todayMeals.reduce((acc, meal) => acc + this.getMealFat(meal), 0)
+            },
+            bindtoday(){
+              return {today: {cals: this.todayCals}}
+            }
+            
+
+    }
 }
+
 
 </script>
 
