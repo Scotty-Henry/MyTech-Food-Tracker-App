@@ -36,8 +36,6 @@
         <button type="submit" id="foodbutton" class="btn btn-success btn-md">Add Food!</button>
       </form>
 
-      {{selected}}
-
       <div>Food:  {{this.foodItem.name}} </div>
       <div>My food's cals: {{this.foodItem.cal}} </div>
       <div>My food's pro: {{this.foodItem.pro}} </div>
