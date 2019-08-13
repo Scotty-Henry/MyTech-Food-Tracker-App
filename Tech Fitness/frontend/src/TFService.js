@@ -66,4 +66,5 @@ export default {
         stringConverted2Date = stringConverted2Date.toLocaleDateString('en-US')
         return stringConverted2Date
       },
+
 }
