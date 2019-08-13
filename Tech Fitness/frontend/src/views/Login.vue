@@ -43,8 +43,12 @@
 
 <script>
 import auth from '../auth';
+<<<<<<< HEAD
 import TFService from "@/TFService.js";
 import VideoOverlay from '@/components/VideoOverlay';
+=======
+import TFService from '@/TFService.js'
+>>>>>>> 7605992ef429893582f8dc8ad8c4a94c5131f527
 
 export default {
   name: 'login',
@@ -83,19 +87,10 @@ export default {
               token = token.replace(/"/g, '');
             }
             auth.saveToken(token);
-            // Need to finish this when I get back at noon
-            TFService.getProfileInfo().then( (response) => {
-              if(response.name.length != 0){
-                this.$router.push('/');
-              }
-              else {
-                this.$router.push('/CreateProfile');
-              }
-          
-            })
+            this.$router.push('/CreateProfile');
           }
         })
-        // .catch((err) => console.error(err));
+        .catch((err) => console.error(err));
     },
   },
 };

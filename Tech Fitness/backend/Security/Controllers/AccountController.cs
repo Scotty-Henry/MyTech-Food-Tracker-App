@@ -98,7 +98,7 @@ namespace Security.Controllers
         }
 
         [HttpPost("createprofile")]
-        //[Authorize(Roles = "User")]
+        [Authorize(Roles = "User")]
         public IActionResult CreateProfile(UserProfileModel model)
         {
             IActionResult result = Ok();
@@ -124,7 +124,7 @@ namespace Security.Controllers
         }
 
         [HttpPut("updateprofile")]
-        //[Authorize(Roles = "User")]
+        [Authorize(Roles = "User")]
         public IActionResult UpdateProfile(UserProfileModel model)
         {
             IActionResult result = Ok();
@@ -136,7 +136,7 @@ namespace Security.Controllers
             string name = model.name;
 
             //find my user in the users table by the name on their token (given during log in)
-            User currentUser = userDao.GetUser(User.Identity.Name);
+            User currentUser = userDao.GetUser(user);
 
             //get the current users id
             int currentUserId = currentUser.Id;
@@ -150,7 +150,7 @@ namespace Security.Controllers
         }
 
         [HttpPost("addMeal")]
-        //[Authorize(Roles = "User")]
+        [Authorize(Roles = "User")]
         public IActionResult addMeal (Meal meal)
         {
             IActionResult result = Ok();
@@ -170,7 +170,7 @@ namespace Security.Controllers
         }
 
         [HttpGet("getMealbyUser")]
-        //[Authorize(Roles = "User")]
+        [Authorize(Roles = "User")]
         public ActionResult<List<Meal>> getMealsbyUser()
         {
             IActionResult result = Ok();

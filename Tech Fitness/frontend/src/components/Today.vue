@@ -1,11 +1,7 @@
 <template>
     <div class="current-values">
-        <div> Test a total calorie count!</div>
-            <ul>
-                <li v-for="meal in userMeals" v-bind:key="meal.mealID">
-                     {{meal.date + '---' + meal.meal_category}}        
-                </li>
-            </ul> 
+        <div> Calories Today! {{this.todayCals}} </div>
+           
     </div>
 </template>
 
@@ -15,30 +11,43 @@ export default {
             userMeals: Array
         },
     data() {
-            return {
-                form: {
-                weight: '',
-                },
-                 calorieCount: ''
-            }
-        },
-        //This need to be on a computed:: currently not working to start getting metrics by 
-        //day/week/month. For tomorrow
-        created() {
-                let allmeals = this.userMeals;
-                //console.log(allmeals);
-  
-                let calories = 0;
+        return {
+            calorieCount: '',  
+            allmeals: this.userMeals,
+            today: '',
 
-                allmeals.forEach((meal) => {
-                meal.foods.forEach((food) => {calories+=food.cal});
-                console.log(calories)
-                })
-                 this.calorieCount = calories;
-
-        },
+        }  
+    },
         
+        created() {
+                console.log(this.allmeals); 
+                var today = new Date();
+                var dd = String(today.getDate()).padStart(2, '0');
+                var mm = String(today.getMonth() + 1); //January is 0!
+                var yyyy = today.getFullYear();
+                today = mm + '/' + dd + '/' + yyyy;
+                console.log(today);
+                this.today = today;
+
+
+        },
+        methods: {
+            getMealCals(meal){
+                return meal.foods.reduce((acc, food) => acc+food.cal, 0)
+            } 
+
+        },
+        computed: {
+            todayMeals() {
+                return this.allmeals.filter(meal => meal.date === '8/12/2019')
+            },
+            todayCals(){
+                return this.todayMeals.reduce((acc, meal) => acc + this.getMealCals(meal), 0)
+            },
+
     }
+}
+
 </script>
 
 <style>
