@@ -30,7 +30,6 @@
 </template>
 
 <script>
-import auth from '../auth';
 import TFService from '@/TFService.js';
 import Profile from '@/components/Profile';
 import Meal from '@/components/Meal';
@@ -38,7 +37,6 @@ import ProgressChart from '@/components/ProgressChart';
 import Current from '@/components/Current';
 import Goal from '@/components/Goal';
 import Today from '@/components/Today';
-import Logout from '@/components/Logout';
 
 export default {
   name: 'home',
@@ -49,7 +47,6 @@ export default {
     Current,
     Goal,
     Today, 
-    Logout   
   },
   data() {
     return {
