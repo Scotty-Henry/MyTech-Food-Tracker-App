@@ -1,7 +1,7 @@
 <template>
   <div id="home">
     <b-card-group id="home">
-
+      <dashboard-overlay></dashboard-overlay>
       <b-card bg-variant="info" text-variant="white" header="Profile" class="text-center" id="profile">
         <profile id="profile" :name="this.userProfile.name" :birthdate="this.userProfile.birthdate"></profile>
       </b-card>
@@ -38,6 +38,7 @@ import Current from '@/components/Current';
 import Goal from '@/components/Goal';
 import Today from '@/components/Today';
 import History from '@/components/History';
+import DashboardOverlay from '@/components/DashboardOverlay';
 
 export default {
   name: 'home',
@@ -48,7 +49,8 @@ export default {
     Current,
     Goal,
     Today, 
-    History  
+    History, 
+    DashboardOverlay
   },
   data() {
     return {
