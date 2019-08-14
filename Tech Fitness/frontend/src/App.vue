@@ -32,12 +32,15 @@
 
 <script>
 import auth from "@/auth";
+import TFService from "@/TFService"
 
 export default {
   name: "app",
   components: {
     // eslint-disable-next-line
     auth,
+    // eslint-disable-next-line
+    TFService
   },
   Data () {
     return {
