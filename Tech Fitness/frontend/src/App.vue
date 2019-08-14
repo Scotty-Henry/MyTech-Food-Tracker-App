@@ -12,9 +12,6 @@
       <router-link v-if="validateUser()" to="/EditProfile">
         <button type="button" class="btn btn-primary btn-md" id="profile">Profile</button>
       </router-link>
-      <!-- <router-link v-if="validateUser()" to="/Login"> -->
-        <!-- <logout id="logout"></logout> -->
-      <!-- </router-link> -->
       <router-link v-if="validateUser()" to="/Search-Food">
         <button type="button" class="btn btn-primary" role="button">Add Food</button>
       </router-link>
