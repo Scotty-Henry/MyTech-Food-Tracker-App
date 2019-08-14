@@ -23,7 +23,7 @@
       </b-card>
 
       <b-card text-variant="black" header="D/W/M/LT" id="today">
-        <today :nutrientsToday="todayMeals" id="today"></today>
+        <today :nutrientsToday="nutritionforDay" id="today"></today>
       </b-card>>
     </b-card-group>
   </div>
@@ -39,6 +39,7 @@ import Goal from '@/components/Goal';
 import Today from '@/components/Today';
 import History from '@/components/History';
 import DashboardOverlay from '@/components/DashboardOverlay';
+
 
 export default {
   name: 'home',
@@ -69,8 +70,14 @@ export default {
         fat: this.todayFat,
         carb: this.todayCarbs
       },
+      componentLoaded: false,
     }
   },
+  mounted() {
+   
+    this.componentLoaded = true;
+  },
+  
     created()
     {
     //How you do it with Axios
@@ -91,7 +98,7 @@ export default {
                   date: TFService.stringtoDate(mealObj.date),
                   meal_category: mealObj.meal_category,
                   userID: mealObj.userID,
-                  nutition: {
+                  nutrition: {
                       cal: 0,
                       fat: 0,
                       pro: 0,
@@ -110,10 +117,10 @@ export default {
                                   qty: food.qty,
                                   unit: food.unit,
                                   }
-                                  meal.nutition.cal += food.cal;
-                                  meal.nutition.fat += food.fat;
-                                  meal.nutition.pro += food.pro;
-                                  meal.nutition.carb += food.carb;
+                                  meal.nutrition.cal += food.cal;
+                                  meal.nutrition.fat += food.fat;
+                                  meal.nutrition.pro += food.pro;
+                                  meal.nutrition.carb += food.carb;
                                   meal.foods.push(foodItem);
                                 });
                     
@@ -161,46 +168,87 @@ export default {
 // }
 
 methods: {
-            getMealCals(meal){
-                return meal.foods.reduce((acc, food) => acc+food.cal, 0)
+            // getMealCals(meal){
+            //     return meal.foods.reduce((acc, food) => acc+food.cal, 0)
+            // },
+            // getMealCarbs(meal){
+            //     return meal.foods.reduce((acc, food) => acc+food.carb, 0)
+            // },
+            // getMealPro(meal){
+            //     return meal.foods.reduce((acc, food) => acc+food.pro, 0)
+            // }, 
+            // getMealFat(meal){
+            //     return meal.foods.reduce((acc, food) => acc+food.fat, 0)
+            // },
+             reduceMealsonDay(mealonDay){
+                let nutritiononDay = {
+                 cal: mealOnDay.reduce((acc, meal) => acc + meal.nutrition.cal, 0),
+                 fat: mealOnDay.reduce((acc, meal) => acc + meal.nutrition.fat, 0), 
+                 pro: mealOnDay.reduce((acc, meal) => acc + meal.nutrition.pro, 0), 
+                 carb: mealOnDay.reduce((acc, meal) => acc + meal.nutrition.carb, 0)
+                }
+                return nutritiononDay
             },
-            getMealCarbs(meal){
-                return meal.foods.reduce((acc, food) => acc+food.carb, 0)
-            },
-            getMealPro(meal){
-                return meal.foods.reduce((acc, food) => acc+food.pro, 0)
-            }, 
-            getMealFat(meal){
-                return meal.foods.reduce((acc, food) => acc+food.fat, 0)
-            } 
+
 
         },
             computed: {
             //filter the array of meals to today
-            todayMeals() {
-                return this.userMeals.filter(meal => meal.date === this.today)
-            },
-            weekMeals() {
-                return this.userMeals.filter(meal => meal.date === this.today)
-            },
+            // todayMeals() {
+            //     return this.userMeals.filter(meal => meal.date === this.today)
+            // },
+            // weekMeals() {
+            //     return this.userMeals.filter(meal => meal.date === this.today)
+            // },
 
             //cals getMealCals to reduce Cals on a meal
             //Reduces all of Today's meals into Today cals
-            todayCals(){
-                return this.todayMeals.reduce((acc, meal) => acc + this.getMealCals(meal), 0)
-            },
-            todayCarbs(){
-                return this.todayMeals.reduce((acc, meal) => acc + this.getMealCarbs(meal), 0)
-            },
-            todayPro(){
-                return this.todayMeals.reduce((acc, meal) => acc + this.getMealPro(meal), 0)
-            },
-            todayFat(){
-                return this.todayMeals.reduce((acc, meal) => acc + this.getMealFat(meal), 0)
-            },
-            bindtoday(){
-              return {today: {cals: this.todayCals}}
-            }
+         
+
+
+            // nutritionforDay(){
+            //    if(this.componentLoaded)
+            //    { 
+            //      // Array of meals for given day
+            //     let mealOnDay = this.userMeals.filter(meal => meal.date === this.today);
+            //     console.log(mealOnDay);
+            //     let nutrientsonDay = this.reduceMealsonDay(mealOnDay);
+            //     console.log(nutrientsonDay)
+            //     return nutrientsonDay;
+            //   }
+            // },
+           
+
+            // todayCarbs(){
+            //     return this.todayMeals.reduce((acc, meal) => acc + this.getMealCarbs(meal), 0)
+            // },
+            // todayPro(){
+            //     return this.todayMeals.reduce((acc, meal) => acc + this.getMealPro(meal), 0)
+            // },
+            // todayFat(){
+            //     return this.todayMeals.reduce((acc, meal) => acc + this.getMealFat(meal), 0)
+            // },
+
+
+
+
+
+
+            // todayCals(){
+            //     return this.todayMeals.reduce((acc, meal) => acc + this.getMealCals(meal), 0)
+            // },
+            // todayCarbs(){
+            //     return this.todayMeals.reduce((acc, meal) => acc + this.getMealCarbs(meal), 0)
+            // },
+            // todayPro(){
+            //     return this.todayMeals.reduce((acc, meal) => acc + this.getMealPro(meal), 0)
+            // },
+            // todayFat(){
+            //     return this.todayMeals.reduce((acc, meal) => acc + this.getMealFat(meal), 0)
+            // },
+            // bindtoday(){
+            //   return {today: {cals: this.todayCals}}
+            // }
             
 
     }
