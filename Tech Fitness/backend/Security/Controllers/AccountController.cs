@@ -199,8 +199,10 @@ namespace Security.Controllers
         /// <returns></returns>
         [HttpGet("dashboard")]
         [Authorize(Roles = "User")]
-        public ActionResult<UserProfileModel> Dashboard()
+        public IActionResult Dashboard()
         {
+            IActionResult result = NotFound();
+
             UserProfileModel userProfile = new UserProfileModel();
           
             //Pulls the username from login off the token
@@ -209,17 +211,17 @@ namespace Security.Controllers
             //Find the current user from their name
             User currentUser = userDao.GetUser(User.Identity.Name);
 
-            //Get the users profile from their ID
-            try
+            if (currentUser != null)
             {
+                //Get the users profile from their ID
                 userProfile = userDao.GetUserProfile(currentUser.Id);
-            }
-            catch
-            {
-                userProfile = null;
+                if (userProfile != null)
+                {
+                    result = Ok(userProfile);
+                }
             }
 
-            return userProfile;
+            return result;
         }
     }
 }

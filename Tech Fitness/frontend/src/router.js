@@ -69,19 +69,15 @@ const router = new Router({
       name: "CreateProfile",
       component: CreateProfile,
       beforeEnter: (to, from, next) => {
-        
-        let profile;
-        TFService.getProfileInfo().then(result => {
-          let user = auth.getUser();
-          profile = result.name;
-          console.log('profile '+profile);
-          console.log('result '+result);
-        if (user && !profile) {
-          next();
-        } else {
-          next('/');
-        }
-      });
+        const user = auth.getUser();
+
+        TFService.getProfileInfo()
+        .then(result => {
+          if(user && result){
+            next('/');
+          }
+        })
+        .catch( next() );
       }
     },
     {
