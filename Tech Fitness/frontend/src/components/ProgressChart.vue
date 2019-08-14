@@ -5,40 +5,30 @@
 </template>
 
 <script>
-
 export default {
   name: "Progress-Graph",
+  props: {
+    Datedata: Array,
+  },
   data: () => ({
     chartOptionsLine: {
       xAxis: {
-        data: [
-          "Jan",
-          "Feb",
-          "Mar",
-          "Apr",
-          "May",
-          "Jun",
-          "Jul",
-          "Aug",
-          "Sep",
-          "Oct",
-          "Nov",
-          "Dec"
-        ]
+        // this will be my array of dates
+        data: []
       },
       yAxis: {
         type: "value"
       },
       legend: {
-        data: ['Current', 'Goal', 'Progress'],
-        x: 'center',
-        y: 'bottom'
+        data: ["Current", "Goal", "Progress"],
+        x: "center",
+        y: "bottom"
       },
       series: [
         {
           name: "Current",
           type: "line",
-          data: [55, 72, 84, 48, 59, 62, 87, 75, 94, 101, 127, 118],
+          data: [55, 72, 84, 48, 59, 62, 87, 75, 94, 101, 127, 118]
         },
         {
           name: "Goal",
@@ -57,9 +47,17 @@ export default {
         textStyle: {
           fontSize: 24
         }
-      },
+      }
     }
-  })
+  }),
+  watch: {
+    Datedata: function() {
+      this.Datedata.forEach(element => {
+        this.chartOptionsLine.xAxis.data.push(element.date);
+      });
+   
+    }
+  }
 };
 </script>
 
@@ -67,8 +65,6 @@ export default {
 .chart-wrapper {
   width: 100%;
   height: 500px;
-  
-
 }
 .echarts {
   width: 100%;
@@ -79,5 +75,4 @@ export default {
   width: auto;
   -webkit-tap-highlight-color: transparent;
 }
-
 </style>

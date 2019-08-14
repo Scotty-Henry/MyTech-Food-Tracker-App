@@ -48,5 +48,7 @@ namespace Security.DAL
 
         List<Meal> getMealsbyUserID(int userID);
 
+        List<DayNutrientAggModel> getNutritionbyMealandDate(int userID);
+
     }
 }
