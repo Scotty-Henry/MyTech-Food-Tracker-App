@@ -210,7 +210,14 @@ namespace Security.Controllers
             User currentUser = userDao.GetUser(User.Identity.Name);
 
             //Get the users profile from their ID
-            userProfile = userDao.GetUserProfile(currentUser.Id);
+            try
+            {
+                userProfile = userDao.GetUserProfile(currentUser.Id);
+            }
+            catch
+            {
+                userProfile = null;
+            }
 
             return userProfile;
         }

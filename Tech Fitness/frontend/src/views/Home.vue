@@ -1,11 +1,7 @@
 <template>
   <div id="home">
     <b-card-group id="home">
-<<<<<<< HEAD
-        <dashboard-overlay></dashboard-overlay> 
-=======
       <!-- <dashboard-overlay></dashboard-overlay> -->
->>>>>>> f8d62398909114663bc1a94843eb99432e63df00
       <b-card bg-variant="info" text-variant="white" header="Profile" class="text-center" id="profile">
         <profile id="profile" :name="this.userProfile.name" :birthdate="this.userProfile.birthdate"></profile>
       </b-card>
