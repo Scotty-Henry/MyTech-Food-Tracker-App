@@ -59,6 +59,12 @@ export default {
         addAuthorization();
         return apiLocal.post(url).then(response => response.data);
     },
+    getNutritionbyMealandDate(){
+        const url = `${process.env.VUE_APP_REMOTE_API}/Account/getNutritionbyMealandDate`;
+        return apiLocal.get(url).then(response => response.data);
+    },
+
+
 
     findNutrient(nameNutrient, myArray){
         for (var i=0; i < myArray.length; i++) {

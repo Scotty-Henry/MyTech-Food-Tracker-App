@@ -1,9 +1,9 @@
 <template>
     <div class="current-values">
-        <div> Calories Today: {{this.nutrientsToday}} </div>
-        <!-- <div> Carbs Today: {{this.nutrientsToday.carb}} </div>
+        <div> Calories Today: {{this.nutrientsToday.cal}} </div>
+        <div> Carbs Today: {{this.nutrientsToday.carb}} </div>
         <div> Fat Today: {{this.nutrientsToday.carb}} </div>
-        <div> Pro Today: {{this.nutrientsToday.pro}} </div> -->
+        <div> Pro Today: {{this.nutrientsToday.pro}} </div>
            
     </div>
 </template>

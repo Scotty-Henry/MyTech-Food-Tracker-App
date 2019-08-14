@@ -266,9 +266,69 @@ namespace Security.DAL
             }
 
         }
+        //getNutritionbyMealandDate
+
+        public List<DayNutrientAggModel> getNutritionbyMealandDate(int userID)
+        {
+            try
+            {
+                //get data
+                const string sql = @"select 
+                                    user_profile.id, 
+                                    meal.meal_date,
+                                    meal_type.meal_category,
+                                    sum(food.cal) as 'SUM_Cal',
+                                    sum(food.carb) as 'SUM_Carb',
+                                    sum(food.protein) as 'SUM_Pro',
+                                    sum(food.fat) as 'SUM_Fat'
+                                    from food
+                                    join meal_food on food.ndbno = meal_food.ndbno
+                                    join meal on meal.meal_id = meal_food.meal_id
+                                    join meal_type on meal.meal_type = meal_type.meal_id
+                                    join user_profile on user_profile.id = meal.user_id
+                                    where user_profile.id = @userID
+                                    group by user_profile.id, meal.meal_date, meal_type.meal_category
+                                    order by meal_date; ";
+
+
+                List<DayNutrientAggModel> listdayNutrientAggModels = new List<DayNutrientAggModel>();
+                DayNutrientAggModel dayNutrientAggModel = new DayNutrientAggModel();
+
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand(sql, conn);
+                    cmd.Parameters.AddWithValue("@userID", userID);
+                    SqlDataReader reader = cmd.ExecuteReader();
+                   
+
+
+                    while (reader.Read())
+                    {        
+                        dayNutrientAggModel.Date = Convert.ToString(reader["meal_date"]);
+                        dayNutrientAggModel.SUM_Cal = Convert.ToInt16(reader["SUM_Cal"]);
+                        dayNutrientAggModel.SUM_Carb = Convert.ToInt16(reader["SUM_Carb"]);
+                        dayNutrientAggModel.SUM_Fat = Convert.ToInt16(reader["SUM_Fat"]);
+                        dayNutrientAggModel.SUM_Pro = Convert.ToInt16(reader["SUM_Pro"]);
+                        listdayNutrientAggModels.Add(dayNutrientAggModel);
+                    }
+
+                }
+
+                return listdayNutrientAggModels;
+
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+
+        }
+
 
         //Inserted in order to maintain referential integrity
-       
+
         public List<Meal> getMealsbyUserID(int userID)
         {
             try
