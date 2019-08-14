@@ -51,7 +51,7 @@ export default {
     Goal,
     Today, 
     History, 
-    DashboardOverlay  
+    // DashboardOverlay
   },
   data() {
     return {
