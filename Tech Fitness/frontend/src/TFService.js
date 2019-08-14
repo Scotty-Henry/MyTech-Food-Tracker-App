@@ -12,12 +12,14 @@ const apiClient = axios.create({
 const apiLocal = axios.create({
     baseURL: (`${process.env.VUE_APP_REMOTE_API}`),
     headers: {
-        Authorization: 'Bearer ' + auth.getToken(),
+        //Authorization: 'Bearer ' + auth.getToken(),
         'Content-Type': 'application/json',
         Accept: 'application/json'
     }
 });
-
+function addAuthorization() {
+    apiLocal.defaults.headers.Authorization = 'Bearer ' + auth.getToken();
+}
 
 export default {
 
@@ -43,14 +45,18 @@ export default {
     // }
     getProfileInfo(){
         const url = `${process.env.VUE_APP_REMOTE_API}/Account/dashboard`;
-        return apiLocal.get(url).then(response => response.data);
+        addAuthorization();
+        return apiLocal.get(url)
+        .then(response => response.data);
     },
     getMealbyUser(){
         const url = `${process.env.VUE_APP_REMOTE_API}/Account/getMealbyUser`;
+        addAuthorization();
         return apiLocal.get(url).then(response => response.data);
     },
     submitMeal(){
         const url = `${process.env.VUE_APP_REMOTE_API}/Account/addMeal`;
+        addAuthorization();
         return apiLocal.post(url).then(response => response.data);
     },
     getNutritionbyMealandDate(){
