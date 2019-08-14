@@ -8,6 +8,8 @@ import CreateProfile from './views/CreateProfile.vue'
 import EditProfile from './views/EditProfile.vue'
 import SearchFood from './views/SearchFood.vue'
 import HistoryView from './views/HistoryView.vue'
+import TFService from './TFService.js'
+
 Vue.use(Router)
 
 /**
@@ -27,73 +29,104 @@ const router = new Router({
       path: '/',
       name: 'home',
       component: Home,
-      meta: {
-        requiresAuth: true
+      beforeEnter: (to, from, next) => {
+        const user = auth.getUser();
+        if (user) {
+          next();
+        } else {
+          next('/login');
+        }
       }
     },
     {
       path: "/login",
       name: "login",
       component: Login,
-      meta: {
-        requiresAuth: false
+      beforeEnter: (to, from, next) => {
+        const user = auth.getUser();
+        if (!user) {
+          next();
+        } else {
+          next('/login');
+        }
       }
     },
     {
       path: "/register",
       name: "register",
       component: Register,
-      meta: {
-        requiresAuth: false
+      beforeEnter: (to, from, next) => {
+        const user = auth.getUser();
+        if (!user) {
+          next();
+        } else {
+          next('/login');
+        }
       }
     },
     {
       path: "/CreateProfile",
       name: "CreateProfile",
       component: CreateProfile,
-      meta: {
-        requiresAuth: true
+      beforeEnter: (to, from, next) => {
+        const user = auth.getUser();
+        let profile;
+        TFService.getProfileInfo().then(result => {
+          profile = result.name;
+        });
+        console.log(profile);
+        if (user && !profile) {
+          next();
+        } else {
+          next('/');
+        }
       }
     },
     {
       path: "/EditProfile",
       name: "EditProfile",
       component: EditProfile,
-      meta: {
-        requiresAuth: true
+      beforeEnter: (to, from, next) => {
+        const user = auth.getUser();
+        if (user) {
+          next();
+        } else {
+          next('/login');
+        }
       }
     },
     {
       path: "/search-food",
       name: "search-food",
       component: SearchFood,
-      meta: {
-        requiresAuth: true
+      beforeEnter: (to, from, next) => {
+        const user = auth.getUser();
+        if (user) {
+          next();
+        } else {
+          next('/login');
+        }
       }
     },
     {
       path: "/history-view",
       name: "HistoryView",
       component: HistoryView,
-      meta: {
-        requiresAuth: true
+      beforeEnter: (to, from, next) => {
+        const user = auth.getUser();
+        if (user) {
+          next();
+        } else {
+          next('/login');
+        }
       }
+    },
+    {
+      path: '*',
+      redirect: '/'
     }
-  ]
+  ],
+  linkActiveClass: 'active',
 })
-
-router.beforeEach((to, from, next) => {
-  // Determine if the route requires Authentication
-  const requiresAuth = to.matched.some(x => x.meta.requiresAuth);
-  const user = auth.getUser();
-
-  // If it does and they are not logged in, send the user to "/login"
-  if (requiresAuth && !user) {
-    next("/login");
-  } else {
-    // Else let them go to their next destination
-    next();
-  }
-});
 
 export default router;

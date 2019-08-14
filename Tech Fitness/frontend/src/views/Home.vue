@@ -23,7 +23,7 @@
       </b-card>
 
       <b-card text-variant="black" header="D/W/M/LT" id="today">
-        <today :nutrientsToday="todayCals" id="today"></today>
+        <today :nutrientsToday="todayMeals" id="today"></today>
       </b-card>>
     </b-card-group>
   </div>
@@ -91,6 +91,12 @@ export default {
                   date: TFService.stringtoDate(mealObj.date),
                   meal_category: mealObj.meal_category,
                   userID: mealObj.userID,
+                  nutition: {
+                      cal: 0,
+                      fat: 0,
+                      pro: 0,
+                      carb: 0
+                  },
                   foods: [  ], 
                   }  
                   mealObj.foods.forEach((food) => {
@@ -104,6 +110,10 @@ export default {
                                   qty: food.qty,
                                   unit: food.unit,
                                   }
+                                  meal.nutition.cal += food.cal;
+                                  meal.nutition.fat += food.fat;
+                                  meal.nutition.pro += food.pro;
+                                  meal.nutition.carb += food.carb;
                                   meal.foods.push(foodItem);
                                 });
                     

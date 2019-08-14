@@ -76,15 +76,16 @@ export default {
             this.invalidCredentials = true;
           }
         })
-        .then((token) => {
-          if (token != undefined) {
-            if (token.includes('"')) {
-              token = token.replace(/"/g, '');
-            }
-            auth.saveToken(token);
-            this.$router.push('/');
-          }
-        })
+        // .then((token) => {
+        //   if (token != undefined) {
+        //     if (token.includes('"')) {
+        //       token = token.replace(/"/g, '');
+        //     }
+        //     auth.saveToken(token);
+            
+        //   }
+        // })
+        this.$router.push('/')
         .catch((err) => console.error(err));
     },
     
