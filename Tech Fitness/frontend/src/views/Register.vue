@@ -2,7 +2,6 @@
   <div id="register" class="text-center">
     <form class="form-register form-group mt-5" id="formregister" @submit.prevent="register">
       <h1 class="h3 mb-3 font-weight-normal" id="create">Create Account</h1>
-      <video-overlay></video-overlay>
       <div class="alert alert-danger" role="alert" v-if="registrationErrors">
         There were problems registering this user.
       </div>
@@ -39,17 +38,15 @@
           Create Account
         </button>
     </form>
-    <video-overlay></video-overlay>
   </div>
 </template>
 
 <script>
-import VideoOverlay from '@/components/VideoOverlay';
 
 export default {
   name: 'register',
   components: {
-    VideoOverlay
+    
   },
   data() {
     return {
