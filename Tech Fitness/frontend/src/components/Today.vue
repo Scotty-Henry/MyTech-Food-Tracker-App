@@ -11,7 +11,7 @@
 <script>
 export default {
     props: {
-            nutrientsToday: '',
+            nutrientsToday: Object,
            
         },
     data() {
