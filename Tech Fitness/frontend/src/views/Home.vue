@@ -1,11 +1,7 @@
 <template>
   <div id="home">
     <b-card-group id="home">
-<<<<<<< HEAD
-        <dashboard-overlay></dashboard-overlay> 
-=======
       <!-- <dashboard-overlay></dashboard-overlay> -->
->>>>>>> f8d62398909114663bc1a94843eb99432e63df00
       <b-card bg-variant="info" text-variant="white" header="Profile" class="text-center" id="profile">
         <profile id="profile" :name="this.userProfile.name" :birthdate="this.userProfile.birthdate"></profile>
       </b-card>
@@ -27,7 +23,7 @@
       </b-card>
 
       <b-card text-variant="black" header="D/W/M/LT" id="today">
-        <today :nutrientsToday="nutritionforDay" id="today"></today>
+        <today :nutrientsToday="arrayofDateObjects" id="today"></today>
       </b-card>>
     </b-card-group>
   </div>
@@ -68,20 +64,23 @@ export default {
         height: '',
       },
       userMeals: [], 
-      nutrientsToday: {
-        cal: this.todayCals,
-        pro: this.todayPro,
-        fat: this.todayFat,
-        carb: this.todayCarbs
+      Today: Date,
+      //use filter range to get different day's nutrition
+      FilterRange: ['8/13/2019','8/14/2019'],
+      Day: {
+        Date: '',
+        cal: '',
+        carb: '',
+        fat: ''
       },
-      componentLoaded: false,
+      uniqueDates: [],
+      arrayofDateObjects: [],
+      filteredDayMeals: [],
+
+      
     }
   },
-  mounted() {
-   
-    this.componentLoaded = true;
-  },
-  
+
     created()
     {
     //How you do it with Axios
@@ -108,8 +107,10 @@ export default {
                       pro: 0,
                       carb: 0
                   },
+                 
                   foods: [  ], 
                   }  
+                  this.isUniqeMealDate(meal);
                   mealObj.foods.forEach((food) => {
                                 let foodItem = {
                                   ndbno: food.ndbno,
@@ -131,129 +132,110 @@ export default {
             this.userMeals.push(meal);      
       })
        //console.log(this.userMeals) 
+    }),
+TFService.getNutritionbyMealandDate().then((data) => {
+
+    data.forEach((date) => {
+      this.arrayofDateObjects.push(data)
+      let DateObject = {
+        date: date.Date,
+        SUM_Cal: date.SUM_Cal,
+        SUM_Pro: date.SUM_Pro,
+        SUM_Carb: date.SUM_Carb,
+        SUM_Fat: date.SUM_Fat
+      }
+
     })
+
+}
+)
+
+
+
+
+
+
+
+
+
+
     //Get a today string
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, '0');
     var mm = String(today.getMonth() + 1); //January is 0!
     var yyyy = today.getFullYear();
     today = mm + '/' + dd + '/' + yyyy;
-    console.log(today);
-    this.today = today;
+    this.Today = today;
+   
 
       
     },
-    //How you do it with fetch
-    // {
-    //   fetch(`${process.env.VUE_APP_REMOTE_API}/Account/dashboard`, {
-    //     method: 'Get',
-    //     headers: {
-    //       Authorization: 'Bearer ' + auth.getToken(),
-    //       Accept: 'application/json',
-    //       'Content-Type': 'application/json',
-    //     },
-    //   })
-    //     .then((response) => {
-    //       if (response.ok) {
-    //         window.console.log(response);
-    //         return response.json();
-    //       } else {
-    //         this.invalidCredentials = true;
-    //       }
-    //     })
-    //     .then((parsed_data) => {
-    //                   window.console.log(parsed_data);
-    //     })
-    // },
-  // computed: {
-  //  profileData() {
-  //     this.name=data.name;
-  //   },
-// }
 
 methods: {
-            // getMealCals(meal){
-            //     return meal.foods.reduce((acc, food) => acc+food.cal, 0)
-            // },
-            // getMealCarbs(meal){
-            //     return meal.foods.reduce((acc, food) => acc+food.carb, 0)
-            // },
-            // getMealPro(meal){
-            //     return meal.foods.reduce((acc, food) => acc+food.pro, 0)
-            // }, 
-            // getMealFat(meal){
-            //     return meal.foods.reduce((acc, food) => acc+food.fat, 0)
-            // },
-             reduceMealsonDay(mealonDay){
-                let nutritiononDay = {
-                 cal: mealOnDay.reduce((acc, meal) => acc + meal.nutrition.cal, 0),
-                 fat: mealOnDay.reduce((acc, meal) => acc + meal.nutrition.fat, 0), 
-                 pro: mealOnDay.reduce((acc, meal) => acc + meal.nutrition.pro, 0), 
-                 carb: mealOnDay.reduce((acc, meal) => acc + meal.nutrition.carb, 0)
-                }
-                return nutritiononDay
-            },
+      isUniqeMealDate(meal){
+        if (!this.uniqueDates.includes(meal.date))
+        {
+          this.uniqueDates.push(meal.date)
+        };
+        }
+      }, 
+      mealsOnDay(date) {
+      let filteredDayMeals = this.userMeals.filter(meal => meal.date === date);
+      this.filteredDayMeals = filteredDayMeals;
 
+    },      
 
-        },
-            computed: {
-            //filter the array of meals to today
-            // todayMeals() {
-            //     return this.userMeals.filter(meal => meal.date === this.today)
-            // },
-            // weekMeals() {
-            //     return this.userMeals.filter(meal => meal.date === this.today)
-            // },
+    computed: {
+    //filter the array of meals to today
+    todayMeals() {
+        return this.userMeals.filter(meal => meal.date === this.Today)
+    },
 
-            //cals getMealCals to reduce Cals on a meal
-            //Reduces all of Today's meals into Today cals
-         
+    //filter array of meals based on an array of dates
+    mealsForRangeofDays(){
+          return this.userMeals.filter(meal => this.FilterRange.includes(meal.date));
+    },
 
-
-            // nutritionforDay(){
-            //    if(this.componentLoaded)
-            //    { 
-            //      // Array of meals for given day
-            //     let mealOnDay = this.userMeals.filter(meal => meal.date === this.today);
-            //     console.log(mealOnDay);
-            //     let nutrientsonDay = this.reduceMealsonDay(mealOnDay);
-            //     console.log(nutrientsonDay)
-            //     return nutrientsonDay;
-            //   }
-            // },
-           
-
-            // todayCarbs(){
-            //     return this.todayMeals.reduce((acc, meal) => acc + this.getMealCarbs(meal), 0)
-            // },
-            // todayPro(){
-            //     return this.todayMeals.reduce((acc, meal) => acc + this.getMealPro(meal), 0)
-            // },
-            // todayFat(){
-            //     return this.todayMeals.reduce((acc, meal) => acc + this.getMealFat(meal), 0)
-            // },
+    nutritionforDay() {
+      return this.todayMeals.reduce((totalNutrition, meal) => {
+          totalNutrition.fat += meal.nutrition.fat;
+          totalNutrition.cal += meal.nutrition.cal;
+          totalNutrition.pro += meal.nutrition.pro;
+          totalNutrition.carb += meal.nutrition.carb;
+          return totalNutrition;
+      }, {fat: 0, pro: 0, cal: 0, carb: 0});
+    },
+     nutrition2forDay() {
+      return this.filteredDayMeals.reduce((totalNutrition, meal) => {
+          totalNutrition.fat += meal.nutrition.fat;
+          totalNutrition.cal += meal.nutrition.cal;
+          totalNutrition.pro += meal.nutrition.pro;
+          totalNutrition.carb += meal.nutrition.carb;
+          return totalNutrition;
+      }, {fat: 0, pro: 0, cal: 0, carb: 0});
+    },
+    //for each day in computed array of days 
+      //created a day object {date, cal, pro, fat, carb}
+      //set date to day
+      //call todayMeals to return meals on day
+          //call nutritionforday to return nutrtion on day
+          //set day object's values
+          //push day object to a day array.
+    // createDateArrayObject(){
+    //   this.uniqueDates.forEach(date => {
+        
+    //     }
+    //     this.arrayofDateObjects.push(DateObject)
+    //   )}
+    
 
 
 
 
 
-
-            // todayCals(){
-            //     return this.todayMeals.reduce((acc, meal) => acc + this.getMealCals(meal), 0)
-            // },
-            // todayCarbs(){
-            //     return this.todayMeals.reduce((acc, meal) => acc + this.getMealCarbs(meal), 0)
-            // },
-            // todayPro(){
-            //     return this.todayMeals.reduce((acc, meal) => acc + this.getMealPro(meal), 0)
-            // },
-            // todayFat(){
-            //     return this.todayMeals.reduce((acc, meal) => acc + this.getMealFat(meal), 0)
-            // },
-            // bindtoday(){
-            //   return {today: {cals: this.todayCals}}
-            // }
-            
+    // todayFat(){
+    //     return this.todayMeals.reduce((acc, meal) => acc + this.getMealFat(meal), 0)
+    // },
 
     }
 }
