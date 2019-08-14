@@ -7,7 +7,7 @@
       </b-card>
 
       <b-card id="progress">
-        <progress-chart id="progress"></progress-chart>
+        <progress-chart :Datedata ="arrayofDateObjects" id="progress"></progress-chart>
       </b-card>
 
       <b-card header="Record Intake" text-variant="black" class="text-center" id="meal">
@@ -51,7 +51,7 @@ export default {
     Goal,
     Today, 
     History, 
-    // DashboardOverlay
+
   },
   data() {
     return {
@@ -74,6 +74,7 @@ export default {
         fat: ''
       },
       uniqueDates: [],
+      //this below arrofDate is important right now
       arrayofDateObjects: [],
       filteredDayMeals: [],
 
@@ -134,29 +135,10 @@ export default {
        //console.log(this.userMeals) 
     }),
 TFService.getNutritionbyMealandDate().then((data) => {
-
-    data.forEach((date) => {
-      this.arrayofDateObjects.push(data)
-      let DateObject = {
-        date: date.Date,
-        SUM_Cal: date.SUM_Cal,
-        SUM_Pro: date.SUM_Pro,
-        SUM_Carb: date.SUM_Carb,
-        SUM_Fat: date.SUM_Fat
-      }
-
-    })
+      this.arrayofDateObjects=data;
 
 }
 )
-
-
-
-
-
-
-
-
 
 
     //Get a today string
