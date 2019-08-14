@@ -1,6 +1,7 @@
 <template>
-  <div id="search-container" class="container">   
+  <b-container id="search-container" class="container">   
     <div id="search-food" class="text-center">
+      <b-col>
       <form class="form-signin form-group mt-5" @submit.prevent="handleSubmit">
         <h1 class="h3 mb-3 font-weight-normal">Find a food!</h1>
         <label for="name" class="sr-only" id="food-search">Food name</label>
@@ -16,17 +17,18 @@
         <button type="submit" id="searchbutton" class="btn btn-success btn-md">Search!</button>
       </form>
       <form class="form-signin form-group mt-5" @submit.prevent="handleNDBNO">
-        <label for="name" class="sr-only" id="add-food">Add by ndbno</label>
+        <label for="meal-form-ndbno" class="sr-only" id="add-food">Add by ndbno</label>
         <input
-          id="meal-form"
+          id="meal-form-ndbno"
           type="text"
           class="form-control"
           placeholder="ndbno"
           v-model="foodItem.ndbno"
           autofocus
         />
+        <label for="meal-form-qty" class="sr-only" id="add-qty">Qty</label>
         <input
-          id="meal-form"
+          id="meal-form-qty"
           type="text"
           class="form-control"
           placeholder="Qty."
@@ -43,7 +45,8 @@
       <div>My food's carbs: {{this.foodItem.carb}} </div>
 
       <meal id="meal" :foodArray="this.foodArray"></meal>
-      <!-- Need to make each item clickable? -->
+      </b-col>
+      <b-col>
       <div id="table" class="text-left">
           <b-table
            selectable
@@ -57,8 +60,9 @@
            responsive="sm">
            </b-table>
       </div>
+      </b-col>
     </div>
-</div>
+</b-container>
   
 </template>
 

@@ -1,7 +1,8 @@
 <template>
   <div id="register" class="text-center">
-    <form id="registerform" class="form-register form-group mt-5" @submit.prevent="register">
+    <form class="form-register form-group mt-5" id="formregister" @submit.prevent="register">
       <h1 class="h3 mb-3 font-weight-normal" id="create">Create Account</h1>
+      <video-overlay></video-overlay>
       <div class="alert alert-danger" role="alert" v-if="registrationErrors">
         There were problems registering this user.
       </div>
@@ -32,14 +33,13 @@
         v-model="user.confirmPassword"
         required
       />
-      <video-overlay></video-overlay>
       <router-link :to="{ name: 'login' }">Have an account?</router-link>
 
         <button type="submit" id="submit" class="btn btn-primary">
           Create Account
         </button>
-  
     </form>
+    <video-overlay></video-overlay>
   </div>
 </template>
 
@@ -86,11 +86,8 @@ export default {
 </script>
 
 <style scoped>
-#registerform {
+#formregister {
   opacity: 1;
-  /* -webkit-transform: translateZ(0) translateX(-50%);
-  -ms-transform: translateZ(0) translateX(-50%);
-  transform: translateZ(0) translateX(-50%); */
   z-index: 9999;
 }
 #create {

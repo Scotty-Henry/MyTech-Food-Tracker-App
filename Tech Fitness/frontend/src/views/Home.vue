@@ -1,7 +1,7 @@
 <template>
   <div id="home">
     <b-card-group id="home">
-      <dashboard-overlay></dashboard-overlay>
+      <!-- <dashboard-overlay></dashboard-overlay> -->
       <b-card bg-variant="info" text-variant="white" header="Profile" class="text-center" id="profile">
         <profile id="profile" :name="this.userProfile.name" :birthdate="this.userProfile.birthdate"></profile>
       </b-card>
