@@ -1,67 +1,70 @@
 <template>
   <b-container id="search-container" class="container">   
-    <div id="search-food" class="text-center">
+    <b-row>
       <b-col>
-      <form class="form-signin form-group mt-5" @submit.prevent="handleSubmit">
-        <h1 class="h3 mb-3 font-weight-normal">Find a food!</h1>
-        <label for="name" class="sr-only" id="food-search">Food name</label>
-        <input
-          id="item"
-          type="text"
-          class="form-control"
-          placeholder="Nom nom nom . . ."
-          v-model="food.name"
-          required
-          autofocus
-        />
-        <button type="submit" id="searchbutton" class="btn btn-success btn-md">Search!</button>
-      </form>
-      <form class="form-signin form-group mt-5" @submit.prevent="handleNDBNO">
-        <label for="meal-form-ndbno" class="sr-only" id="add-food">Add by ndbno</label>
-        <input
-          id="meal-form-ndbno"
-          type="text"
-          class="form-control"
-          placeholder="ndbno"
-          v-model="foodItem.ndbno"
-          autofocus
-        />
-        <label for="meal-form-qty" class="sr-only" id="add-qty">Qty</label>
-        <input
-          id="meal-form-qty"
-          type="text"
-          class="form-control"
-          placeholder="Qty."
-          v-model="foodItem.qty"
-          autofocus
-        />
-        <button type="submit" id="foodbutton" class="btn btn-success btn-md">Add Food!</button>
-      </form>
+        <div id="search-food" class="text-center">
+          <form class="form-signin form-group mt-5" @submit.prevent="handleSubmit">
+            <h1 class="h3 mb-3 font-weight-normal">Find a food!</h1>
+            <label for="name" class="sr-only" id="food-search">Food name</label>
+            <input
+              id="item"
+              type="text"
+              class="form-control"
+              placeholder="Nom nom nom . . ."
+              v-model="food.name"
+              required
+              autofocus
+            />
+            <button type="submit" id="searchbutton" class="btn btn-success btn-md">Search!</button>
+          </form>
+          <form class="form-signin form-group mt-5" @submit.prevent="handleNDBNO">
+            <label for="meal-form-ndbno" class="sr-only" id="add-food">Add by ndbno</label>
+            <input
+              id="meal-form-ndbno"
+              type="text"
+              class="form-control"
+              placeholder="ndbno"
+              v-model="foodItem.ndbno"
+              autofocus
+            />
+            <label for="meal-form-qty" class="sr-only" id="add-qty">Qty</label>
+            <input
+              id="meal-form-qty"
+              type="text"
+              class="form-control"
+              placeholder="Qty."
+              v-model="foodItem.qty"
+              autofocus
+            />
+            <button type="submit" id="foodbutton" class="btn btn-success btn-md">Add Food!</button>
+          </form>
 
-      <div>Food:  {{this.foodItem.name}} </div>
-      <div>My food's cals: {{this.foodItem.cal}} </div>
-      <div>My food's pro: {{this.foodItem.pro}} </div>
-      <div>My food's fat: {{this.foodItem.fat}} </div>
-      <div>My food's carbs: {{this.foodItem.carb}} </div>
+          <div>Food:  {{this.foodItem.name}} </div>
+          <div>My food's cals: {{this.foodItem.cal}} </div>
+          <div>My food's pro: {{this.foodItem.pro}} </div>
+          <div>My food's fat: {{this.foodItem.fat}} </div>
+          <div>My food's carbs: {{this.foodItem.carb}} </div>
 
-      <meal id="meal" :foodArray="this.foodArray"></meal>
+          <meal id="meal" :foodArray="this.foodArray"></meal>
+          </div>
       </b-col>
       <b-col>
-      <div id="table" class="text-left">
-          <b-table
-           selectable
-           select-mode="single"
-           striped
-           hover
-           dark 
-           :items="food.results" 
-           :fields="fields" 
-           @row-selected="rowSelected"
-           responsive="sm">
-           </b-table>
-      </div>
+        <div id="table" class="text-left">
+            <b-table
+            sticky-header
+            selectable
+            select-mode="single"
+            striped
+            hover
+            dark 
+            :items="food.results" 
+            :fields="fields" 
+            @row-selected="rowSelected"
+            responsive="sm">
+            </b-table>
+        </div>
       </b-col>
-    </div>
+    </b-row>
 </b-container>
   
 </template>
@@ -141,12 +144,18 @@ export default {
 }
 #table {
   padding-top: 5%;
+  margin-top: 5%;
+  max-height: 130vh;
+  overflow: auto;
 }
 #foodbutton {
   margin: .5em;
 }
 #searchbutton {
   margin: .5em;
+}
+::-webkit-scrollbar {
+display: none;
 }
 /* .table {
     color:whitesmoke !important;
