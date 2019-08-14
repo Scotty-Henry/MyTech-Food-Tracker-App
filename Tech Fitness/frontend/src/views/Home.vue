@@ -1,7 +1,7 @@
 <template>
   <div id="home">
     <b-card-group id="home">
-
+      <dashboard-overlay></dashboard-overlay>
       <b-card bg-variant="info" text-variant="white" header="Profile" class="text-center" id="profile">
         <profile id="profile" :name="this.userProfile.name" :birthdate="this.userProfile.birthdate"></profile>
       </b-card>
@@ -23,7 +23,7 @@
       </b-card>
 
       <b-card text-variant="black" header="D/W/M/LT" id="today">
-        <today :userMeals="this.userMeals" id="today"></today>
+        <today :nutrientsToday="todayMeals" id="today"></today>
       </b-card>>
     </b-card-group>
   </div>
@@ -38,6 +38,7 @@ import Current from '@/components/Current';
 import Goal from '@/components/Goal';
 import Today from '@/components/Today';
 import History from '@/components/History';
+import DashboardOverlay from '@/components/DashboardOverlay';
 
 export default {
   name: 'home',
@@ -48,7 +49,8 @@ export default {
     Current,
     Goal,
     Today, 
-    History  
+    History, 
+    DashboardOverlay
   },
   data() {
     return {
@@ -60,7 +62,13 @@ export default {
         activityLevel: '',
         height: '',
       },
-      userMeals: []
+      userMeals: [], 
+      nutrientsToday: {
+        cal: this.todayCals,
+        pro: this.todayPro,
+        fat: this.todayFat,
+        carb: this.todayCarbs
+      },
     }
   },
     created()
@@ -83,6 +91,12 @@ export default {
                   date: TFService.stringtoDate(mealObj.date),
                   meal_category: mealObj.meal_category,
                   userID: mealObj.userID,
+                  nutition: {
+                      cal: 0,
+                      fat: 0,
+                      pro: 0,
+                      carb: 0
+                  },
                   foods: [  ], 
                   }  
                   mealObj.foods.forEach((food) => {
@@ -96,13 +110,26 @@ export default {
                                   qty: food.qty,
                                   unit: food.unit,
                                   }
+                                  meal.nutition.cal += food.cal;
+                                  meal.nutition.fat += food.fat;
+                                  meal.nutition.pro += food.pro;
+                                  meal.nutition.carb += food.carb;
                                   meal.foods.push(foodItem);
                                 });
                     
             this.userMeals.push(meal);      
       })
        //console.log(this.userMeals) 
-    });
+    })
+    //Get a today string
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1); //January is 0!
+    var yyyy = today.getFullYear();
+    today = mm + '/' + dd + '/' + yyyy;
+    console.log(today);
+    this.today = today;
+
       
     },
     //How you do it with fetch
@@ -132,7 +159,53 @@ export default {
   //     this.name=data.name;
   //   },
 // }
+
+methods: {
+            getMealCals(meal){
+                return meal.foods.reduce((acc, food) => acc+food.cal, 0)
+            },
+            getMealCarbs(meal){
+                return meal.foods.reduce((acc, food) => acc+food.carb, 0)
+            },
+            getMealPro(meal){
+                return meal.foods.reduce((acc, food) => acc+food.pro, 0)
+            }, 
+            getMealFat(meal){
+                return meal.foods.reduce((acc, food) => acc+food.fat, 0)
+            } 
+
+        },
+            computed: {
+            //filter the array of meals to today
+            todayMeals() {
+                return this.userMeals.filter(meal => meal.date === this.today)
+            },
+            weekMeals() {
+                return this.userMeals.filter(meal => meal.date === this.today)
+            },
+
+            //cals getMealCals to reduce Cals on a meal
+            //Reduces all of Today's meals into Today cals
+            todayCals(){
+                return this.todayMeals.reduce((acc, meal) => acc + this.getMealCals(meal), 0)
+            },
+            todayCarbs(){
+                return this.todayMeals.reduce((acc, meal) => acc + this.getMealCarbs(meal), 0)
+            },
+            todayPro(){
+                return this.todayMeals.reduce((acc, meal) => acc + this.getMealPro(meal), 0)
+            },
+            todayFat(){
+                return this.todayMeals.reduce((acc, meal) => acc + this.getMealFat(meal), 0)
+            },
+            bindtoday(){
+              return {today: {cals: this.todayCals}}
+            }
+            
+
+    }
 }
+
 
 </script>
 
