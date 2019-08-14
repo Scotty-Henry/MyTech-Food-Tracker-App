@@ -83,10 +83,9 @@ export default {
               token = token.replace(/"/g, '');
             }
             auth.saveToken(token);
-            this.$router.push('/CreateProfile');
           }
         })
-        .catch((err) => console.error(err));
+        this.$router.push("/CreateProfile");
     },
   },
 };

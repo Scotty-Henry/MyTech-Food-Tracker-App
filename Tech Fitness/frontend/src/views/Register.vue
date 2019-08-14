@@ -79,7 +79,6 @@ export default {
             this.registrationErrors = true;
           }
         })
-
         .then((err) => console.error(err));
     },
   },
