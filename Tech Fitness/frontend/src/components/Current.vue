@@ -1,10 +1,10 @@
 <template>
     <div class="current-values">
         <!-- Here I am! -->
-        <div> Current Weight: {{this.currWeight}}</div>
-        <div> Height (in): {{this.height}}</div>
-        <div> Activity Level: {{this.activity}}</div>
-        <div> BMI: </div>
+        <div> Current Weight: {{this.userProfile.currWeight}}</div>
+        <div> Height (in): {{this.userProfile.height}}</div>
+        <div> Activity Level: {{this.userProfile.activityLevel}}</div>
+        <div> BMI: {{this.userProfile.bmi}}</div>
         <!-- <b-form @submit="onSubmit">
             <b-form-group id="input-group-1" label="Weight:" label-for="input-1">
                 <b-form-input
@@ -37,9 +37,7 @@
 export default {
     name: 'Current',
   props: {
-    currWeight: '',
-    height: '',
-    activity: '',
+   userProfile: Object
   },
   
     data() {

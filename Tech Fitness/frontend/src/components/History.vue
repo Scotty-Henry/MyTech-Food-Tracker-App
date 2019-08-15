@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div> me: Check this shit out. Also me: **throws cooked spagetti at wall**
+        <div> 
             <ul>
                 <li v-for="meal in userMeals" v-bind:key="meal.mealID">
                         <ul>
@@ -10,6 +10,13 @@
                         </ul> 
                 </li>
             </ul> 
+        </div>
+        <div> 
+            <table>
+                <tr v-for="meal in userMeals" v-bind:key="meal.mealID">
+                        <td>{{meal.date}}</td> 
+                </tr>
+            </table> 
         </div>
     </div>
 </template>

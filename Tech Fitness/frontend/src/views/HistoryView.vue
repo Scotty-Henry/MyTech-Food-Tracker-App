@@ -1,3 +1,4 @@
+
 <template>
   <div id="history-container" class="container">   
     <div id="history-food" class="text-center">
