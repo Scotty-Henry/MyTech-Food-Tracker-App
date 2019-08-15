@@ -42,6 +42,7 @@
 <script>
 import auth from "../auth";
 import TFService from "@/TFService.js";
+
 export default {
   name: "meal",
 

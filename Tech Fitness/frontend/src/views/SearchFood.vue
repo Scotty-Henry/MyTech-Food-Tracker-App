@@ -34,7 +34,7 @@
         </div>
       </b-col>
       <b-col id="mealcol">
-        <div id="search-food" class="text-center justify-content-center align-items-center">
+        <div id="search-food" class="text-left">
           <form id="ndbnosearchform" class="form-signin mt-1" @submit.prevent="handleNDBNO">
             <h1 class="h3 mb-3 font-weight-normal">Track Food!</h1>
               <label for="meal-form-qty" class="sr-only" id="add-qty">Qty</label>
@@ -58,26 +58,70 @@
                 autofocus
               /> -->
         <div>
-            <b-card
-              id="foodcard"
-              tag="article"
-              style="max-width: 30rem;"
-              class="mb-2"
-              bg-variant="dark" 
-              header="Food Item Info:"
-              text-variant="white"
-            >
+          <b-container id="cardcontainer" class="container">
+            <b-row>
+              <b-col>
+                <b-card
+                  id="foodcard"
+                  tag="article"
+                  style="max-width: 20rem;"
+                  class="mb-2"
+                  bg-variant="dark" 
+                  header="Food Item Info:"
+                  text-variant="white"
+                >
 
-              <div> {{this.foodItem.name}} </div>
-              <br>
-              <div>My food's cals: {{this.foodItem.cal}} </div>
-              <div>My food's pro: {{this.foodItem.pro}} </div>
-              <div>My food's fat: {{this.foodItem.fat}} </div>
-              <div>My food's carbs: {{this.foodItem.carb}} </div>
-            </b-card>
-        </div>
-      </div>
-          <meal id="meal" :foodArray="this.foodArray"></meal>
+                  <div> {{this.foodItem.name}} </div>
+                  <br>
+                  <div>My food's cals: {{this.foodItem.cal}} </div>
+                  <div>My food's pro: {{this.foodItem.pro}} </div>
+                  <div>My food's fat: {{this.foodItem.fat}} </div>
+                  <div>My food's carbs: {{this.foodItem.carb}} </div>
+                </b-card>
+              </b-col>
+              <b-col>
+                <b-card
+                  id="mealcard"
+                  tag="article"
+                  style="max-width: 20rem;"
+                  class="mb-2"
+                  bg-variant="dark" 
+                  header="Meal Info:"
+                  text-variant="white"
+                >
+
+                <div>
+                  <div> My Meal: 
+                    <ul>
+                        <li v-for="food in foodArray" v-bind:key="food.id"> {{food.name}} </li>
+                    </ul>
+                  </div>
+                </div>
+
+                </b-card>
+              </b-col>
+            </b-row>
+          </b-container>
+
+              <form class="form-signin form-group mt-1" @submit.prevent="submitMeal">
+                <label id="mealactivity" for="activity" > Meal </label>
+                <select id="activity" name="activity" class="selectpicker form-control" v-model="mealObj.meal_category">
+                    <option disabled value="">Select Meal</option>
+                    <option value="1">Breakfast</option>
+                    <option value="2">Lunch</option>
+                    <option value="3">Dinner</option>
+                    <option value="4">Snack - 1</option>
+                    <option value="5">Snack - 2</option>
+                  </select>
+                  <label id="date" for="date"> Date of Meal </label>
+                  <input type="date" id="date" name="date" class="form-control" placeholder="Date" v-model="mealObj.date"/>
+
+                  <b-button block type="submit" id="searchbutton" class="btn btn-success btn-md">Submit Meal</b-button>
+              </form>
+
+            </div>
+          </div>
+          <!-- <meal id="meal" :foodArray="this.foodArray"></meal> -->
 
        </b-col>
     </b-row>
@@ -86,6 +130,7 @@
 </template>
 
 <script>
+import auth from '../auth';
 import TFService from "@/TFService.js";
 import Meal from '@/components/Meal';
 
@@ -96,6 +141,11 @@ export default {
   },
   data() {
     return {
+      mealObj: {
+              foods: this.foodArray,
+              meal_category: '',
+              date: '',
+          },
       selected: '',
       foodItem:{
           ndbno: '',
@@ -126,6 +176,26 @@ export default {
     rowSelected(items) {
       this.selected = items;
       this.foodItem = items[0];
+    },
+
+    submitMeal() {
+      fetch(`${process.env.VUE_APP_REMOTE_API}/Account/addMeal`, {
+        method: 'POST',
+        headers: {
+          Authorization: 'Bearer ' + auth.getToken(),
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(this.mealObj),
+      })
+        .then((response) => {
+          if (response.ok) {
+            return response.text();
+          } else {
+            this.invalidCredentials = true;
+          }
+        })
+        .catch((err) => console.error(err));
     },
     
     handleNDBNO() {
@@ -162,7 +232,7 @@ export default {
 }
 #table {
   margin-top: 3.5%;
-  max-height: 60vh;
+  max-height: 73vh;
   overflow: auto;
 }
 #foodsearchform {
@@ -184,7 +254,10 @@ export default {
 }
 #foodcard {
   margin-top: 5%;
-  justify-content: center;
+  height: 90%
 }
-
+#mealcard {
+  margin-top: 5%;
+  height: 90%;
+}
 </style>
