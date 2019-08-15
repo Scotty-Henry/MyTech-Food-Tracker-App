@@ -2,14 +2,10 @@
     <div>
         <div> My Meal: 
             <ul>
-                <li v-for="food in foodArray" 
-                v-bind:key="food.id">
-                {{food.name}} 
-            </li>
+                <li v-for="food in foodArray" v-bind:key="food.id"> {{food.name}} </li>
             </ul> 
 
     <form class="form-signin form-group mt-1" @submit.prevent="submitMeal">
-    
          <label id="mealactivity" for="activity" > Meal </label>
           <select id="activity" name="activity" class="selectpicker form-control" v-model="mealObj.meal_category">
               <option disabled value="">Select Meal</option>
