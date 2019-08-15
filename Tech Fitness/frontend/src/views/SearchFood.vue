@@ -179,7 +179,6 @@ export default {
     },
 
     submitMeal() {
-      console.log(this.mealObj);
       fetch(`${process.env.VUE_APP_REMOTE_API}/Account/addMeal`, {
         method: 'POST',
         headers: {
@@ -197,6 +196,7 @@ export default {
           }
         })
         .catch((err) => console.error(err));
+         this.$router.push("/");
     },
     
     handleNDBNO() {

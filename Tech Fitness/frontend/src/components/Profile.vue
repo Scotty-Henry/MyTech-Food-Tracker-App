@@ -10,8 +10,7 @@
                 <div> Birthdate: {{birthdate}} </div>
         <hr>
         <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et 
-            dolore magna aliqua.  
+            “The Pessimist Sees Difficulty In Every Opportunity. The Optimist Sees Opportunity In Every Difficulty.” – Winston Churchill
         </p>
     </div>
 </template>

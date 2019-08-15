@@ -22,7 +22,7 @@
         <goal :userProfile ="userProfile" id="goal"></goal>
       </b-card>
 
-      <b-card text-variant="black" header="D/W/M/LT" id="today">
+      <b-card text-variant="black" :header="this.Today" id="today">
         <!-- <today :nutrientsToday="arrayofDateObjects" id="today"></today> -->
         <bar-chart :NutritionOnDay="nutritionforDay" id="barchart"></bar-chart>
       </b-card>>
@@ -98,8 +98,8 @@ export default {
       this.userProfile.goalWeight = data.goalWeight;
       this.userProfile.activityLevel = data.activityLevel;
       this.userProfile.height = data.height;
-      this.userProfile.bmi = (703 * (data.currWeight/ (data.height * data.height)));
-      this.userProfile.goalbmi = (703 * (data.goalWeight/ (data.height * data.height)));
+      this.userProfile.bmi = (703 * (data.currWeight/ (data.height * data.height))).toFixed(2);
+      this.userProfile.goalbmi = (703 * (data.goalWeight/ (data.height * data.height))).toFixed(2);
 
 
     })
