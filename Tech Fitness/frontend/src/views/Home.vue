@@ -136,7 +136,6 @@ export default {
             pro: 0,
             carb: 0
           },
-
           foods: []
         };
         this.isUniqeMealDate(meal);
@@ -157,10 +156,8 @@ export default {
           meal.nutrition.carb += food.carb;
           meal.foods.push(foodItem);
         });
-
         this.userMeals.push(meal);
       });
-      //console.log(this.userMeals)
     }),
       TFService.getNutritionbyMealandDate().then(data => {
         let arraytobebuilt = [];
@@ -175,8 +172,6 @@ export default {
           arraytobebuilt.push(dateObject);
         });
         this.arrayofDateObjects = arraytobebuilt;
-
-        //this.arrayofDateObjects=data;
       });
 
     //Get a today string
@@ -191,22 +186,14 @@ export default {
   methods: {
     calulcateTDEE(data) {
       let part1 = (10 * data.currWeight) / 2.2046;
-      console.log(part1);
-
       let part2 = data.height * 2.54 * 6.25;
-      console.log(part2);
-
       let birthdate = new Date(data.birthdate);
       let today = new Date(this.Today);
       let age = today.getFullYear() - birthdate.getFullYear();
       let part3 = 5 * age;
-      console.log(part3);
-
       let result = part1 + part2 - part3 + 5;
-      console.log(result);
       if (this.userProfile.activityLevel == "Moderate") {
         result *= 1.55;
-        console.log(result);
       } else if (this.userProfile.activityLevel == "Low") {
         result *= 1.375;
       } else if (this.userProfile.activityLevel == "Very Low") {
@@ -220,7 +207,6 @@ export default {
     },
     calculateMacrosCarb(TDEE) {
       let carbCals = TDEE * 0.5;
-
       let macroGrams = {
         carbGrams: carbCals / 4
       };
@@ -228,7 +214,6 @@ export default {
     },
     calculateMacrosPro(TDEE) {
       let proCals = TDEE * 0.25;
-
       let macroGrams = {
         proGrams: proCals / 4
       };
@@ -236,27 +221,20 @@ export default {
     },
     calculateMacrosFat(TDEE) {
       let fatCals = TDEE * 0.25;
-
       let macroGrams = {
         fatGrams: fatCals / 9
       };
       return macroGrams;
     },
-
-    //  let fatCals = TDEE*.25;
-    //   let proCals = TDEE*.25;
-    //   fatGrams: fatCals/9,
-    //     proGrams: proCals/4,
-
     isUniqeMealDate(meal) {
       if (!this.uniqueDates.includes(meal.date)) {
         this.uniqueDates.push(meal.date);
       }
-    }
-  },
-  mealsOnDay(date) {
-    let filteredDayMeals = this.userMeals.filter(meal => meal.date === date);
-    this.filteredDayMeals = filteredDayMeals;
+    },
+    mealsOnDay(date) {
+      let filteredDayMeals = this.userMeals.filter(meal => meal.date === date);
+      this.filteredDayMeals = filteredDayMeals;
+  }
   },
 
   computed: {
@@ -283,36 +261,7 @@ export default {
         },
         { fat: 0, pro: 0, cal: 0, carb: 0 }
       );
-    },
-    nutrition2forDay() {
-      return this.filteredDayMeals.reduce(
-        (totalNutrition, meal) => {
-          totalNutrition.fat += meal.nutrition.fat;
-          totalNutrition.cal += meal.nutrition.cal;
-          totalNutrition.pro += meal.nutrition.pro;
-          totalNutrition.carb += meal.nutrition.carb;
-          return totalNutrition;
-        },
-        { fat: 0, pro: 0, cal: 0, carb: 0 }
-      );
     }
-    //for each day in computed array of days
-    //created a day object {date, cal, pro, fat, carb}
-    //set date to day
-    //call todayMeals to return meals on day
-    //call nutritionforday to return nutrtion on day
-    //set day object's values
-    //push day object to a day array.
-    // createDateArrayObject(){
-    //   this.uniqueDates.forEach(date => {
-
-    //     }
-    //     this.arrayofDateObjects.push(DateObject)
-    //   )}
-
-    // todayFat(){
-    //     return this.todayMeals.reduce((acc, meal) => acc + this.getMealFat(meal), 0)
-    // },
   }
 };
 </script>
