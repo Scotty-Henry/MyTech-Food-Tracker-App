@@ -49,7 +49,7 @@ namespace Security.DAL
                     return;
                 }
             }
-            catch(SqlException ex)
+            catch (SqlException ex)
             {
                 throw ex;
             }
@@ -67,7 +67,7 @@ namespace Security.DAL
                 {
                     conn.Open();
                     SqlCommand cmd = new SqlCommand("DELETE FROM users WHERE id = @id;", conn);
-                    cmd.Parameters.AddWithValue("@id", user.Id);                    
+                    cmd.Parameters.AddWithValue("@id", user.Id);
 
                     cmd.ExecuteNonQuery();
 
@@ -109,7 +109,7 @@ namespace Security.DAL
             catch (SqlException ex)
             {
                 throw ex;
-            }            
+            }
         }
 
         /// <summary>
@@ -123,7 +123,7 @@ namespace Security.DAL
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    SqlCommand cmd = new SqlCommand("UPDATE users SET password = @password, salt = @salt, role = @role WHERE id = @id;", conn);                    
+                    SqlCommand cmd = new SqlCommand("UPDATE users SET password = @password, salt = @salt, role = @role WHERE id = @id;", conn);
                     cmd.Parameters.AddWithValue("@password", user.Password);
                     cmd.Parameters.AddWithValue("@salt", user.Salt);
                     cmd.Parameters.AddWithValue("@role", user.Role);
@@ -156,7 +156,7 @@ namespace Security.DAL
                     cmd.Parameters.AddWithValue("@goalWeight", userProfile.goalWeight);
                     cmd.Parameters.AddWithValue("@height", userProfile.height);
                     cmd.Parameters.AddWithValue("@activityLevel", userProfile.activityLevel);
-               
+
                     cmd.ExecuteNonQuery();
 
                     return;
@@ -174,7 +174,7 @@ namespace Security.DAL
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
-                    conn.Open(); 
+                    conn.Open();
                     SqlCommand cmd = new SqlCommand("UPDATE user_profile SET id = @id, name = @name, birthdate = @birthdate, currWeight = @currWeight, goalWeight = @goalWeight, height = @height, activityLevel = @activityLevel " +
                                                      "WHERE id = @id;", conn);
                     cmd.Parameters.AddWithValue("@name", userProfile.name);
@@ -231,7 +231,7 @@ namespace Security.DAL
                     cmd.Parameters.AddWithValue("@date", meal.date);
                     newMealID = (int)cmd.ExecuteScalar();
 
-                    
+
                     foreach (FoodItem food in meal.foods)
                     {
                         //if food.ndbno not in my NDBNO array, then insert it 
@@ -252,11 +252,11 @@ namespace Security.DAL
                         cmd = new SqlCommand("INSERT INTO meal_food (meal_id, ndbno, qty) " +
                                                      "VALUES (@meal_id, @ndbno, @qty);", conn);
                         cmd.Parameters.AddWithValue("@meal_id", newMealID);
-                        cmd.Parameters.AddWithValue("@ndbno", food.ndbno );
+                        cmd.Parameters.AddWithValue("@ndbno", food.ndbno);
                         cmd.Parameters.AddWithValue("@qty", food.qty);
                         cmd.ExecuteNonQuery();
                     }
-  
+
 
                 }
             }
@@ -274,9 +274,7 @@ namespace Security.DAL
             {
                 //get data
                 const string sql = @"select 
-                                    user_profile.id, 
                                     meal.meal_date,
-                                    meal_type.meal_category,
                                     sum(food.cal) as 'SUM_Cal',
                                     sum(food.carb) as 'SUM_Carb',
                                     sum(food.protein) as 'SUM_Pro',
@@ -287,8 +285,9 @@ namespace Security.DAL
                                     join meal_type on meal.meal_type = meal_type.meal_id
                                     join user_profile on user_profile.id = meal.user_id
                                     where user_profile.id = @userID
-                                    group by user_profile.id, meal.meal_date, meal_type.meal_category
-                                    order by meal_date; ";
+                                    group by user_profile.id, meal.meal_date
+                                    order by meal_date;  ";
+
 
 
                 List<DayNutrientAggModel> listdayNutrientAggModels = new List<DayNutrientAggModel>();
@@ -301,17 +300,12 @@ namespace Security.DAL
                     SqlCommand cmd = new SqlCommand(sql, conn);
                     cmd.Parameters.AddWithValue("@userID", userID);
                     SqlDataReader reader = cmd.ExecuteReader();
-                   
+
 
 
                     while (reader.Read())
-                    {        
-                        dayNutrientAggModel.Date = Convert.ToString(reader["meal_date"]);
-                        dayNutrientAggModel.SUM_Cal = Convert.ToInt16(reader["SUM_Cal"]);
-                        dayNutrientAggModel.SUM_Carb = Convert.ToInt16(reader["SUM_Carb"]);
-                        dayNutrientAggModel.SUM_Fat = Convert.ToInt16(reader["SUM_Fat"]);
-                        dayNutrientAggModel.SUM_Pro = Convert.ToInt16(reader["SUM_Pro"]);
-                        listdayNutrientAggModels.Add(dayNutrientAggModel);
+                    {
+                        listdayNutrientAggModels.Add(MapRowtodayNutrientAggModel(reader));
                     }
 
                 }
@@ -325,6 +319,19 @@ namespace Security.DAL
             }
 
         }
+        private DayNutrientAggModel MapRowtodayNutrientAggModel(SqlDataReader reader)
+        {
+            return new DayNutrientAggModel()
+            {
+
+                Date = Convert.ToString(reader["meal_date"]),
+                SUM_Cal = Convert.ToInt16(reader["SUM_Cal"]),
+                SUM_Carb = Convert.ToInt16(reader["SUM_Carb"]),
+                SUM_Fat = Convert.ToInt16(reader["SUM_Fat"]),
+                SUM_Pro = Convert.ToInt16(reader["SUM_Pro"])
+            };
+        }
+    
 
 
         //Inserted in order to maintain referential integrity

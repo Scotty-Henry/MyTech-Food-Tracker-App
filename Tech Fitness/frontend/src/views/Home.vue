@@ -23,7 +23,8 @@
       </b-card>
 
       <b-card text-variant="black" header="D/W/M/LT" id="today">
-        <today :nutrientsToday="arrayofDateObjects" id="today"></today>
+        <!-- <today :nutrientsToday="arrayofDateObjects" id="today"></today> -->
+        <bar-chart :NutritionOnDay="nutritionforDay" id="barchart"></bar-chart>
       </b-card>>
     </b-card-group>
   </div>
@@ -39,6 +40,7 @@ import Goal from '@/components/Goal';
 import Today from '@/components/Today';
 import History from '@/components/History';
 import DashboardOverlay from '@/components/DashboardOverlay';
+import BarChart from '@/components/BarChart';
 
 
 export default {
@@ -51,6 +53,7 @@ export default {
     Goal,
     Today, 
     History, 
+    BarChart
 
   },
   data() {
@@ -135,7 +138,20 @@ export default {
        //console.log(this.userMeals) 
     }),
 TFService.getNutritionbyMealandDate().then((data) => {
-      this.arrayofDateObjects=data;
+    let arraytobebuilt = [];
+    data.forEach((element) => {
+        let dateObject = {
+      date: TFService.stringtoDate(element.date),
+      suM_Cal: element.suM_Cal,
+      suM_Carb: element.suM_Carb,
+      suM_Fat: element.suM_Fat,
+      suM_Pro: element.suM_Pro
+    }
+    arraytobebuilt.push(dateObject);
+    })
+    this.arrayofDateObjects=arraytobebuilt;
+    
+      //this.arrayofDateObjects=data;
 
 }
 )

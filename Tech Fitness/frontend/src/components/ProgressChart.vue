@@ -13,36 +13,42 @@ export default {
   data: () => ({
     chartOptionsLine: {
       xAxis: {
-        // this will be my array of dates
+        name: "Date",
         data: []
       },
       yAxis: {
+        name: "Total Grams",
         type: "value"
       },
       legend: {
-        data: ["Current", "Goal", "Progress"],
+        data: ["Carbohydrates", "Fat", "Protein"],
         x: "center",
         y: "bottom"
       },
       series: [
+        // {
+        //   name: "Calories",
+        //   type: "line",
+        //   data: []
+        // },
         {
-          name: "Current",
+          name: "Carbohydrates",
           type: "line",
-          data: [55, 72, 84, 48, 59, 62, 87, 75, 94, 101, 127, 118]
+          data: []
         },
         {
-          name: "Goal",
+          name: "Fat",
           type: "line",
-          data: [75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 75]
+          data: []
         },
         {
-          name: "Progress",
+          name: "Protein",
           type: "line",
-          data: [29, 70, 98, 87, 42, 81, 62, 80, 77, 90, 127, 80]
+          data: []
         }
       ],
       title: {
-        text: "Fitness Progress",
+        text: "Macronutrient Tracker",
         x: "center",
         textStyle: {
           fontSize: 24
@@ -55,7 +61,18 @@ export default {
       this.Datedata.forEach(element => {
         this.chartOptionsLine.xAxis.data.push(element.date);
       });
-   
+  //  this.Datedata.forEach(element => {
+  //       this.chartOptionsLine.series[0].data.push(element.suM_Cal);
+  //     });
+    this.Datedata.forEach(element => {
+        this.chartOptionsLine.series[0].data.push(element.suM_Carb);
+      });
+      this.Datedata.forEach(element => {
+        this.chartOptionsLine.series[1].data.push(element.suM_Fat);
+      });
+       this.Datedata.forEach(element => {
+        this.chartOptionsLine.series[2].data.push(element.suM_Pro);
+      });
     }
   }
 };

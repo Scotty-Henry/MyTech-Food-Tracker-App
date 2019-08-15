@@ -1,0 +1,69 @@
+
+<template>
+  <div class="chart-wrapper">
+    <chart id="chart" :options="chartOptionsBar"></chart>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'Bar-Chart',
+  props: {
+      NutritionOnDay: Object,
+  },
+  data: () => ({
+    chartOptionsBar: {
+  xAxis: {
+    data: ['Carb', 'Fat', 'Pro']
+  },
+  yAxis: {
+    name: "Grams",
+    type: 'value'
+  },
+  series: [
+    {
+      type: 'bar',
+      data: []
+    }
+  ],
+  title: {
+    text: 'Today',
+     x: 'center',
+    textStyle: {
+      fontSize: 12
+    }
+  }
+}
+
+  }),
+   watch: {
+    NutritionOnDay: function() {
+        this.chartOptionsBar.series[0].data.push(this.NutritionOnDay.carb);
+         this.chartOptionsBar.series[0].data.push(this.NutritionOnDay.fat);
+          this.chartOptionsBar.series[0].data.push(this.NutritionOnDay.pro);
+      }
+  //  this.Datedata.forEach(element => {
+  //       this.chartOptionsLine.series[0].data.push(element.suM_Cal);
+  //     });
+    
+    }
+  }
+
+</script>
+
+<style scoped>
+.chart-wrapper {
+  width: 100%;
+  height: 100%;
+}
+.echarts {
+  width: 100%;
+  height: 100%;
+}
+#chart {
+  height: 80vh;
+  width: auto;
+  -webkit-tap-highlight-color: transparent;
+}
+</style>
+
