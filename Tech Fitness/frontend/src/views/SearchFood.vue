@@ -36,7 +36,7 @@
       <b-col id="mealcol">
         <div id="search-food" class="text-left">
           <form id="ndbnosearchform" class="form-signin mt-1" @submit.prevent="handleNDBNO">
-            <h1 class="h3 mb-3 font-weight-normal">Track Food!</h1>
+            <h1 class="h3 mb-3 font-weight-normal text-center">Track Food!</h1>
               <label for="meal-form-qty" class="sr-only" id="add-qty">Qty</label>
                 <input
                   id="meal-form-qty"
