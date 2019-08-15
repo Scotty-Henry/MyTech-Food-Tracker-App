@@ -10,6 +10,9 @@ export default {
   name: 'Bar-Chart',
   props: {
       NutritionOnDay: Object,
+      goalCarb: Object,
+      goalFat: Object,
+      goalPro: Object,
   },
   data: () => ({
     chartOptionsBar: {
@@ -24,7 +27,11 @@ export default {
     {
       type: 'bar',
       data: []
-    }
+    },
+     {
+          type: "bar",
+          data: []
+        },
   ],
   title: {
     text: 'Today',
@@ -41,7 +48,16 @@ export default {
         this.chartOptionsBar.series[0].data.push(this.NutritionOnDay.carb);
          this.chartOptionsBar.series[0].data.push(this.NutritionOnDay.fat);
           this.chartOptionsBar.series[0].data.push(this.NutritionOnDay.pro);
-      }
+      },
+      goalCarb: function() {
+        this.chartOptionsBar.series[1].data.push(this.goalCarb.carbGrams); 
+      },
+      goalFat: function() {
+        this.chartOptionsBar.series[1].data.push(this.goalFat.fatGrams); 
+      },
+      goalPro: function() {
+        this.chartOptionsBar.series[1].data.push(this.goalPro.proGrams); 
+      },
     
     }
   }
@@ -54,12 +70,12 @@ export default {
   height: 100%;
 }
 .echarts {
-  width: 100%;
-  height: 100%;
+  width: 80%;
+  height: 80%;
 }
 #chart {
-  height: 80vh;
-  width: auto;
+  height: 40vh;
+  width: 20.5vw;
   -webkit-tap-highlight-color: transparent;
 }
 </style>
