@@ -142,7 +142,7 @@ export default {
   data() {
     return {
       mealObj: {
-              foods: this.foodArray,
+              foods: [],
               meal_category: '',
               date: '',
           },
@@ -179,6 +179,7 @@ export default {
     },
 
     submitMeal() {
+      console.log(this.mealObj);
       fetch(`${process.env.VUE_APP_REMOTE_API}/Account/addMeal`, {
         method: 'POST',
         headers: {
@@ -216,6 +217,7 @@ export default {
           this.foodItem.pro = currentFood.pro;
           this.foodItem.carb = currentFood.carb;
           this.foodItem.cal = currentFood.cal;
+          this.mealObj.foods.push(currentFood);
           this.foodArray.push(currentFood);
       });
     },
