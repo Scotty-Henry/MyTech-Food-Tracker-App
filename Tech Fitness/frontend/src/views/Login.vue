@@ -1,15 +1,21 @@
 <template>
   <div id="login" class="text-center">
-    <form class="form-signin form-group mt-5" id='signinform'  @submit.prevent="login">
+    <form class="form-signin form-group mt-5" id="signinform" @submit.prevent="login">
       <h1 class="h3 mb-3 font-weight-normal" id="apptitle">MyTech Fitness Tracker</h1>
-        <br/>
+      <br />
       <h1 class="h3 mb-3 font-weight-normal" id="sign-in">Please Sign In</h1>
-        <div id ="alert" class="alert alert-danger" role="alert" v-if="invalidCredentials">
-          Invalid username and password!
-        </div>
-        <div class="alert alert-success" id="alert" role="alert" v-if="this.$route.query.registration">
-          Thank you for registering, please sign in.
-        </div>
+      <div
+        id="alert"
+        class="alert alert-danger"
+        role="alert"
+        v-if="invalidCredentials"
+      >Invalid username and password!</div>
+      <div
+        class="alert alert-success"
+        id="alert"
+        role="alert"
+        v-if="this.$route.query.registration"
+      >Thank you for registering, please sign in.</div>
       <label for="username" class="sr-only">Username</label>
       <input
         type="text"
@@ -40,58 +46,61 @@
             <source src="http://cache.fitbit.com/media/us/story/fitbit4.mp4" type="video/mp4">
             <source src="http://cache.fitbit.com/media/us/story/fitbit5.webm" type="video/webm">
         </video>
-    </div> -->
-  </div> 
+    </div>-->
+  </div>
 </template>
 
 <script>
-import auth from '../auth';
+import auth from "../auth";
 import TFService from "@/TFService.js";
-import VideoOverlay from '@/components/VideoOverlay';
+import VideoOverlay from "@/components/VideoOverlay";
 
 export default {
-  name: 'login',
+  name: "login",
   components: {
     VideoOverlay
   },
   data() {
     return {
       user: {
-        username: '',
-        password: '',
+        username: "",
+        password: ""
       },
-      invalidCredentials: false,
+      invalidCredentials: false
     };
   },
   methods: {
     login() {
       fetch(`${process.env.VUE_APP_REMOTE_API}/Account/login`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
+          Accept: "application/json",
+          "Content-Type": "application/json"
         },
-        body: JSON.stringify(this.user),
+        body: JSON.stringify(this.user)
       })
-        .then((response) => {
+        .then(response => {
           if (response.ok) {
             return response.text();
           } else {
             this.invalidCredentials = true;
           }
         })
-        .then((token) => {
+        .then(token => {
           if (token != undefined) {
             if (token.includes('"')) {
-              token = token.replace(/"/g, '');
+              token = token.replace(/"/g, "");
             }
             auth.saveToken(token);
-            this.$router.push("/CreateProfile");
+            TFService.getProfileInfo()
+              .then(result => {
+                this.$router.push("/");
+              })
+              .catch(this.$router.push("/CreateProfile"));
           }
-        })
-
-    },
-  },
+        });
+    }
+  }
 };
 </script>
 
@@ -104,27 +113,26 @@ export default {
   opacity: 1;
   z-index: 9999;
   color: whitesmoke !important;
-  font-family: "Proxima Nova ThinT",Arial,Helvetica,sans-serif;
+  font-family: "Proxima Nova ThinT", Arial, Helvetica, sans-serif;
   font-size: 2.5em;
 }
 #apptag {
   opacity: 1;
   z-index: 9999;
   color: whitesmoke !important;
-  font-family: "Proxima Nova ThinT",Arial,Helvetica,sans-serif;
+  font-family: "Proxima Nova ThinT", Arial, Helvetica, sans-serif;
   font-size: 1.5em;
 }
 #sign-in {
   color: whitesmoke !important;
 }
 #submit {
-  margin: .75em;
+  margin: 0.75em;
 }
 #username {
-  margin-top: .5em;
+  margin-top: 0.5em;
 }
 #password {
-  margin-top: .5em;
+  margin-top: 0.5em;
 }
-
 </style>

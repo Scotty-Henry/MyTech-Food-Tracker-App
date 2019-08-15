@@ -16,7 +16,7 @@
         <input type="text" id="name" class="form-control" name="name" v-model="user.name" />
 
         <label id="bday" for="bday">Birthday:</label>
-        <input type="date" id="bday" name="bday" class="form-control" v-model="user.birthdate" />
+        <input type="date" id="bday" name="bday" value= {user.birthdate} class="form-control" v-model="user.birthdate" />
 
         <label id="height" for="height">Height in Inches:</label>
         <input type="number" id="height" name="height" class="form-control" v-model="user.height" />

@@ -446,6 +446,7 @@ namespace Security.DAL
             }
 
         }
+
         private string PullNonUniqueIdentity(SqlDataReader reader)
         {
             string nonUniquIdentity = "";
