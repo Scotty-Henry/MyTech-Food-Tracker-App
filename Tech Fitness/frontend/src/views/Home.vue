@@ -15,11 +15,11 @@
       </b-card>
 
       <b-card text-variant="black" header="Current Values" id="current">
-        <current :currWeight ="this.userProfile.currWeight" :height="this.userProfile.height" :activity="this.userProfile.activityLevel" id="current"></current>
+        <current :userProfile ="userProfile" id="current"></current>
       </b-card>
 
       <b-card text-variant="black" header="Goal Values" id="goal">
-        <goal :goalWeight ="this.userProfile.goalWeight" id="goal"></goal>
+        <goal :userProfile ="userProfile" id="goal"></goal>
       </b-card>
 
       <b-card text-variant="black" header="D/W/M/LT" id="today">
@@ -65,6 +65,8 @@ export default {
         goalWeight: '',
         activityLevel: '',
         height: '',
+        bmi: '',
+        goalbmi: ''
       },
       userMeals: [], 
       Today: Date,
@@ -96,6 +98,9 @@ export default {
       this.userProfile.goalWeight = data.goalWeight;
       this.userProfile.activityLevel = data.activityLevel;
       this.userProfile.height = data.height;
+      this.userProfile.bmi = (703 * (data.currWeight/ (data.height * data.height)));
+      this.userProfile.goalbmi = (703 * (data.goalWeight/ (data.height * data.height)));
+
 
     })
      TFService.getMealbyUser().then((data) => {
