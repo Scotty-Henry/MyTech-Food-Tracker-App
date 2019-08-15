@@ -42,9 +42,6 @@ export default {
          this.chartOptionsBar.series[0].data.push(this.NutritionOnDay.fat);
           this.chartOptionsBar.series[0].data.push(this.NutritionOnDay.pro);
       }
-  //  this.Datedata.forEach(element => {
-  //       this.chartOptionsLine.series[0].data.push(element.suM_Cal);
-  //     });
     
     }
   }
@@ -53,7 +50,7 @@ export default {
 
 <style scoped>
 .chart-wrapper {
-  width: 100%;
+  width: 80%;
   height: 100%;
 }
 .echarts {

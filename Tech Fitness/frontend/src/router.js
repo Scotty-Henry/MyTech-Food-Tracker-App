@@ -8,7 +8,6 @@ import CreateProfile from './views/CreateProfile.vue'
 import EditProfile from './views/EditProfile.vue'
 import SearchFood from './views/SearchFood.vue'
 import HistoryView from './views/HistoryView.vue'
-import TFService from './TFService.js'
 
 Vue.use(Router)
 
@@ -70,14 +69,11 @@ const router = new Router({
       component: CreateProfile,
       beforeEnter: (to, from, next) => {
         const user = auth.getUser();
-
-        TFService.getProfileInfo()
-        .then(result => {
-          if(user && result){
-            next('/');
-          }
-        })
-        .catch( next() );
+        if (user) {
+          next();
+        } else {
+          next('/login');
+        }
       }
     },
     {

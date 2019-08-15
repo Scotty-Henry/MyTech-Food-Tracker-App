@@ -1,9 +1,8 @@
 <template>
     <div class="current-values">
         <!-- Here I am! -->
-        <div> Goal Weight: {{this.goalWeight}}</div>
-        <div> BMI: </div>
-        
+        <div> Goal Weight: {{this.userProfile.goalWeight}}</div>
+        <div> BMI: {{this.userProfile.goalbmi}}</div>        
     </div>
 </template>
 
@@ -11,14 +10,11 @@
 export default {
      name: 'Goal',
   props: {
-    goalWeight: '',
+    userProfile: Object
   },
     data() {
             return {
-                form: {
-                weight: '',
-                calories: '',
-                },
+               
             }
         }
     }

@@ -192,28 +192,6 @@ namespace Security.Controllers
         }
 
 
-        [HttpGet("getNutritionbyMealandDate")]
-        [Authorize(Roles = "User")]
-        public ActionResult<List<DayNutrientAggModel>> getNutritionbyMealandDate()
-        {
-            IActionResult result = Ok();
-
-            List<DayNutrientAggModel> nutrientByDay = new List<DayNutrientAggModel>();
-            //This is off my token
-            string user = User.Identity.Name;
-
-
-            //find my user in the users table by the name on their token (given during log in)
-            User currentUser = userDao.GetUser(User.Identity.Name);
-
-            //get the current users id
-            int currentUserId = currentUser.Id;
-
-            nutrientByDay = userDao.getNutritionbyMealandDate(currentUserId);
-
-            return nutrientByDay;
-        }
-
         /// <summary>
         /// Currently, I am only routed here from 'create profile'. 
         /// SHould be only able to 'create' profile once, then should update profile.
