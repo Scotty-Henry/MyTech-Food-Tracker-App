@@ -34,7 +34,7 @@
         </div>
       </b-col>
       <b-col id="mealcol">
-        <div id="search-food" class="text-center justify-content-center align-items-center">
+        <div id="search-food" class="text-center">
           <form id="ndbnosearchform" class="form-signin mt-1" @submit.prevent="handleNDBNO">
             <h1 class="h3 mb-3 font-weight-normal">Track Food!</h1>
               <label for="meal-form-qty" class="sr-only" id="add-qty">Qty</label>
@@ -58,26 +58,53 @@
                 autofocus
               /> -->
         <div>
-            <b-card
-              id="foodcard"
-              tag="article"
-              style="max-width: 30rem;"
-              class="mb-2"
-              bg-variant="dark" 
-              header="Food Item Info:"
-              text-variant="white"
-            >
+          <b-container id="cardcontainer" class="container">
+            <b-row>
+              <b-col>
+                <b-card
+                  id="foodcard"
+                  tag="article"
+                  style="max-width: 20rem;"
+                  class="mb-2"
+                  bg-variant="dark" 
+                  header="Food Item Info:"
+                  text-variant="white"
+                >
 
-              <div> {{this.foodItem.name}} </div>
-              <br>
-              <div>My food's cals: {{this.foodItem.cal}} </div>
-              <div>My food's pro: {{this.foodItem.pro}} </div>
-              <div>My food's fat: {{this.foodItem.fat}} </div>
-              <div>My food's carbs: {{this.foodItem.carb}} </div>
-            </b-card>
-        </div>
-      </div>
-          <meal id="meal" :foodArray="this.foodArray"></meal>
+                  <div> {{this.foodItem.name}} </div>
+                  <br>
+                  <div>My food's cals: {{this.foodItem.cal}} </div>
+                  <div>My food's pro: {{this.foodItem.pro}} </div>
+                  <div>My food's fat: {{this.foodItem.fat}} </div>
+                  <div>My food's carbs: {{this.foodItem.carb}} </div>
+                </b-card>
+              </b-col>
+              <b-col>
+                <b-card
+                  id="mealcard"
+                  tag="article"
+                  style="max-width: 20rem;"
+                  class="mb-2"
+                  bg-variant="dark" 
+                  header="Meal Info:"
+                  text-variant="white"
+                >
+
+                <div>
+                  <div> My Meal: 
+                    <ul>
+                        <li v-for="food in foodArray" v-bind:key="food.id"> {{food.name}} </li>
+                    </ul>
+                  </div>
+                </div>
+
+                </b-card>
+              </b-col>
+            </b-row>
+          </b-container>
+            </div>
+          </div>
+          <!-- <meal id="meal" :foodArray="this.foodArray"></meal> -->
 
        </b-col>
     </b-row>
@@ -184,7 +211,6 @@ export default {
 }
 #foodcard {
   margin-top: 5%;
-  justify-content: center;
 }
 
 </style>

@@ -8,7 +8,7 @@
             </li>
             </ul> 
 
-    <form class="form-signin form-group mt-5" @submit.prevent="submitMeal">
+    <form class="form-signin form-group mt-1" @submit.prevent="submitMeal">
     
          <label id="mealactivity" for="activity" > Meal </label>
           <select id="activity" name="activity" class="selectpicker form-control" v-model="mealObj.meal_category">
@@ -22,7 +22,7 @@
             <label id="date" for="date"> Date of Meal </label>
           <input type="date" id="date" name="date" class="form-control" placeholder="Date" v-model="mealObj.date"/>
 
-        <button type="submit" id="searchbutton" class="btn btn-success btn-md">Submit Meal</button>
+        <b-button block type="submit" id="searchbutton" class="btn btn-success btn-md">Submit Meal</b-button>
     </form>
 
 
@@ -34,20 +34,20 @@
 <script>
 import auth from '../auth';
 import TFService from "@/TFService.js";
+
 export default {
     name: "meal",
      props: {
          foodArray: Array 
-            },
+          },
     data() {
-    return {
-        mealObj: {
-            foods: this.foodArray,
-            meal_category: '',
-            date: '',
-        }
-
-    }
+      return {
+          mealObj: {
+              foods: this.foodArray,
+              meal_category: '',
+              date: '',
+          }
+        } 
     },
   methods: {
 //        submitMeal() {
