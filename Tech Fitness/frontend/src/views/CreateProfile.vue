@@ -50,7 +50,7 @@ export default {
     return {
       user: {
         name: '',
-        birthdate: '',
+        birthdate: Date,
         currWeight: '',
         goalWeight: '',
         height: '',

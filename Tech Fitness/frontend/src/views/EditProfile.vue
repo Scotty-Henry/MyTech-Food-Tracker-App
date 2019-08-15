@@ -68,13 +68,14 @@ export default {
   name: "EditProfile",
   components: {
     // eslint-disable-next-line
-    auth
+    auth,
+    TFService
   },
   data() {
     return {
       user: {
         name: "",
-        birthdate: "",
+        birthdate: Date,
         currWeight: "",
         goalWeight: "",
         height: "",
@@ -87,7 +88,7 @@ export default {
     TFService.getProfileInfo().then(data => {
       window.console.log(data);
       this.user.name = data.name;
-      this.user.birthdate = data.birthdate;
+      this.user.birthdate = TFService.stringtoDate(data.birthdate);
       this.user.currWeight = data.currWeight;
       this.user.goalWeight = data.goalWeight;
       this.user.activityLevel = data.activityLevel;

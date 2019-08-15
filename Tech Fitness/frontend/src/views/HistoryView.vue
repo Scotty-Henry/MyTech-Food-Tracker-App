@@ -1,13 +1,7 @@
-
 <template>
   <div id="history-container" class="container">
     <div id="history-food" class="text-center">
-      <!-- <div id="table" class="text-left">
-        <b-table dark :items="userMeals" :fields="fields" responsive="sm"></b-table>
-      </div> -->
-  
-      <b-table dark :items="allFood" responsive="sm"></b-table>
-
+      <b-table id="table" dark :items="allFood" responsive="sm"></b-table>
     </div>
   </div>
 </template>
@@ -24,13 +18,13 @@ export default {
   data() {
     return {
       userMeals: [],
-      fields: ['date', 'meal_category', 'foods'],
+      fields: ["date", "meal_category", "foods"],
       allFood: []
     };
   },
   methods: {},
   created() {
-    let foodItem=null;
+    let foodItem = null;
     TFService.getMealbyUser().then(data => {
       data.forEach(mealObj => {
         let meal = {
@@ -40,7 +34,7 @@ export default {
           foods: []
         };
         mealObj.foods.forEach(food => {
-           foodItem = {
+          foodItem = {
             date: meal.date,
             category: meal.meal_category,
             name: food.name,
@@ -57,7 +51,6 @@ export default {
 
         this.userMeals.push(meal);
         this.allFood.push(foodItem);
-        
       });
       console.log(this.userMeals);
     });
@@ -69,7 +62,16 @@ export default {
 #history-food {
   color: whitesmoke !important;
 }
+#history-container {
+  margin-top: 5%;
+  max-height: 90vh;
+}
 #table {
   padding-top: 5%;
+  overflow: auto;
+  max-height: 75vh;
+}
+::-webkit-scrollbar {
+  display: none;
 }
 </style>
