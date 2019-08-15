@@ -24,7 +24,7 @@
 
       <b-card text-variant="black" :header="this.Today" id="today">
         <!-- <today :nutrientsToday="arrayofDateObjects" id="today"></today> -->
-        <bar-chart :NutritionOnDay="nutritionforDay" id="barchart"></bar-chart>
+        <bar-chart :NutritionOnDay="nutritionforDay" :goalCarb="userProfile.goalCarb" :goalFat="userProfile.goalFat" :goalPro="userProfile.goalPro" id="barchart"></bar-chart>
       </b-card>>
     </b-card-group>
   </div>
@@ -66,7 +66,11 @@ export default {
         activityLevel: '',
         height: '',
         bmi: '',
-        goalbmi: ''
+        goalbmi: '', 
+        TDEE: '',
+        goalCarb: '',
+        goalFat: '',
+        goalPro: '',
       },
       userMeals: [], 
       Today: Date,
@@ -100,7 +104,10 @@ export default {
       this.userProfile.height = data.height;
       this.userProfile.bmi = (703 * (data.currWeight/ (data.height * data.height))).toFixed(2);
       this.userProfile.goalbmi = (703 * (data.goalWeight/ (data.height * data.height))).toFixed(2);
-
+      this.userProfile.TDEE = this.calulcateTDEE(data);
+      this.userProfile.goalCarb = this.calculateMacrosCarb(this.userProfile.TDEE);
+      this.userProfile.goalPro = this.calculateMacrosPro(this.userProfile.TDEE);
+      this.userProfile.goalFat = this.calculateMacrosFat(this.userProfile.TDEE);
 
     })
      TFService.getMealbyUser().then((data) => {
@@ -175,6 +182,77 @@ TFService.getNutritionbyMealandDate().then((data) => {
     },
 
 methods: {
+    calulcateTDEE(data){
+    let part1 = (10 * data.currWeight/2.2046);
+    console.log(part1);
+
+    let part2 = (data.height*2.54*6.25);
+    console.log(part2);
+
+    let birthdate = new Date(data.birthdate);
+    let today = new Date(this.Today);
+    let age = today.getFullYear() - birthdate.getFullYear();
+    let part3 = (5 * age);
+    console.log(part3);
+
+    let result = part1 + part2 - part3 + 5;
+    console.log(result);
+if (this.userProfile.activityLevel == "Moderate"){
+  result*=1.55
+  console.log(result);
+}
+else if (this.userProfile.activityLevel == "Low"){
+result*=1.375
+}
+else if (this.userProfile.activityLevel == "Very Low"){
+result*=1.2
+}
+else if (this.userProfile.activityLevel == "High"){
+result*=1.725
+}
+else if (this.userProfile.activityLevel == "Very High"){
+result*=1.9
+}
+    return result;
+    },
+calculateMacrosCarb(TDEE){
+ 
+  let carbCals = TDEE*.5;
+
+  let macroGrams = {
+  
+    carbGrams: carbCals/4
+  }
+ return macroGrams;
+},
+calculateMacrosPro(TDEE){
+ 
+  let proCals = TDEE*.25;
+
+  let macroGrams = {
+  
+    proGrams: proCals/4
+  }
+ return macroGrams;
+},
+calculateMacrosFat(TDEE){
+ 
+  let fatCals = TDEE*.25;
+
+  let macroGrams = {
+  
+    fatGrams: fatCals/9
+  }
+ return macroGrams;
+},
+
+//  let fatCals = TDEE*.25;
+//   let proCals = TDEE*.25;
+//   fatGrams: fatCals/9,
+//     proGrams: proCals/4,
+
+
+
       isUniqeMealDate(meal){
         if (!this.uniqueDates.includes(meal.date))
         {

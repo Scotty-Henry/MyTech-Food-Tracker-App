@@ -10,6 +10,9 @@ export default {
   name: 'Bar-Chart',
   props: {
       NutritionOnDay: Object,
+      goalCarb: Object,
+      goalFat: Object,
+      goalPro: Object,
   },
   data: () => ({
     chartOptionsBar: {
@@ -27,7 +30,7 @@ export default {
     },
      {
           type: "bar",
-          data: [10,10,10]
+          data: []
         },
   ],
   title: {
@@ -45,7 +48,16 @@ export default {
         this.chartOptionsBar.series[0].data.push(this.NutritionOnDay.carb);
          this.chartOptionsBar.series[0].data.push(this.NutritionOnDay.fat);
           this.chartOptionsBar.series[0].data.push(this.NutritionOnDay.pro);
-      }
+      },
+      goalCarb: function() {
+        this.chartOptionsBar.series[1].data.push(this.goalCarb.carbGrams); 
+      },
+      goalFat: function() {
+        this.chartOptionsBar.series[1].data.push(this.goalFat.fatGrams); 
+      },
+      goalPro: function() {
+        this.chartOptionsBar.series[1].data.push(this.goalPro.proGrams); 
+      },
     
     }
   }
