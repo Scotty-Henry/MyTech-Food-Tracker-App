@@ -1,7 +1,6 @@
 <template>
   <div>
     <div>
-      My Meal:
       <ul>
         <li v-for="food in foodArray" v-bind:key="food.id">{{food.name}}</li>
       </ul>
