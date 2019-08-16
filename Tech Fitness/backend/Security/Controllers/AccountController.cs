@@ -69,6 +69,24 @@ namespace Security.Controllers
             return Ok(token);
         }
 
+        [HttpGet("getNutritionbyMealandDate")]
+        [Authorize(Roles = "User")]
+        public ActionResult<List<DayNutrientAggModel>> getNutritionbyMealandDate()
+        {
+            IActionResult result = Ok();
+
+            List<DayNutrientAggModel> nutrientByDay = new List<DayNutrientAggModel>();
+
+            string user = User.Identity.Name;
+
+            User currentUser = userDao.GetUser(User.Identity.Name);
+
+            int currentUserId = currentUser.Id;
+
+            nutrientByDay = userDao.getNutritionbyMealandDate(currentUserId);
+
+            return nutrientByDay;
+        }
 
         /// <summary>
         /// Authenticates the user and provides a bearer token.
