@@ -14,11 +14,11 @@
         <meal id="meal"></meal>
       </b-card>
 
-      <b-card text-variant="black" header="Current Values" id="current">
+      <b-card text-variant="black" header="Current Values" class="text-center" id="current">
         <current :userProfile="userProfile" id="current"></current>
       </b-card>
 
-      <b-card text-variant="black" header="Goal Values" id="goal">
+      <b-card text-variant="black" header="Goal Values" class="text-center" id="goal">
         <goal :userProfile="userProfile" id="goal"></goal>
       </b-card>
 
