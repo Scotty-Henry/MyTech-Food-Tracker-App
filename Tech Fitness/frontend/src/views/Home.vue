@@ -14,12 +14,12 @@
         <meal id="meal"></meal>
       </b-card>
 
-      <b-card text-variant="black" header="Current Values" class="text-center" id="current">
-        <current :userProfile ="userProfile" id="current"></current>
+      <b-card text-variant="black" header="Current Values" id="current">
+        <current :userProfile="userProfile" id="current"></current>
       </b-card>
 
-      <b-card text-variant="black" header="Goal Values" class="text-center" id="goal">
-        <goal :userProfile ="userProfile" id="goal"></goal>
+      <b-card text-variant="black" header="Goal Values" id="goal">
+        <goal :userProfile="userProfile" id="goal"></goal>
       </b-card>
 
       <b-card text-variant="black" :header="this.Today" class="text-left" id="today" align="center">
@@ -115,6 +115,20 @@ export default {
       this.userProfile.goalPro = this.calculateMacrosPro(this.userProfile.TDEE);
       this.userProfile.goalFat = this.calculateMacrosFat(this.userProfile.TDEE);
     }),
+      TFService.getNutritionbyMealandDate().then(data => {
+       let arraytobebuilt = [];
+        data.forEach(element => {
+          let dateObject = {
+          date: TFService.stringtoDate(element.date),
+          suM_Cal: element.suM_Cal,
+          suM_Carb: element.suM_Carb,
+          suM_Fat: element.suM_Fat,
+          suM_Pro: element.suM_Pro
+      };
+      arraytobebuilt.push(dateObject);
+    });
+    this.arrayofDateObjects = arraytobebuilt;
+      }),
     TFService.getMealbyUser().then(data => {
       data.forEach(mealObj => {
         let meal = {
@@ -130,40 +144,27 @@ export default {
           foods: []
         };
         this.isUniqeMealDate(meal);
-        mealObj.foods.forEach(food => {
-          let foodItem = {
-            ndbno: food.ndbno,
-            name: food.name,
-            cal: food.cal,
-            carb: food.carb,
-            fat: food.fat,
-            pro: food.pro,
-            qty: food.qty,
-            unit: food.unit
-          };
-          meal.nutrition.cal += food.cal;
-          meal.nutrition.fat += food.fat;
-          meal.nutrition.pro += food.pro;
-          meal.nutrition.carb += food.carb;
-          meal.foods.push(foodItem);
-        });
-        this.userMeals.push(meal);
+            mealObj.foods.forEach(food => {
+              let foodItem = {
+                ndbno: food.ndbno,
+                name: food.name,
+                cal: food.cal,
+                carb: food.carb,
+                fat: food.fat,
+                pro: food.pro,
+                qty: food.qty,
+                unit: food.unit
+              };
+              meal.nutrition.cal += food.cal;
+              meal.nutrition.fat += food.fat;
+              meal.nutrition.pro += food.pro;
+              meal.nutrition.carb += food.carb;
+              meal.foods.push(foodItem);
+            });
+          this.userMeals.push(meal);
       });
-    }),
-      TFService.getNutritionbyMealandDate().then(data => {
-        let arraytobebuilt = [];
-        data.forEach(element => {
-          let dateObject = {
-            date: TFService.stringtoDate(element.date),
-            suM_Cal: element.suM_Cal,
-            suM_Carb: element.suM_Carb,
-            suM_Fat: element.suM_Fat,
-            suM_Pro: element.suM_Pro
-          };
-          arraytobebuilt.push(dateObject);
-        });
-        this.arrayofDateObjects = arraytobebuilt;
-      });
+    });
+ 
 
     //Get a today string
     var today = new Date();
@@ -199,21 +200,21 @@ export default {
     calculateMacrosCarb(TDEE) {
       let carbCals = TDEE * 0.5;
       let macroGrams = {
-        carbGrams: carbCals / 4
+        carbGrams: (carbCals / 4).toFixed(0)
       };
       return macroGrams;
     },
     calculateMacrosPro(TDEE) {
       let proCals = TDEE * 0.25;
       let macroGrams = {
-        proGrams: proCals / 4
+        proGrams: (proCals / 4).toFixed(0)
       };
       return macroGrams;
     },
     calculateMacrosFat(TDEE) {
       let fatCals = TDEE * 0.25;
       let macroGrams = {
-        fatGrams: fatCals / 9
+        fatGrams: (fatCals / 9).toFixed(0)
       };
       return macroGrams;
     },
