@@ -1,20 +1,17 @@
 <template>
   <div id="history-container" class="container">
     <div id="history-food" class="text-center">
-      <b-table id="table" dark :items="allFood" responsive="sm"></b-table>
+      <b-table id="historytable" dark :items="allFood" responsive="sm"></b-table>
     </div>
   </div>
 </template>
 
 <script>
 import TFService from "@/TFService.js";
-import History from "@/components/History";
 
 export default {
   name: "HistoryView",
-  components: {
-    History
-  },
+  components: {},
   data() {
     return {
       userMeals: [],
@@ -66,7 +63,7 @@ export default {
   margin-top: 5%;
   max-height: 90vh;
 }
-#table {
+#historytable {
   padding-top: 5%;
   overflow: auto;
   max-height: 75vh;

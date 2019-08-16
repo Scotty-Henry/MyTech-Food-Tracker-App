@@ -40,13 +40,6 @@
     </form>
     <video-overlay></video-overlay>
     <h2 class="h3 mb-3 font-weight-normal" id="apptag">Track what moves you...</h2>
-    <!-- <div class="video-shuffle can-be-moved" style="height: 529px; width: 100%; position: fixed; top: 0px;">
-        <div class="story-video-overlay"></div>
-        <video loop="loop" autoplay="autoplay" poster="https://static0.fitbit.com/simple.b-cssdisabled-jpg.h96a0cd6e3468e7d6c0a88055d30c496b.pack?items=%2Fcontent%2Fassets%2Fwhy%2Fimages%2Fintro_01.jpg" style="width: 100%; margin-left: 0px;">
-            <source src="http://cache.fitbit.com/media/us/story/fitbit4.mp4" type="video/mp4">
-            <source src="http://cache.fitbit.com/media/us/story/fitbit5.webm" type="video/webm">
-        </video>
-    </div>-->
   </div>
 </template>
 

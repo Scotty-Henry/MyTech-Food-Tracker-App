@@ -2,9 +2,11 @@
   <div id="register" class="text-center">
     <form class="form-register form-group mt-5" id="formregister" @submit.prevent="register">
       <h1 class="h3 mb-3 font-weight-normal" id="create">Create Account</h1>
-      <div class="alert alert-danger" role="alert" v-if="registrationErrors">
-        There were problems registering this user.
-      </div>
+      <div
+        class="alert alert-danger"
+        role="alert"
+        v-if="registrationErrors"
+      >There were problems registering this user.</div>
       <label for="username" class="sr-only">Username</label>
       <input
         type="text"
@@ -34,51 +36,49 @@
       />
       <router-link :to="{ name: 'login' }">Have an account?</router-link>
 
-        <button type="submit" id="submit" class="btn btn-primary">
-          Create Account
-        </button>
+      <button type="submit" id="submit" class="btn btn-primary">Create Account</button>
     </form>
   </div>
 </template>
 
 <script>
-
 export default {
-  name: 'register',
-  components: {
-    
-  },
+  name: "register",
+  components: {},
   data() {
     return {
       user: {
-        username: '',
-        password: '',
-        confirmPassword: '',
-        role: 'user',
+        username: "",
+        password: "",
+        confirmPassword: "",
+        role: "user"
       },
-      registrationErrors: false,
+      registrationErrors: false
     };
   },
   methods: {
     register() {
       fetch(`${process.env.VUE_APP_REMOTE_API}/Account/register`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
+          Accept: "application/json",
+          "Content-Type": "application/json"
         },
-        body: JSON.stringify(this.user),
+        body: JSON.stringify(this.user)
       })
-        .then((response) => {
+        .then(response => {
           if (response.ok) {
-            this.$router.push({ path: '/login', query: { registration: 'success' } });
+            this.$router.push({
+              path: "/login",
+              query: { registration: "success" }
+            });
           } else {
             this.registrationErrors = true;
           }
         })
-        .then((err) => console.error(err));
-    },
-  },
+        .then(err => console.error(err));
+    }
+  }
 };
 </script>
 
@@ -91,15 +91,15 @@ export default {
   color: whitesmoke !important;
 }
 #submit {
-  margin: .75em;
+  margin: 0.75em;
 }
 #username {
-  margin-top: .5em;
+  margin-top: 0.5em;
 }
 #password {
-  margin-top: .5em;
+  margin-top: 0.5em;
 }
 #confirmPassword {
-  margin-top: .5em;
+  margin-top: 0.5em;
 }
 </style>

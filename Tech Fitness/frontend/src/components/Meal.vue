@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="mealcomp">
     <div>
       My Meal:
       <ul>

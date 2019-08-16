@@ -64,13 +64,13 @@ export default {
   //  this.Datedata.forEach(element => {
   //       this.chartOptionsLine.series[0].data.push(element.suM_Cal);
   //     });
-    this.Datedata.forEach(element => {
+      this.Datedata.forEach(element => {
         this.chartOptionsLine.series[0].data.push(element.suM_Carb);
       });
       this.Datedata.forEach(element => {
         this.chartOptionsLine.series[1].data.push(element.suM_Fat);
       });
-       this.Datedata.forEach(element => {
+      this.Datedata.forEach(element => {
         this.chartOptionsLine.series[2].data.push(element.suM_Pro);
       });
     }

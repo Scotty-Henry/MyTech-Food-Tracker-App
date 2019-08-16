@@ -16,7 +16,7 @@
         <input type="text" id="name" class="form-control" name="name" v-model="user.name" />
 
         <label id="bday" for="bday">Birthday:</label>
-        <input type="date" id="bday" name="bday" value= {user.birthdate} class="form-control" v-model="user.birthdate" />
+        <input type="date" id="bday" name="bday" class="form-control" v-model="user.birthdate" />
 
         <label id="height" for="height">Height in Inches:</label>
         <input type="number" id="height" name="height" class="form-control" v-model="user.height" />
@@ -106,24 +106,14 @@ export default {
         },
         body: JSON.stringify(this.user)
       })
-        //here can i just push them to their dashboard? I'm only expecting a 200
         .then(response => {
           if (response.ok) {
             return response.text();
           } else {
             this.invalidCredentials = true;
           }
-        })
-        // .then(token => {
-        //   if (token != undefined) {
-        //     if (token.includes('"')) {
-        //       token = token.replace(/"/g, "");
-        //     }
-        //     this.$router.push("/");
-        //   }
-        // })
-        this.$router.push("/")
-        .catch(err => console.error(err));
+        });
+      this.$router.push("/").catch(err => console.error(err));
     }
   }
 };

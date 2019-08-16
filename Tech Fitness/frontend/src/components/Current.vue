@@ -27,4 +27,8 @@ export default {
 </script>
 
 <style>
+.current-values {
+    font-weight: bold;
+    font-family: Palatino;
+}
 </style>

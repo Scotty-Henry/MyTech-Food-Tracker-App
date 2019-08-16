@@ -1,14 +1,8 @@
 <template>
   <div id="home">
     <b-card-group id="home">
-      <!-- <dashboard-overlay></dashboard-overlay> -->
-      <b-card
-        bg-variant="info"
-        text-variant="white"
-        header="Profile"
-        class="text-center"
-        id="profile"
-      >
+      
+      <b-card bg-variant="info" text-variant="white" header="Profile" class="text-center" id="profile">
         <profile id="profile" :name="this.userProfile.name" :birthdate="this.userProfile.birthdate"></profile>
       </b-card>
 
@@ -16,7 +10,7 @@
         <progress-chart :Datedata="arrayofDateObjects" id="progress"></progress-chart>
       </b-card>
 
-      <b-card header="Record Intake" text-variant="black" class="text-center" id="meal">
+      <b-card header="Record Intake" text-variant="white" class="text-center" id="meal">
         <meal id="meal"></meal>
       </b-card>
 
@@ -28,7 +22,7 @@
         <goal :userProfile ="userProfile" id="goal"></goal>
       </b-card>
 
-      <b-card text-variant="black" :header="this.Today" class="text-left" id="today">
+      <b-card text-variant="black" :header="this.Today" class="text-left" id="today" align="center">
         <!-- <today :nutrientsToday="arrayofDateObjects" id="today"></today> -->
         <bar-chart
           :NutritionOnDay="nutritionforDay"
@@ -49,9 +43,7 @@ import Meal from "@/components/Meal";
 import ProgressChart from "@/components/ProgressChart";
 import Current from "@/components/Current";
 import Goal from "@/components/Goal";
-import Today from "@/components/Today";
-import History from "@/components/History";
-import DashboardOverlay from "@/components/DashboardOverlay";
+// import Today from "@/components/Today";
 import BarChart from "@/components/BarChart";
 
 export default {
@@ -62,8 +54,7 @@ export default {
     ProgressChart,
     Current,
     Goal,
-    Today,
-    History,
+    // Today,
     BarChart
   },
   data() {
@@ -319,6 +310,7 @@ export default {
 }
 #home > #today {
   grid-area: today;
+  display: flex;
   background-color: #cedee7;
   margin: 0.045em;
   border-radius: 5%;

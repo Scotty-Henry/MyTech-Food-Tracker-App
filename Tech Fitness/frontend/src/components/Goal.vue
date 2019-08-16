@@ -1,25 +1,26 @@
 <template>
-    <div class="current-values">
-        <!-- Here I am! -->
-        <div> Goal Weight: {{this.userProfile.goalWeight}}</div>
-        <div> BMI: {{this.userProfile.goalbmi}}</div>        
-    </div>
+  <div class="current-values">
+    <!-- Here I am! -->
+    <div>Goal Weight: {{this.userProfile.goalWeight}}</div>
+    <div>BMI: {{this.userProfile.goalbmi}}</div>
+  </div>
 </template>
 
 <script>
 export default {
-     name: 'Goal',
+  name: "Goal",
   props: {
     userProfile: Object
   },
-    data() {
-            return {
-               
-            }
-        }
-    }
+  data() {
+    return {};
+  }
+};
 </script>
 
 <style>
-
+current-values {
+  font-weight: bold;
+  font-family: Palatino;
+}
 </style>
