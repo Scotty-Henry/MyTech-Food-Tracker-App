@@ -16,6 +16,11 @@ export default {
   },
   data: () => ({
     chartOptionsBar: {
+       legend: {
+        data: ['Current', 'Goal'],
+        align: 'left',
+        left: 10
+    },
   xAxis: {
     data: ['Carb', 'Fat', 'Pro']
   },
@@ -23,23 +28,26 @@ export default {
     name: "Grams",
     type: 'value'
   },
+ 
   series: [
     {
+      name: 'Current',
       type: 'bar',
-      data: []
+      data: [],
+      label: {
+            normal: {
+                show: true,
+                position: 'top',}}
     },
-     {
+     {    name: 'Goal',
           type: "bar",
-          data: []
+          data: [], 
+          label: {
+            normal: {
+                show: true,
+                position: 'top',}}
         },
-  ],
-  title: {
-    text: 'Today',
-     x: 'center',
-    textStyle: {
-      fontSize: 12
-    }
-  }
+  ]
 }
 
   }),
